@@ -1,5 +1,5 @@
 package com.dc.board.controller;
 
-public class test {
+public class Test {
 
 }
