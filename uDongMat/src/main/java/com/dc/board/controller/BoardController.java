@@ -47,28 +47,6 @@ public class BoardController {
 		model.addAttribute("keyword", keyword);
 		
 		
-//		int totalCount = 
-//				memberService.memberSelectTotalCount(searchOption, keyword);
-//		
-//		Paging memberPaging = new Paging(totalCount, curPage);
-//		int start = memberPaging.getPageBegin();
-//		int end = memberPaging.getPageEnd();
-//
-//		List<MemberVo> memberList = 
-//				memberService.memberSelectList(
-//						searchOption, keyword, start, end);
-//		
-//		Map<String, Object> pagingMap = new HashMap<>();
-//		pagingMap.put("totalCount", totalCount);
-//		pagingMap.put("memberPaging", memberPaging);
-//
-//		model.addAttribute("memberList", memberList);
-//		model.addAttribute("pagingMap", pagingMap);
-//		model.addAttribute("keyword", keyword);
-		
-		
-		
-		
 		
 		return "board/boardListView";
 	}
@@ -113,7 +91,7 @@ public class BoardController {
 	public String boardUpdate(BoardVo boardVo, int boardNo) {
 		boardService.boardUpdateOne(boardVo);
 
-		return "forward:/board/one.do?boardNo=" + boardNo;
+		return "redirect:/board/one.do?boardNo=" + boardNo;
 	}
 	
 	@RequestMapping(value="/board/delete.do", method= {RequestMethod.GET})

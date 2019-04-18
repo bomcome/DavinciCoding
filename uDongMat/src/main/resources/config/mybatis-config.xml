@@ -6,6 +6,8 @@
   
   <typeAliases>
   	<typeAlias type="com.dc.board.vo.BoardVo" alias="boardVo"/>
-  </typeAliases>
+  	<typeAlias type="com.dc.members.vo.MemberVo" alias="memberVo"/>
+  </typeAliases> 
+
   
 </configuration>

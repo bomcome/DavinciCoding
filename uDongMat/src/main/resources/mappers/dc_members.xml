@@ -2,6 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dc.members">
+
+
+	<resultMap type="com.dc.members.vo.MemberVo"
+		id="memberResultMap">
+		<id column="member_no" property="memberNo" />
+		<result column="MEMBER_GRADE" property="memberGrade" />
+		<result column="EMAIL" property="email" />
+		<result column="NICKNAME" property="nickName" />
+		<result column="PASSWORD" property="password" />
+		<result column="CRE_DATE" property="createDate"
+			javaType="java.util.Date" />
+		<result column="MOD_DATE" property="modifiedDate"
+			javaType="java.util.Date" />
+	</resultMap>
+	
+	<!-- 회원 전체보기  -->
+	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
+		SELECT MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
+		FROM MEMBERS
+		WHERE MEMBER_GRADE = 'member'
+	</select>
+	
+	
+	<!-- 회원 상세정보보기  -->
+	<select id="memberSelectOne" parameterType="int" resultMap="memberResultMap">
+		SELECT MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
+		FROM MEMBERS
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="memberExist" parameterType="map"
+		resultMap="memberResultMap">
+		SELECT MEMBER_NO, EMAIL, NICKNAME
+		FROM MEMBERS
+		WHERE EMAIL = #{email} AND PASSWORD = #{password}
+	</select>
+	
+	<!-- 회원정보 수정  -->
+	<update id="memberUpdateOne" parameterType="memberVo">
+		UPDATE 	MEMBERS
+		<set>
+			<if test="email != ''">EMAIL = #{email},</if>
+			<if test="nickName != ''">NICKNAME = #{nickName},</if>
+			<if test="password != ''">PASSWORD = #{password},</if>
+			MOD_DATE = SYSDATE
+		</set>
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 	
 	
 </mapper>
