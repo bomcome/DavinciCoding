@@ -18,29 +18,7 @@
 <title>회원 목록</title>
 
 <script type="text/javascript" 
-	src="/springHome/resources/js/jquery-3.3.1.js"></script>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		var searchOptionInputObj = document.getElementById('searchOptionVal');
-		
-		var searchOptionVal = searchOptionInputObj.value; 
-		
-		var selectObj = document.getElementById('searchOption');
-		
-		var optionsArr = selectObj.options;
-		
-		for (var i = 0; i < optionsArr.length; i++) {
-// 			alert(optionsArr[0].value);
-			if(optionsArr[i].value == searchOptionVal){
-				optionsArr[i].selected = 'selected';
-				break;
-			}
-		}
-		
-	});
-
-</script>
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 
 </head>
 <body>
@@ -62,9 +40,9 @@
 		</tr>
 	<c:forEach var="memberVo" items="${memberList}">
 		<tr>
-			<td>${memberVo.no}</td>
+			<td>${memberVo.memberNo}</td>
 			<td>
-				<a href='./listOne.do?no=${memberVo.no}'>${memberVo.name}</a>
+				<a href='./listOne.do?memberNo=${memberVo.memberNo}'>${memberVo.nickName}</a>
 			</td>
 			<td>${memberVo.email}</td>
 			<td>
@@ -72,31 +50,13 @@
 					pattern="yyyy년MM월dd일 hh시mm분"/>
 			</td>
 			<td>
-				<a href='./deleteCtr.do?mno=${memberVo.no}'>[삭제]</a>
+				<a href='./deleteCtr.do?mno=${memberVo.memberNo}'>[삭제]</a>
 			</td>
 		</tr>
 	</c:forEach>
 	</table>
-
-	<jsp:include page="/WEB-INF/views/common/paging.jsp">
-		<jsp:param value="${pagingMap}" name="pagingMap"/>
-	</jsp:include>
-
-	<form action="./list.do" id="pagingForm" method="post">
-		<input type="hidden" id="curPage" name="curPage" 
-			value="${pagingMap.memberPaging.curPage}">
-	</form>
-	
-	<form action="./list.do" method="get">
-		<select name="searchOption" id="searchOption">
-			<option value="title">제목</option>  <!-- 이메일 -->
-			<option value="content">내용</option>  <!-- 이름 -->
-		</select>
-		<input type="text" name="keyword" value="${keyword}">
-		<input type="submit" value="검색">
-	</form>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
-	<input type="hidden" id="searchOptionVal" value="${searchOption}">
+
 </body>
 </html>

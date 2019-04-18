@@ -8,16 +8,22 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 조회</title>
-
-<script type="text/javascript" 
-	src="/springHome/resources/js/jquery-3.3.1.js"></script>
-<script type="text/javascript">
-	window.onload = function(){
-		var memberNameInputObj = 
-			document.getElementById('memberName');
-		
-		memberNameInputObj.style.backgroundColor = '#E7E7E7';
+<style type="text/css">
+	#member{
+		width:300px;
+		text-align: center;
+		margin:auto;
+		font-weight: bold;
 	}
+	
+	.memberInput{
+		width: 160px;
+	}
+	
+</style>
+<script type="text/javascript" 
+	src="/uDongMat/memberListOneView.jsp/resources/js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
 	
 	function pageMoveListFnc(){
 		location.href = "list.do";
@@ -29,36 +35,37 @@
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<h1>회원정보</h1>
-
-	<form action="./update.do" method="get">
-		<input type="hidden" name='no' value='${memberVo.no}'>
-		이름: <input type="text" name='name' id='memberName' value='${memberVo.name}' 
-				readonly="readonly"><br>
-		이메일: <input type="text" name="email" 
-			value='${memberVo.email}' readonly="readonly"><br>
+	<br/>
+	
+	<div id="member">
+		<form action="./update.do" method="get" >
+			<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
 			
-		첨부파일: 
-		<c:choose>
-			<c:when test="${empty fileList}">
-				첨부파일이 없습니다.<br>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="row" items="${fileList}">
-<%-- 				<input type="hidden" class="files" value="${row.IDX}"> --%>
-				${row.ORIGINAL_FILE_NAME} (${row.FILE_SIZE}kb)<br>
-				<img alt="image not found" src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
-		
-		가입일: <fmt:formatDate value="${memberVo.createDate}" 
-				pattern="yyyy-MM-dd"/><br>
-		<input type="submit" value="수정하기">
-		<input type="button" value="이전페이지" 
-				onclick="pageMoveListFnc();">
-	</form>
-
+			<div style="text-align: left; padding-left: 70px;">
+				이메일<br/>
+				<input type="text" name="email" 
+					value='${memberVo.email}' readonly="readonly"><br/>
+				<br/>	
+			
+			
+				닉네임 <br/>
+				<input type="text" name='nickName' id='nickName' value='${memberVo.nickName}' 
+						readonly="readonly"><br/>
+				<br/>
+			</div>
+					
+			<input type="submit" class="memberInput" value="정보수정"><br/>
+			<br/>
+			
+			<input type="button" class="memberInput" value="이전화면"  onclick="pageMoveListFnc();"><br/>
+			<br/>
+			<hr>
+			<br/>
+			<input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveListFnc();">
+		</form>
+	</div>
+	
+	<br/>
 	<%-- <form action="../common/fileDownload.do" method="post">
 		<input type="hidden" id='filePno' name='filePno' value='${fileList[0].PNO}'>
 	</form> --%>

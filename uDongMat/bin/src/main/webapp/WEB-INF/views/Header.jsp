@@ -8,7 +8,7 @@
 	SPMS(Simple Project Management System)
 	<span style="float:right;">
 		<c:if test="${sessionScope._memberVo_ != null}">
-			${sessionScope._memberVo_.nickName}
+			${sessionScope._memberVo_.name}
 			<a href="${pageContext.request.contextPath}/auth/logout.do"	style="color:white;">
 				로그아웃
 			</a>
