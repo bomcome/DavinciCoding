@@ -6,17 +6,17 @@
 <meta charset="UTF-8">
 <style type="text/css">
 	
-	#title{
+	#boardUpdate #title{
 		width: 1105px;
 		height: 25px;
 		margin-bottom: 15px;
 	}
 	
-	#inputForm {
+	#boardUpdate #inputForm {
 		margin-left: 380px;
 	}
 	
-	#inputForm div {
+	#boardUpdate #inputForm div {
 		font-weight: bold;
 		font-size: 18px;
 	}
@@ -35,6 +35,7 @@
 	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	
+	<div id="boardUpdate">
 		<form id="inputForm" action="./updateCtr.do" method="post">
 			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
 			<div>제목 </div>
@@ -47,7 +48,7 @@
 			</div>
 			
 		</form>
-	
+	</div>
 	
 	
 	<jsp:include page="../Tail.jsp"/>

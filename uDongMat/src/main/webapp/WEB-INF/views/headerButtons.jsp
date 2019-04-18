@@ -31,10 +31,10 @@
 			</button>
 		</c:if>
 		<c:if test="${_memberVo_ == null}">
-			<button id="login" onclick="location.href='../auth/login.do'">로그인</button>
+			<button id="loginButton" onclick="location.href='../auth/login.do'">로그인</button>
 		</c:if>
 		<c:if test="${_memberVo_ != null}">
-			<button id="logout" onclick="location.href='../auth/logout.do'">로그아웃</button>
+			<button id="logoutButton" onclick="location.href='../auth/logout.do'">로그아웃</button>
 		</c:if>
 	</span>
 
