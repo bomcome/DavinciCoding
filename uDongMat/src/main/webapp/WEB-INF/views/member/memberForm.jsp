@@ -5,6 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 등록</title>
+<style type="text/css">
+	#member{
+		width:300px;
+		text-align: center;
+		margin:auto;
+		font-weight: bold;
+	}
+	
+	.memberInput{
+		width: 160px;
+	}
+</style>
 <script type="text/javascript">
 
 	function memberInsertFnc() {
@@ -53,23 +65,13 @@
 		location.href = "../auth/login.do"
 	}
 </script>
-<style type="text/css">
-	#member{
-		width:300px;
-		text-align: center;
-		margin:auto;
-		font-weight: bold;
-	}
-	
-	.memberInput{
-		width: 160px;
-	}
-</style>
+
 </head>
 <body>
-<%-- 	<jsp:include page="/WEB-INF/views/Header.jsp" /> --%>
-	<div>
-	</div>
+	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+
+
 	<br/>
 	<div id="member">
 		<form action="./addCtr.do" id="addForm"method="post" style="font-weight: bold;"
