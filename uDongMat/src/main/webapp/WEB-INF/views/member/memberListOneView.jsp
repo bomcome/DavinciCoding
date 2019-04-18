@@ -47,8 +47,10 @@
 
 </head>
 <body>
+
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+
 	
 	<br/>
 	

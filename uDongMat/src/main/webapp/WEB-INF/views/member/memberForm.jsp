@@ -68,9 +68,10 @@
 
 </head>
 <body>
+
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
-	
+
 	<br/>
 	<div id="member">
 		<form action="./addCtr.do" id="addForm"method="post" style="font-weight: bold;"

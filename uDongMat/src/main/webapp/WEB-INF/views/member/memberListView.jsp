@@ -23,8 +23,10 @@
 </head>
 <body>
 
+
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+
 
 	<h1>회원목록</h1>
 	<div>

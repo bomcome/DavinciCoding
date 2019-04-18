@@ -27,8 +27,10 @@
 
 </head>
 <body>
+
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+
 	
 	<h1>회원정보</h1>
 

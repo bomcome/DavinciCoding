@@ -6,17 +6,17 @@
 <meta charset="UTF-8">
 <style type="text/css">
 	
-	#title{
+	#boardAdd #title{
 		width: 1105px;
 		height: 25px;
 		margin-bottom: 15px;
 	}
 	
-	#inputForm {
+	#boardAdd #inputForm {
 		margin-left: 380px;
 	}
 	
-	#inputForm div {
+	#boardAdd #inputForm div {
 		font-weight: bold;
 		font-size: 18px;
 	}
@@ -34,6 +34,7 @@
 	
 	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
+	<div id="boardAdd">	
 		<form id="inputForm" action="./addCtr.do" method="post">
 			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
 			<div>제목</div>
@@ -43,10 +44,9 @@
 			<div>
 				<button type="button" onclick='moveToListFnc()'>작성취소</button>
 				<button type="submit">작성완료</button>
-			</div>
-			
+			</div>		
 		</form>
-	
+	</div>
 	
 	
 	<jsp:include page="../Tail.jsp"/>
