@@ -20,6 +20,15 @@
 		font-weight: bold;
 		font-size: 18px;
 	}
+	
+	#boardUpdate{
+		width: 1920px;
+	}
+	
+	#boardUpdate #buttons {
+		width: 1105px;
+		text-align: center;
+	}
 </style>
 <script type="text/javascript">
 
@@ -32,25 +41,27 @@
 </head>
 <body>
 	
+	<div id="boardUpdate">
+	
 	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	
-	<div id="boardUpdate">
 		<form id="inputForm" action="./updateCtr.do" method="post">
 			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
 			<div>제목 </div>
 			<input name='title' id='title' type="text" value="${boardVo.title}">
 			<div>내용</div>
 			<textarea name='contents' id='contents' rows="30" cols="156">${boardVo.contents}</textarea>
-			<div>
+			<div id='buttons'>
 				<button type="button" onclick='moveListFnc()'>작성취소</button>
 				<button type="submit">작성완료</button>
 			</div>
 			
 		</form>
-	</div>
-	
 	
 	<jsp:include page="../Tail.jsp"/>
+	</div>
+	
+
 </body>
 </html>
