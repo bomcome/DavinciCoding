@@ -9,7 +9,7 @@ nav > ul {
 	list-style-type: none;
 	padding: 0px;
 	overflow: hidden;
-/*  	background-color: #333333;  */
+	background-color: #333333;
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
@@ -17,26 +17,25 @@ nav > ul {
 
 nav > ul > li{
 	float: left;
-	font-size: 15px;
 }
 
 nav > ul > li > a{
-/*  	display: block;  */
- 	color: black; 
+	display: block;
+ 	color: white; 
 	text-align: center;
-	padding: 10px;
+	padding: 16px;
 	text-decoration: none;
 }
 
 nav > ul > li > a:hover{
-	color: black;
-/* 	background-color: #5D5D5D; */
+	color: #FFD9EC;
+	background-color: #5D5D5D;
 	font-weight: bold;
 }
 
 .active{
 	color: #FFD9EC;
-/* 	background-color: #5D5D5D; */
+	background-color: #5D5D5D;
 	font-weight: bold;
 }
 </style>
@@ -67,13 +66,13 @@ nav > ul > li > a:hover{
 		<!--ㄷ 한자 적용  -->
 			<li>
 				<a href="#" 
-				onclick="goPage(${pagingMap.boardPaging.prevPage});">
-				<span>이전</span>
+				onclick="goPage(${pagingMap.memberPaging.prevPage});">
+				<span>≪</span>
 				</a>
 			</li>
 			
-			<c:forEach var="num" begin="${pagingMap.boardPaging.blockBegin}"
-				end="${pagingMap.boardPaging.blockEnd}">
+			<c:forEach var="num" begin="${pagingMap.memberPaging.blockBegin}"
+				end="${pagingMap.memberPaging.blockEnd}">
 				
 				<li id="pageButton${num}">
 					<a href="#" onclick="goPage(${num});">
@@ -84,8 +83,8 @@ nav > ul > li > a:hover{
 			</c:forEach>
 
 			<li><a href="#" 
-				onclick="goPage(${pagingMap.boardPaging.nextPage});">
-				<span>다음</span></a>
+				onclick="goPage(${pagingMap.memberPaging.nextPage});">
+				<span>≫</span></a>
 			</li>
 		</ul>
 	</nav>
