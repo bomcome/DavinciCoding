@@ -68,7 +68,8 @@
 </head>
 <body>
 <%-- 	<jsp:include page="/WEB-INF/views/Header.jsp" /> --%>
-	
+	<div>
+	</div>
 	<br/>
 	<div id="member">
 		<form action="./addCtr.do" id="addForm"method="post" style="font-weight: bold;"
