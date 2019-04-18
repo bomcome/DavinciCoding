@@ -4,39 +4,42 @@
 
 <style type="text/css">
 	
-	#header #u {
+	#header1 #u {
 		color: #DB3A00; 
 	}
-	#header #dong{
+	#header1 #dong{
 		color: #FFBB00;
 	}
-	#header #mat{
+	#header1 #mat{
 		color: #4375DB;
 	}
 	
-	#header #title span{
+	#header1 #title span{
 		font-size: 45px;
 	}
-	#header #title{
+	#header1 #title{
 		font-size: 21px;
 		font-weight: bold;
 	}
-	#header a {
+	#header1 a {
 		text-decoration: none;
 		text-align: center;
 	}
 
+	.header {
+		float: left;
+	}
 	
-	#header {
-		width: 1046px;
+	#header1 {
+		width: 1070px;
 		margin-bottom: 30px;
  		padding-right: 0px; 
 	} 
-	#header #shopAdd{
+	#header1 #shopAdd{
  		margin-left: 380px; 
 		width: 70px; 
 	}
-	#header #title{
+	#header1 #title{
  		margin-left: 390px; 
 	}
 	
@@ -48,7 +51,7 @@
 	
 </style>
 
-<div id="header" class="header">
+<div id="header1" class="header">
 
 	
 	<button id="shopAdd" onclick="/restaurants/add.do">맛집등록</button>

@@ -63,7 +63,7 @@
 	
 	<select id="boardSelectOne" parameterType="int"
 		resultMap="boardResultMap">
-		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, M.NICKNAME, B.CRE_DATE, B.MOD_DATE
+		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE
 		FROM BOARD B, MEMBERS M
 		WHERE B.MEMBER_NO = M.MEMBER_NO
 		AND B.BOARD_NO = #{boardNo}

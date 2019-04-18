@@ -7,76 +7,75 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
- 	tr, td {
+ 	#boardListContainer tr, td {
  		border-bottom: 1px solid #8C8C8C;
  		height: 35px; 
  	}
  	
-	#no {
+	#boardListContainer #no {
 		width: 150px;
 	}
-	.title{
-		width: 500px;
+	#boardListContainer .title{
+		width: 520px;
 		
 	}
-	#writer{
+	#boardListContainer #writer{
 		width: 230px;
 	}
-	#createDate{
+	#boardListContainer #createDate{
 		width: 200px;
 	}
-	td {
+	#boardListContainer td {
 		text-align: center;
 		font-size: 14px;
 		
 	}
-	.title {
+	#boardListContainer .title {
 		text-align: left;
 	}
-	#top td{
+	#boardListContainer #top td{
 		font-weight: bold;
 		font-size: 15px;
 		
 	}
-	#top .title{
+	#boardListContainer #top .title{
 		text-align: center;
 	}
 	
-	#board {
+	#boardListContainer #board {
 		margin-left: 380px;
 		margin-right: 380px;
 		border-collapse: collapse;
  		margin-top: 50px;
 	}
 	
-	#freeBoard {
+	#boardListContainer #freeBoard {
 		float: left;
 		font-weight: bold;
 		font-size: 30px;
 		color: #8C8C8C;
 	}
 	
-	#boardInput #formTag{
+	#boardListContainer #boardInput #formTag{
 		text-align: left;
 	}
-	input {
+	#boardListContainer input {
 		margin-top: 8px;
 	}
 	#boardListContainer {
 		width: 1920px;
-		clear: both;
 	}
 	
-	#formTag span{
+	#boardListContainer #formTag span{
 		text-align: right;
 	}
 	
-	#boardListContainer #before{
+	#boardListContainer #boardListContainer #before{
 		margin-left: 750px;
 	}
 	
-	#boardListContainer #write{
-		margin-left: 200px;
+	#center #write{
+		margin-left: 300px;
 	}
 	
 	#boardListContainer > button{
@@ -85,10 +84,12 @@
 		font-weight: bold;
 	}
 	
-	.header {
-		float: left;
+	#pagingForm {
+		margin-bottom: 50px;
 	}
-	
+	#center{
+		text-align: center;
+	}
 </style>
 
 <script type="text/javascript" 
@@ -99,8 +100,8 @@
 </head>
 <body>
 
-<%-- 	<jsp:include page="../header.jsp"/> --%>
-	<jsp:include page="../header2.jsp"/>
+ 	<jsp:include page="../headerTitle.jsp"/> 
+	<jsp:include page="../headerButtons.jsp"/>
 	<div id=boardListContainer>
 	<table id="board">
 		<tr>
@@ -132,25 +133,28 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+	</div>
 	
 	<jsp:include page="/WEB-INF/views/common/paging.jsp">
 		<jsp:param value="${pagingMap}" name="pagingMap"/>
 	</jsp:include>
-
-	<form action="./list.do" id="pagingForm" method="post">
-		<input type="hidden" id="curPage" name="curPage" 
-			value="${pagingMap.boardPaging.curPage}">
-		<input type="hidden" id="keyword" name="keyword" 
-			value="${keyword}">
-	</form>
+	<div id= "center">
+		<form action="./list.do" id="pagingForm" method="post">
+			<input type="hidden" id="curPage" name="curPage" 
+				value="${pagingMap.boardPaging.curPage}">
+			<input type="hidden" id="keyword" name="keyword" 
+				value="${keyword}">
+		</form>
 	
-	<button id="before" onclick="href.location=''">이전화면</button>
-	<button id="write" onclick="location.href='add.do'">글쓰기</button>
+		<button id="before" onclick="href.location=''">메인화면으로</button>
+		<c:if test="${_memberVo_ != null}">
+			<button id="write" onclick="location.href='add.do'">글쓰기</button>
+		</c:if>
+		
+	</div>	
 	
 	
 	
-	</div>
 	
 	<jsp:include page="../Tail.jsp"/>
 </body>

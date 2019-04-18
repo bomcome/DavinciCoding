@@ -7,7 +7,7 @@
 <style type="text/css">
 	
 	#title{
-		width: 1035px;
+		width: 1105px;
 		height: 25px;
 		margin-bottom: 15px;
 	}
@@ -27,18 +27,19 @@
 		location.href = "list.do";
 	}
 
-</script>cript
+</script>
 <title>Insert title here</title>
 </head>
 <body>
 	
-<%-- 	<jsp:include page="../header.jsp"/> --%>
-	
+	<jsp:include page="../headerTitle.jsp"/> 
+	<jsp:include page="../headerButtons.jsp"/>
 		<form id="inputForm" action="./addCtr.do" method="post">
+			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
 			<div>제목</div>
 			<input name='title' id='title' type="text">
 			<div>내용</div>
-			<textarea name='contents' id='contents' rows="30" cols="145"></textarea>
+			<textarea name='contents' id='contents' rows="30" cols="155"></textarea>
 			<div>
 				<button type="button" onclick='moveToListFnc()'>작성취소</button>
 				<button type="submit">작성완료</button>

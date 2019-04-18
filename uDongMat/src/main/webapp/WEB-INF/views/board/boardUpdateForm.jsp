@@ -7,7 +7,7 @@
 <style type="text/css">
 	
 	#title{
-		width: 1035px;
+		width: 1105px;
 		height: 25px;
 		margin-bottom: 15px;
 	}
@@ -32,14 +32,15 @@
 </head>
 <body>
 	
-<%-- 	<jsp:include page="../header.jsp"/> --%>
+	<jsp:include page="../headerTitle.jsp"/> 
+	<jsp:include page="../headerButtons.jsp"/>
 	
 		<form id="inputForm" action="./updateCtr.do" method="post">
 			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
 			<div>제목 </div>
 			<input name='title' id='title' type="text" value="${boardVo.title}">
 			<div>내용</div>
-			<textarea name='contents' id='contents' rows="30" cols="145">${boardVo.contents}</textarea>
+			<textarea name='contents' id='contents' rows="30" cols="156">${boardVo.contents}</textarea>
 			<div>
 				<button type="button" onclick='moveListFnc()'>작성취소</button>
 				<button type="submit">작성완료</button>

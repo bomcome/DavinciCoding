@@ -3,12 +3,12 @@
 
 <style type="text/css">
 	#tail #info{
-		margin-left: 500px;
+/* 		margin-left: 500px; */
 		margin-top: 30px;
 		font-size: 13px;
 	}
 	#tail #eng{
-		margin-left: 690px;
+/* 		margin-left: 690px; */
 		font-size: 12px;
 	}
 	#tail span{
@@ -22,6 +22,8 @@
 	}
 	#tail {
 		width: 1920px;
+		margin-bottom: 20px;
+		text-align: center;
 	} 
 </style>
 <div id="tail">

@@ -5,6 +5,9 @@
 
 <style type="text/css">
 
+nav{
+	text-align: center;
+}
 nav > ul {
 	list-style-type: none;
 	padding: 0px;
