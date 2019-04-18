@@ -24,6 +24,7 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<jsp:include page="/WEB-INF/views/header2.jsp" />
 
 	<h1>회원목록</h1>
 	<div>

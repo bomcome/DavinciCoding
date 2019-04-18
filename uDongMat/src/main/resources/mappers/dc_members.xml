@@ -3,6 +3,7 @@
 
 <mapper namespace="com.dc.members">
 
+
 	<resultMap type="com.dc.members.vo.MemberVo"
 		id="memberResultMap">
 		<id column="member_no" property="memberNo" />
@@ -67,7 +68,6 @@
 		DELETE FROM MEMBERS
 		WHERE MEMBER_NO = #{memberNo}
 	</delete>
-	
 	
 	
 </mapper>

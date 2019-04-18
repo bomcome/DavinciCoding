@@ -9,7 +9,7 @@
 <script type="text/javascript">
 	alert('성공적으로 처리했습니다');
 	
-	location.href = '/springHome/member/list.do';
+	location.href = '/uDongmat/board/list.do';
 </script>
 
 </head>
