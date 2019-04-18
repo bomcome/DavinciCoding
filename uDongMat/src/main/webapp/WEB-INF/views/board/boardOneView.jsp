@@ -35,7 +35,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+	 
 	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	
