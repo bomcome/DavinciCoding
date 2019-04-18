@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <style type="text/css">
-	#login{
+	#loginForm{
 		width:300px;
 		text-align: center;
 		margin:auto;
@@ -25,11 +25,14 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+
+	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	
 	<br/>
-	<div id="login">
-		<form action="loginCtr.do" method="post">
+
+	<div id="loginForm">
+		<form style="margin: auto;" action="loginCtr.do" method="post">
 			
 			<div style="text-align: left; padding-left: 70px;">
 			
@@ -55,7 +58,7 @@
 		</form>
 	</div>
 	<br/>
-	
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
+
 </body>
 </html>

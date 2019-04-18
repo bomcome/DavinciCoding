@@ -41,27 +41,40 @@
 		var passwordVal = document.getElementById('password');
 		var passwordChkVal = document.getElementById('passwordChk');
 		
-		if (passwordVal.value != passwordChkVal.value) {
-			alert('비밀번호가 틀립니다.\n다시 확인하세요!!');
-			
-			return;
-		}else{
-			var r = confirm("정말로 수정하시겠습니다??")
-			if(r == true){
+		
+			if (passwordVal.value == '') {
+				alert('비밀번호를 입력하세요!');
+				passwordVal.focus();
 				
-				updateFormObj.submit();
-			} 
-			else{
 				return;
 			}
-		}
+			else if (passwordChkVal.value == '') {
+				alert('비밀번호 확인을 입력하세요!');
+				passwordChkVal.focus();
+				return;
+			
+			}else if (passwordVal.value != passwordChkVal.value) {
+				alert('비밀번호가 틀립니다.\n다시 확인하세요!!');
+				
+				return;
+			}else{
+				var r = confirm("정말로 수정하시겠습니다??")
+				if(r == true){
+					
+					updateFormObj.submit();
+				} 
+				else{
+					return;
+				}
+			}
 	}
 	
 </script>
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	
 	<br/>
 	
