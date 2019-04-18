@@ -23,8 +23,8 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<jsp:include page="/WEB-INF/views/header2.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<jsp:include page="/WEB-INF/views/header2.jsp" /> --%>
 
 	<h1>회원목록</h1>
 	<div>
@@ -51,7 +51,7 @@
 					pattern="yyyy년MM월dd일 hh시mm분"/>
 			</td>
 			<td>
-				<a href='./deleteCtr.do?mno=${memberVo.memberNo}'>[삭제]</a>
+				<a href='./deleteCtr.do?memberNo=${memberVo.memberNo}'>[삭제]</a>
 			</td>
 		</tr>
 	</c:forEach>

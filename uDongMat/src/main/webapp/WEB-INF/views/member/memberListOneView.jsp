@@ -22,18 +22,32 @@
 	
 </style>
 <script type="text/javascript" 
-	src="/uDongMat/memberListOneView.jsp/resources/js/jquery-3.3.1.js"></script>
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 	
 	function pageMoveListFnc(){
 		location.href = "list.do";
+	}
+	
+	function pageMoveDeleteFnc(){
+		
+		
+		var r = confirm("정말로 탈퇴하시겟습니까?")
+		if(r == true){
+			var url = 'deleteCtr.do?memberNo=' + ${memberVo.memberNo};
+			location.href = url;
+		} 
+		else{
+			return;
+		}
+
 	}
 		
 </script>
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/Header.jsp" /> --%>
 	
 	<br/>
 	
@@ -61,7 +75,7 @@
 			<br/>
 			<hr>
 			<br/>
-			<input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveListFnc();">
+			<input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveDeleteFnc();">
 		</form>
 	</div>
 	

@@ -25,7 +25,7 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/Header.jsp" /> --%>
 	
 	<br/>
 	<div id="login">

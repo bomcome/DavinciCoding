@@ -14,4 +14,8 @@ public interface MemberService {
 	public MemberVo memberExist(Map<String, Object> paramMap);	
 	
 	public int memberUpdateOne(MemberVo memberVo);				//회원 수정하기
+	
+	public int memberInsertOne(MemberVo memberVo);				//회원 추가
+	
+	public int memberDelete(int memberNo);						//회원삭제
 }	

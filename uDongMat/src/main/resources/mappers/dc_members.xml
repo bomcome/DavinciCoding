@@ -51,6 +51,23 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
+	<!-- 회원 추가하기  -->
+	<insert id="memberInsertOne" parameterType="memberVo" useGeneratedKeys="true" keyProperty="memberNo">
+		<selectKey keyProperty="memberNo" resultType="int" order="BEFORE">
+			SELECT MEMBER_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO MEMBERS
+			(MEMBER_NO, MEMBER_GRADE, EMAIL, NICKNAME,PASSWORD,CRE_DATE, MOD_DATE)
+		VALUES(#{memberNo}, 'member', #{email}, 
+			#{nickName}, #{password}, SYSDATE, SYSDATE)
+	</insert>
+	
+	<!-- 회원 삭제하기  -->
+	<delete id="memberDelete" parameterType="int">
+		DELETE FROM MEMBERS
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
 	
 	
 </mapper>
