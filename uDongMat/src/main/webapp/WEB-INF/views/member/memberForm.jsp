@@ -9,7 +9,7 @@
 
 	function memberInsertFnc() {
 		var emailVal = document.getElementById('email');
-		var nicknameVal = document.getElementById('nickname');
+		var nicknameVal = document.getElementById('nickName');
 		var passwordVal = document.getElementById('password');
 		var passwordChkVal = document.getElementById('passwordChk');
 		var addFormObj = document.getElementById("addForm");
@@ -44,6 +44,7 @@
 			
 			return;
 			}else{
+				
 				addFormObj.submit();
 			}
 	}
@@ -79,7 +80,7 @@
 				<br/>
 				
 				닉네임<br/>
-				<input type="text" id="nickname" name='nickname' placeholder="닉네임 확인"><br/>
+				<input type="text" id="nickName" name='nickName' placeholder="닉네임 확인"><br/>
 				<br/>
 				
 				비밀번호<br/>

@@ -26,7 +26,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-
+	//회원 전체보기
 	@RequestMapping(value="/member/list.do", method=RequestMethod.GET)
 	public String memberList(Model model) {
 		
@@ -38,6 +38,7 @@ public class MemberController {
 		
 		return "member/memberListView";
 	}
+	
 	//회원한명 보기
 	@RequestMapping(value = "/member/listOne.do", method=RequestMethod.GET)
 	public String memberListOne(int memberNo, Model model) {
@@ -52,7 +53,97 @@ public class MemberController {
 	return "member/memberListOneView";
 	}
 	
-	//로그인 폼으로 보내기
+	
+	//회원 수정
+	@RequestMapping(value = "/member/update.do",method = RequestMethod.GET)
+	public String memberUpdate(int memberNo, Model model) {
+		log.debug("Welcome memberUpdate enter! - {}", memberNo);
+
+		MemberVo memberVo = memberService.memberSelectOne(memberNo);
+
+		model.addAttribute("memberVo", memberVo);
+
+		return "member/memberUpdateForm";
+	}
+	
+	@RequestMapping(value = "/member/updateCtr.do",method = RequestMethod.POST)
+	public String memberUpdateOne(HttpSession session, MemberVo memberVo,Model model) {
+		log.debug("Welcome memberUpdateCtr enter! - {}", memberVo);
+		
+		
+		try {
+			 memberService.memberUpdateOne(memberVo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+			MemberVo sessionMemberVo = (MemberVo) session.getAttribute("_memberVo_");
+			
+			// 세션에 객체가 존재하는지 여부
+			if (sessionMemberVo != null) {
+				// 세션의 값과 새로운 값이 일치하는지 여부
+				// 홍길동 ㄴㅇㄹㄴㅇ
+				// s1@test.com ㄴㅇㄹ33@
+				// 1111 2222
+				if (sessionMemberVo.getMemberNo() == memberVo.getMemberNo()) {
+					MemberVo newMemberVo = new MemberVo();
+
+					newMemberVo.setMemberNo(memberVo.getMemberNo());
+					newMemberVo.setEmail(memberVo.getEmail());
+					newMemberVo.setNickName(memberVo.getNickName());
+
+					session.removeAttribute("_memberVo_");
+
+					session.setAttribute("_memberVo_", newMemberVo);
+				}
+			}
+			return "redirect:/member/list.do";
+		}
+		
+
+	
+	//회원가입
+	@RequestMapping(value = "/member/add.do", method = RequestMethod.GET)
+	public String memberAdd(Model model) {
+		log.debug("Welcome MemberController memberAdd 페이지 이동! ");
+		
+		return "member/memberForm";
+	}
+	
+	
+	@RequestMapping(value = "/member/addCtr.do", method = RequestMethod.POST)
+	public String memberAdd(MemberVo memberVo,  Model model) {
+		log.trace("Welcome MemberController memberAdd 신규등록 처리! " + memberVo);
+
+		try {
+			memberService.memberInsertOne(memberVo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "redirect:/member/list.do";
+	}
+	
+	
+	//회원 삭제
+	@RequestMapping(value = "/member/deleteCtr.do", method = RequestMethod.GET)
+	public String memberDelete(int memberNo, Model model) {
+		log.debug("Welcome MemberController memberDelete" + " 회원삭제 처리! - {}", memberNo);
+
+		try {
+			memberService.memberDelete(memberNo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "redirect:/member/list.do";
+	}
+	
+	//로그인 하기
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
 		log.debug("Welcome MemberController login 페이지 이동! ");
@@ -84,26 +175,15 @@ public class MemberController {
 		return viewUrl;
 	}
 	
-	@RequestMapping(value = "/member/update.do",method = RequestMethod.GET)
-	public String memberUpdate(int memberNo, Model model) {
-		log.debug("Welcome memberUpdate enter! - {}", memberNo);
+	//로그아웃하기
+	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)
+	public String logout(HttpSession session, Model model) {
+		log.debug("Welcome MemberController logout 페이지 이동! ");
 
-		MemberVo memberVo = memberService.memberSelectOne(memberNo);
+		// 세션의 객체들 파기
+		session.invalidate();
 
-		model.addAttribute("memberVo", memberVo);
-
-		return "member/memberUpdateForm";
+		return "redirect:/auth/login.do";
 	}
-	
-	//회원가입
-	@RequestMapping(value = "/member/add.do", method = RequestMethod.GET)
-	public String memberAdd(Model model) {
-		log.debug("Welcome MemberController memberAdd 페이지 이동! ");
-		
-		return "member/memberForm";
-	}
-	
-	
-	
 
 }

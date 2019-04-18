@@ -18,12 +18,14 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MemberVo> memberSelectList() {
 		// TODO Auto-generated method stub
+		
 		return memberDao.memberSelectList();
 	}
 
 	@Override
 	public MemberVo memberSelectOne(int memberNo) {
 		// TODO Auto-generated method stub
+		
 		return memberDao.memberSelectOne(memberNo);
 	}
 
@@ -39,6 +41,20 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		
 		return memberDao.memberUpdateOne(memberVo);
+	}
+
+	@Override
+	public int memberInsertOne(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		
+		return memberDao.memberInsertOne(memberVo);
+	}
+
+	@Override
+	public int memberDelete(int memberNo) {
+		// TODO Auto-generated method stub
+		
+		return memberDao.memberDelete(memberNo);
 	}
 
 	

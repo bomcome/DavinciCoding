@@ -50,7 +50,7 @@
 					pattern="yyyy년MM월dd일 hh시mm분"/>
 			</td>
 			<td>
-				<a href='./deleteCtr.do?mno=${memberVo.memberNo}'>[삭제]</a>
+				<a href='./deleteCtr.do?memberNo=${memberVo.memberNo}'>[삭제]</a>
 			</td>
 		</tr>
 	</c:forEach>

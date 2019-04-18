@@ -35,7 +35,27 @@
 		var url = 'listOne.do?memberNo=' + memberNo;
 		location.href = url;
 	}
+	function memberUpdateFnc(){
 	
+		var updateFormObj = document.getElementById("updateForm");
+		var passwordVal = document.getElementById('password');
+		var passwordChkVal = document.getElementById('passwordChk');
+		
+		if (passwordVal.value != passwordChkVal.value) {
+			alert('비밀번호가 틀립니다.\n다시 확인하세요!!');
+			
+			return;
+		}else{
+			var r = confirm("정말로 수정하시겠습니다??")
+			if(r == true){
+				
+				updateFormObj.submit();
+			} 
+			else{
+				return;
+			}
+		}
+	}
 	
 </script>
 
@@ -46,8 +66,8 @@
 	<br/>
 	
 	<div id="member">
-		<form action="./updateCtr.do" method="post" enctype="multipart/form-data">
-			<input type="hidden" name='no' value='${memberVo.memberNo}'>
+		<form action="./updateCtr.do" id="updateForm" method="post" enctype="multipart/form-data">
+			<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
 			
 			<div style="text-align: left; padding-left: 70px;">
 			
@@ -57,7 +77,7 @@
 				<br/>	
 				
 				닉네임 <br/>
-				<input type="text" name='nickname' id='nickname' 
+				<input type="text" name='nickName' id='nickName' 
 					value='${memberVo.nickName}'><br/>
 				<br/>	
 				
@@ -73,7 +93,7 @@
 				
 			</div>
 				
-			<input type="submit" class="memberInput" value="수정하기"><br/>
+			<input type="button" class="memberInput" onclick="memberUpdateFnc();" value="수정하기"><br/>
 			
 			<br/>
 			
