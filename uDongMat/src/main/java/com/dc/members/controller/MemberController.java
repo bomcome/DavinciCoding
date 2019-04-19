@@ -124,13 +124,13 @@ public class MemberController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/member/list.do";
+		return "redirect:/auth/login.do";
 	}
 	
 	
 	//회원 삭제
 	@RequestMapping(value = "/member/deleteCtr.do", method = RequestMethod.GET)
-	public String memberDelete(int memberNo, Model model) {
+	public String memberDelete(int memberNo, Model model,HttpSession session) {
 		log.debug("Welcome MemberController memberDelete" + " 회원삭제 처리! - {}", memberNo);
 
 		try {
@@ -139,7 +139,7 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		session.invalidate();
 		return "redirect:/member/list.do";
 	}
 	

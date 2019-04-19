@@ -8,11 +8,19 @@
 <meta charset="UTF-8">
 <style type="text/css">
 	table{
+		width: auto;
+		margin: auto;
+		text-align: center;
 		border-collapse: collapse;
 	}
 	
 	table, tr, td{
 		border: 1px solid black;
+	}
+	#text{
+		padding-left : 730px;
+		text-align: left;
+		border-collapse: collapse;
 	}
 </style>
 <title>회원 목록</title>
@@ -28,18 +36,20 @@
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 
 
+<c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">
+	<div id="text">
 	<h1>회원목록</h1>
-	<div>
 		<a href="add.do">신규 회원</a>
 	</div>
 	<br />
 
 <!--  var=변수명  items=목록데이터 begin=시작인덱스 end=종료인덱스 -->
+
 	<table>
 		<tr>
 			<td>번호</td><td>회원이름</td>
 			<td>이메일</td><td>가입일</td>
-			<td></td>
+			<td>삭제</td>
 		</tr>
 	<c:forEach var="memberVo" items="${memberList}">
 		<tr>
@@ -58,6 +68,10 @@
 		</tr>
 	</c:forEach>
 	</table>
+</c:if>
+<c:if test="${sessionScope._memberVo_.memberGrade != 'admin'}">
+	해커는꺼져라
+</c:if>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 

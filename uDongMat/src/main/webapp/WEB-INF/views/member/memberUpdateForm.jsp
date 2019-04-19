@@ -8,19 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 수정</title>
-<style type="text/css">
-	#member{
-		width:300px;
-		text-align: center;
-		margin:auto;
-		font-weight: bold;
-	}
-	
-	.memberInput{
-		width: 160px;
-	}
-	
-</style>
 	
 <script type="text/javascript" 
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
@@ -76,10 +63,10 @@
 
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
-
+	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
 	
 	<br/>
-	
+	<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
 	<div id="member">
 		<form action="./updateCtr.do" id="updateForm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
@@ -87,8 +74,8 @@
 			<div style="text-align: left; padding-left: 70px;">
 			
 				이메일<br/>
-				<input type="text" name="email" 
-					value='${memberVo.email}' readonly="readonly"><br/>
+				<input type="text" name="email" value='${memberVo.email}' readonly="readonly" tabindex="-1"
+				style="color:#808080; background-color: #ffff;" onfocus="this.blur();"><br/>
 				<br/>	
 				
 				닉네임 <br/>
@@ -118,7 +105,10 @@
 	</div>
 	
 	<br/>
-	
+	</c:if>
+	<c:if test="${sessionScope._memberVo_.memberNo != memberVo.memberNo}">
+		해커는 꺼져라
+	</c:if>
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 
 </body>
