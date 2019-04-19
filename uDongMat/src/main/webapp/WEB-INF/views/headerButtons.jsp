@@ -24,10 +24,16 @@
 <div id="header2" class="header">
 
 	<span id="right">
-		<c:if test="${_memberVo_ != null}">
+		<c:if test='${_memberVo_ != null && _memberVo_.memberGrade != "admin"}'>
 			<button id="memberId" 
 			onclick="location.href='../member/listOne.do?memberNo=${_memberVo_.memberNo}'">
 					${_memberVo_.nickName}
+			</button>
+		</c:if>
+		<c:if test='${_memberVo_.memberGrade == "admin"}'>
+			<button id="memberId" 
+			onclick="location.href='../member/listOne.do?memberNo=${_memberVo_.memberNo}'">
+					관리자
 			</button>
 		</c:if>
 		<c:if test="${_memberVo_ == null}">

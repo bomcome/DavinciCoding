@@ -23,7 +23,6 @@
 	}
 	#header1 a {
 		text-decoration: none;
-		text-align: center;
 	}
 
 	.header {
@@ -34,13 +33,16 @@
 		width: 1070px;
 		margin-bottom: 30px;
  		padding-right: 0px; 
+ 		text-align: right;
 	} 
 	#header1 #shopAdd{
- 		margin-left: 380px; 
+ 		margin-right: 390px; 
 		width: 70px; 
 	}
 	#header1 #title{
- 		margin-left: 390px; 
+		text-align: center;
+		padding-right: 30px;
+ 		
 	}
 	
 /* 	#header #right{ */
@@ -54,10 +56,12 @@
 <div id="header1" class="header">
 
 	
-	<button id="shopAdd" onclick="/restaurants/add.do">맛집등록</button>
+	<c:if test='${_memberVo_.memberGrade == "admin"}'>
+			<button id="shopAdd" onclick="../restaurants/add.do">맛집등록</button>
+		</c:if>
 	
 	<span id="title">
-		<a href=""><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a>
+		<a href="/WEB-INF/views/restaurants/list.do"><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a>
 	</span>
 	
 <!-- 	<span id="right"> -->

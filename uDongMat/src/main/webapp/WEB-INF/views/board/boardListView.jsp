@@ -93,7 +93,7 @@
 </style>
 
 <script type="text/javascript" 
-	src="/springHome/resources/js/jquery-3.3.1.js"></script> 
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script> 
 
 <title>Insert title here</title>
 
