@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,19 +50,18 @@ public class BoardController {
 		model.addAttribute("keyword", keyword);
 		
 		
-		
 		return "board/boardListView";
 	}
 	
 	@RequestMapping(value="/board/one.do", method= {RequestMethod.GET})
-	public String boardOne(Model model, int boardNo) {
+	public String boardOne(Model model, int boardNo, HttpServletRequest req) {
 		
-		BoardVo boardVo = 
-				boardService.boardSelectOne(boardNo);
+		BoardVo boardVo = boardService.boardSelectOne(boardNo);
 		
-		model.addAttribute("boardVo", boardVo);
+		req.setAttribute("boardVo", boardVo);
 		
-		return "board/boardOneView";
+		return "forward:/comment/list.do";
+		
 	}
 	
 	@RequestMapping(value="/board/add.do", method= {RequestMethod.GET})

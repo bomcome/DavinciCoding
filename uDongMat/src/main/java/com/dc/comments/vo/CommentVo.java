@@ -2,7 +2,7 @@ package com.dc.comments.vo;
 
 import java.util.Date;
 
-public class CommentsVo {
+public class CommentVo {
 
 	int commentNo;
 	int boardNo;
@@ -14,12 +14,12 @@ public class CommentsVo {
 	
 	
 	
-	public CommentsVo() {
+	public CommentVo() {
 		super();
 	}
 
 
-	public CommentsVo(int commentNo, int boardNo, int memberNo, String nickname, String contents, Date createDate,
+	public CommentVo(int commentNo, int boardNo, int memberNo, String nickname, String contents, Date createDate,
 			Date modifiedDate) {
 		super();
 		this.commentNo = commentNo;

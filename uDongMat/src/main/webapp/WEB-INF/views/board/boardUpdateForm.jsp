@@ -36,6 +36,24 @@
 		location.href = "list.do";
 	}
 
+	
+	function registerFnc() {
+		var titleObj = document.getElementById('title');
+		var titleVal = titleObj.value;
+		var contentsObj = document.getElementById('contents');
+		var contentsVal = contentsObj.value;
+		
+		var formObj = document.getElementById('inputForm');
+		
+		if(titleVal == ''){	
+			titleObj.focus();
+		}else if(contentsVal == ''){
+			contentsObj.focus();
+		}else{
+			formObj.submit();
+		}
+	
+	}
 </script>
 <title>Insert title here</title>
 </head>
@@ -51,10 +69,10 @@
 			<div>제목 </div>
 			<input name='title' id='title' type="text" value="${boardVo.title}">
 			<div>내용</div>
-			<textarea name='contents' id='contents' rows="30" cols="156">${boardVo.contents}</textarea>
+			<textarea name='contents' id='contents' rows="30" cols="156" style="resize: none;">${boardVo.contents}</textarea>
 			<div id='buttons'>
-				<button type="button" onclick='moveListFnc()'>작성취소</button>
-				<button type="submit">작성완료</button>
+				<button type="button" onclick='moveListFnc();'>작성취소</button>
+				<button type="button" onclick='registerFnc();'>작성완료</button>
 			</div>
 			
 		</form>

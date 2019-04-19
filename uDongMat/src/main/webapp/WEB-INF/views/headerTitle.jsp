@@ -14,10 +14,10 @@
 		color: #4375DB;
 	}
 	
-	#header1 #title span{
+	#header1 #titleTag span{
 		font-size: 45px;
 	}
-	#header1 #title{
+	#header1 #titleTag{
 		font-size: 21px;
 		font-weight: bold;
 	}
@@ -40,7 +40,7 @@
  		margin-right: 390px; 
 		width: 70px; 
 	}
-	#header1 #title{
+	#header1 #titleTag{
 		text-align: center;
 		padding-right: 30px;
  		
@@ -61,7 +61,7 @@
 			<button id="shopAdd" onclick="../restaurants/add.do">맛집등록</button>
 		</c:if>
 	
-	<span id="title">
+	<span id="titleTag">
 		<a href="/WEB-INF/views/restaurants/list.do"><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a>
 	</span>
 	
