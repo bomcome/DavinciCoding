@@ -8,19 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 조회</title>
-<style type="text/css">
-	#member{
-		width:300px;
-		text-align: center;
-		margin:auto;
-		font-weight: bold;
-	}
-	
-	.memberInput{
-		width: 160px;
-	}
-	
-</style>
+
 <script type="text/javascript" 
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
@@ -50,7 +38,7 @@
 
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
-
+	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
 	
 	<br/>
 	
@@ -70,15 +58,19 @@
 						readonly="readonly"><br/>
 				<br/>
 			</div>
+		
+		<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
 					
 			<input type="submit" class="memberInput" value="정보수정"><br/>
 			<br/>
-			
+		</c:if>	
 			<input type="button" class="memberInput" value="이전화면"  onclick="pageMoveListFnc();"><br/>
 			<br/>
 			<hr>
 			<br/>
+		<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">	
 			<input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveDeleteFnc();">
+		</c:if>	
 		</form>
 	</div>
 	

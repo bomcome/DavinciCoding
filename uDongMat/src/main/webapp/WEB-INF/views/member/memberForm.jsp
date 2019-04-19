@@ -5,18 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 등록</title>
-<style type="text/css">
-	#member{
-		width:300px;
-		text-align: center;
-		margin:auto;
-		font-weight: bold;
-	}
-	
-	.memberInput{
-		width: 160px;
-	}
-</style>
+
 <script type="text/javascript">
 
 	function memberInsertFnc() {
@@ -28,7 +17,7 @@
 		
 		if (emailVal.value == '') {
 			alert("이메일을 입력하세요!");
-			idVal.focus();
+			emailVal.focus();
 			
 			return;
 			}
@@ -71,6 +60,7 @@
 
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
 
 	<br/>
 	<div id="member">
@@ -91,8 +81,8 @@
 				<br/>
 				
 				비밀번호 확인 <br/>
+				<input type="password" id="passwordChk" name="passwordChk" placeholder="비밀번호 재확인"><br/>
 			</div>
-			<input type="password" id="passwordChk" name="passwordChk" placeholder="비밀번호 재확인"><br/>
 			<br/>
 			<input type="button" class="memberInput" onclick="memberInsertFnc();" value="회원가입"><br/>
 			<br/>
