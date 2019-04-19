@@ -1,0 +1,94 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<!-- <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
+
+<!-- <mapper namespace="com.dc.comments"> -->
+<!-- 	<resultMap type="com.dc.comments.vo.CommentsVo" -->
+<!-- 		id="commentsResultMap"> -->
+<!-- 		<id column="COMMENT_NO" property="commentNo" /> -->
+<!-- 		<result column="BOARD_NO" property="boardNo" /> -->
+<!-- 		<result column="MEMBER_NO" property="memberNo" /> -->
+<!-- 		<result column="CONTENTS" property="contents" /> -->
+<!-- 		<result column="CRE_DATE" property="createDate" -->
+<!-- 			javaType="java.util.Date" /> -->
+<!-- 		<result column="MOD_DATE" property="modifiedDate" -->
+<!-- 			javaType="java.util.Date" />  -->
+<!-- 	</resultMap> -->
+
+	
+	
+<!-- 	<select id="boardSelectList" parameterType="map" -->
+<!-- 		resultMap="boardResultMap"> -->
+<!-- 		SELECT BOARD_NO, TITLE, NICKNAME, CRE_DATE -->
+<!-- 		FROM( -->
+<!-- 		    SELECT ROWNUM AS RNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE -->
+<!-- 				FROM (SELECT B.BOARD_NO AS BOARD_NO, B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE -->
+<!-- 				        FROM BOARD B, MEMBERS M -->
+<!-- 				        WHERE B.MEMBER_NO = M.MEMBER_NO -->
+<!-- 				        ORDER BY B.BOARD_NO DESC) -->
+<!-- 				WHERE TITLE LIKE '%'||#{keyword}||'%' -->
+<!-- 				OR CONTENTS LIKE '%'||#{keyword}||'%' -->
+<!-- 				OR NICKNAME LIKE '%'||#{keyword}||'%' -->
+<!-- 		    ) -->
+<!-- 		WHERE RNUM BETWEEN #{start} AND #{end} -->
+<!-- 	</select> -->
+	
+	
+	
+
+<!-- 	<select id="boardSelectOne" parameterType="int" -->
+<!-- 		resultMap="boardResultMap"> -->
+<!-- 		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE -->
+<!-- 		FROM BOARD B, MEMBERS M -->
+<!-- 		WHERE B.MEMBER_NO = M.MEMBER_NO -->
+<!-- 		AND B.BOARD_NO = #{boardNo} -->
+<!-- 	</select> -->
+	
+<!-- 	<insert id="boardInsertOne"  -->
+<!-- 		parameterType= "boardVo" -->
+<!-- 		useGeneratedKeys="true" keyProperty="boardNo"> -->
+<!-- 		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE"> -->
+<!-- 			SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL -->
+<!-- 		</selectKey> -->
+		
+<!-- 		INSERT INTO BOARD -->
+<!-- 		(BOARD_NO, MEMBER_NO, TITLE, CONTENTS, CRE_DATE, MOD_DATE) -->
+<!-- 		VALUES(#{boardNo}, #{memberNo}, #{title}, #{contents}, SYSDATE, SYSDATE) -->
+<!-- 	</insert> -->
+	
+
+	
+<!-- 	<update id="boardUpdateOne" parameterType="boardVo"> -->
+<!-- 		UPDATE 	BOARD -->
+<!-- 		<set> -->
+<!-- 			<if test="title != ''">TITLE = #{title},</if> -->
+<!-- 			<if test="contents != ''">CONTENTS = #{contents},</if> -->
+<!-- 			MOD_DATE = SYSDATE			 -->
+<!-- 		</set> -->
+<!-- 		WHERE 	 BOARD_NO = #{boardNo} -->
+<!-- 	</update> -->
+
+
+<!--  	<delete id="boardDelete" parameterType="int">  -->
+<!-- 		DELETE FROM BOARD -->
+<!-- 		WHERE BOARD_NO = #{boardNo} -->
+<!-- 	</delete> -->
+	
+
+	
+<!-- 	<select id="boardSelectTotalCount" parameterType="String" -->
+<!-- 		resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM (SELECT B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME -->
+<!-- 	        FROM BOARD B, MEMBERS M -->
+<!-- 	        WHERE B.MEMBER_NO = M.MEMBER_NO -->
+<!-- 	        ORDER BY B.BOARD_NO) -->
+<!-- 			WHERE title LIKE '%'||#{keyword}||'%' -->
+<!-- 			or contents LIKE '%'||#{keyword}||'%' -->
+<!-- 			or nickname LIKE '%'||#{keyword}||'%' -->
+<!-- 	</select> -->
+	
+	
+	
+	
+	
+<!-- </mapper> -->

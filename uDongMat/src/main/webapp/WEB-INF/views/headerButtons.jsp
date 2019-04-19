@@ -6,15 +6,16 @@
 	
 	#header2 {
 		width: 800px;
-		margin-bottom: 30px;
+		margin-bottom: 40px;
 /*  		padding-right: 350px;  */
-		padding-top:35px;
+		padding-top:30px;
 		text-align: right;
+
 	} 
 	
 	#header2 #right{
-		margin-right: 380px;
-		
+		margin-right: 380px;	
+		padding-top: 35px;
 	}
 	
 	
@@ -23,11 +24,18 @@
 
 <div id="header2" class="header">
 
+
 	<span id="right">
-		<c:if test="${_memberVo_ != null}">
+		<c:if test='${_memberVo_ != null && _memberVo_.memberGrade != "admin"}'>
 			<button id="memberId" 
 			onclick="location.href='../member/listOne.do?memberNo=${_memberVo_.memberNo}'">
 					${_memberVo_.nickName}
+			</button>
+		</c:if>
+		<c:if test='${_memberVo_.memberGrade == "admin"}'>
+			<button id="memberId" 
+			onclick="location.href='../member/listOne.do?memberNo=${_memberVo_.memberNo}'">
+					관리자
 			</button>
 		</c:if>
 		<c:if test="${_memberVo_ == null}">

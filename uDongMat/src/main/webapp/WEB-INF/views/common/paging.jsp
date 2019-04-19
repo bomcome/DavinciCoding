@@ -5,10 +5,11 @@
 
 <style type="text/css">
 
-nav{
+#paging nav{
 	text-align: center;
+	
 }
-nav > ul {
+#paging nav > ul {
 	list-style-type: none;
 	padding: 0px;
 	overflow: hidden;
@@ -18,12 +19,12 @@ nav > ul {
 	margin-right: auto;
 }
 
-nav > ul > li{
+#paging nav > ul > li{
 	float: left;
 	font-size: 15px;
 }
 
-nav > ul > li > a{
+#paging nav > ul > li > a{
 /*  	display: block;  */
  	color: black; 
 	text-align: center;
@@ -31,17 +32,20 @@ nav > ul > li > a{
 	text-decoration: none;
 }
 
-nav > ul > li > a:hover{
+#paging nav > ul > li > a:hover{
 	color: black;
 /* 	background-color: #5D5D5D; */
 	font-weight: bold;
 }
 
-.active{
+#paging .active{
 	color: #FFD9EC;
 /* 	background-color: #5D5D5D; */
 	font-weight: bold;
 }
+
+
+
 </style>
 
 <script type="text/javascript">
@@ -62,9 +66,11 @@ nav > ul > li > a:hover{
 		
 		$(id).addClass('active');
 	});
+
+
 	
 </script>
-
+<div id="paging"> 
 	<nav>
 		<ul>
 		<!--ㄷ 한자 적용  -->
@@ -92,3 +98,4 @@ nav > ul > li > a:hover{
 			</li>
 		</ul>
 	</nav>
+</div>

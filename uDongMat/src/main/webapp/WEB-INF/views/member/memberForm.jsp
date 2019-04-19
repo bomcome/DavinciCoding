@@ -57,10 +57,10 @@
 
 </head>
 <body>
-
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
+
 
 	<br/>
 	<div id="member">
