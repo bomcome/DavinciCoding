@@ -30,8 +30,9 @@
 	}
 	
 	#header1 {
+		padding-top: 30px;
 		width: 1070px;
-		margin-bottom: 30px;
+		margin-bottom: 40px;
  		padding-right: 0px; 
  		text-align: right;
 	} 

@@ -6,15 +6,16 @@
 	
 	#header2 {
 		width: 800px;
-		margin-bottom: 30px;
+		margin-bottom: 40px;
 /*  		padding-right: 350px;  */
-		padding-top:35px;
+		padding-top:30px;
 		text-align: right;
+
 	} 
 	
 	#header2 #right{
-		margin-right: 380px;
-		
+		margin-right: 380px;	
+		padding-top: 35px;
 	}
 	
 	
@@ -22,6 +23,7 @@
 </style>
 
 <div id="header2" class="header">
+
 
 	<span id="right">
 		<c:if test='${_memberVo_ != null && _memberVo_.memberGrade != "admin"}'>

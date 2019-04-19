@@ -46,7 +46,7 @@
 		margin-left: 380px;
 		margin-right: 380px;
 		border-collapse: collapse;
- 		margin-top: 50px;
+ 		
 	}
 	
 	#boardListContainer #freeBoard {
@@ -66,7 +66,7 @@
 		width: 1920px;
 	}
 	
-	#boardListContainer #formTag span{
+	#boardListContainer #formTag div{
 		text-align: right;
 	}
 	
@@ -99,19 +99,20 @@
 
 </head>
 <body>
-
+	<div id=boardListContainer>
+	
  	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
-	<div id=boardListContainer>
+	
 	<table id="board">
 		<tr>
 			<td id="boardInput" colspan="4">
 				<span id="freeBoard">우동맛게시판(${totalCount})</span>
 					<form action="./list.do" method="get" id="formTag">	
-						<span>
+						<div>
 							<input type="text" name="keyword" value="${keyword}">
 							<input type="submit" value="검색">
-						</span>
+						</div>
 					</form>
 			</td>
 		</tr>
@@ -133,7 +134,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	</div>
+	
 	
 	<jsp:include page="/WEB-INF/views/common/paging.jsp">
 		<jsp:param value="${pagingMap}" name="pagingMap"/>
@@ -150,12 +151,11 @@
 		<c:if test="${_memberVo_ != null}">
 			<button id="write" onclick="location.href='add.do'">글쓰기</button>
 		</c:if>
-		
-	</div>	
-	
-	
-	
 	
 	<jsp:include page="../Tail.jsp"/>
+		
+	</div>	
+	</div>
+	
 </body>
 </html>
