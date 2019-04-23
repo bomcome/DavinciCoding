@@ -17,7 +17,7 @@
 
 	
 	
-	<select id="commentSelectList" parameterType="map"
+	<select id="commentSelectList" parameterType="int"
 		resultMap="commentsResultMap">
 		SELECT ROWNUM, COMMENT_NO, BOARD_NO, MEMBER_NO, NICKNAME, CONTENTS, CRE_DATE, MOD_DATE
 		FROM
@@ -43,41 +43,50 @@
 		AND B.BOARD_NO = #{boardNo}
 	</select>
 	
+	
+	<select id="commentDetailOne" parameterType="int"
+		resultMap="commentsResultMap">
+		SELECT C.COMMENT_NO, C.BOARD_NO, C.CONTENTS, C.MEMBER_NO, M.NICKNAME, C.CRE_DATE, C.MOD_DATE
+		FROM COMMENTS C, BOARD B, MEMBERS M
+		WHERE C.BOARD_NO = B.BOARD_NO
+		AND C.MEMBER_NO = M.MEMBER_NO
+		AND C.COMMENT_NO = #{commentNo}
+	</select>
+	
+	
 	<insert id="commentInsertOne" 
 		parameterType= "boardVo"
-		useGeneratedKeys="true" keyProperty="boardNo">
-		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+		useGeneratedKeys="true" keyProperty="commentNo">
+		<selectKey keyProperty="commentNo" resultType="int" order="BEFORE">
 			SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		
-		INSERT INTO BOARD
-		(BOARD_NO, MEMBER_NO, TITLE, CONTENTS, CRE_DATE, MOD_DATE)
-		VALUES(#{boardNo}, #{memberNo}, #{title}, #{contents}, SYSDATE, SYSDATE)
+		INSERT INTO COMMENTS
+		(COMMENT_NO, BOARD_NO, MEMBER_NO, CONTENTS, CRE_DATE, MOD_DATE)
+		VALUES(#{commentNo}, #{boardNo}, #{memberNo}, #{contents}, SYSDATE, SYSDATE)
 	</insert>
 	
-
 	
-	<update id="commentUpdateOne" parameterType="boardVo">
-		UPDATE 	BOARD
+	<update id="commentUpdateOne" parameterType="commentVo">
+		UPDATE COMMENTS
 		<set>
-			<if test="title != ''">TITLE = #{title},</if>
 			<if test="contents != ''">CONTENTS = #{contents},</if>
 			MOD_DATE = SYSDATE			
 		</set>
-		WHERE 	 BOARD_NO = #{boardNo}
+		WHERE COMMENT_NO = #{commentNo}
 	</update>
 
 
  	<delete id="commentDelete" parameterType="int"> 
-		DELETE FROM BOARD
-		WHERE BOARD_NO = #{boardNo}
+		DELETE FROM COMMENTS
+		WHERE COMMENT_NO = #{commentNo}
 	</delete>
 	
 
 	
 	<select id="commentSelectTotalCount" parameterType="int"
 		resultType="int">
-		SELECT ROWNUM, COMMENT_NO, BOARD_NO, MEMBER_NO, NICKNAME, CONTENTS, CRE_DATE, MOD_DATE
+		SELECT COUNT(*)
 		FROM
 		(
 		    SELECT C.COMMENT_NO AS COMMENT_NO, C.BOARD_NO AS BOARD_NO, C.MEMBER_NO AS MEMBER_NO

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,13 @@
 		height: 25px;
 		margin-bottom: 15px;
 		clear: both;
+		font-size: 16px;
+	}
+	
+	#boardOne #contents{
+		font-size: 16px;
+		width: 1105px;
+		resize: none;
 	}
 	
 	#boardOne #inputForm {
@@ -72,27 +80,8 @@
 		<div id="titleLeft">제목</div><div id="right"><span><span>작성자:</span> ${boardVo.nickname}</span><span><span>작성일:</span> ${boardVo.createDate}</span></div>
 		<input name='title' id='title' type="text" value='${boardVo.title}' readOnly="readonly">
 		<div>내용</div>
-		<textarea name='contents' id='contents' rows="30" cols="155" readOnly="readonly" style="resize: none;">${boardVo.contents}</textarea>
+		<textarea name='contents' id='contents' rows="30" cols="155" readOnly="readonly">${boardVo.contents}</textarea>
 		
-		
-		<div id=commentListContainer>
-			<table id="commentTable">
-				<tr>
-					<td colspan="3">
-						<span id="commentLetter">댓글(${totalCount})</span>
-					</td>
-				</tr>
-				<c:forEach var="commentVo" items="${commentList}">
-					<tr>
-						<td class="title">
-							<a href='./one.do?boardNo=${commentVo.commentNo}'>${commentVo.title}</a>
-						</td>
-						<td>${commentVo.nickname}</td>
-						<td>${commentVo.createDate}</td>
-					</tr>
-				</c:forEach>
-			</table>	
-		</div>
 		
 		
 		<div id='buttons'>		
@@ -103,8 +92,12 @@
 			</c:if>	
 	<!-- 		<button type="button" onclick="">답글쓰기</button> -->
 		</div>
-	</form>
 		
+		
+	</form>
+	
+	<jsp:include page="../comments/commentListView.jsp"/>
+	<jsp:include page="../comments/commentAddForm.jsp"/>
 	
 	
 	

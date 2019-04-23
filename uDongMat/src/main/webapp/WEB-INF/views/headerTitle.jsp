@@ -62,7 +62,7 @@
 		</c:if>
 	
 	<span id="titleTag">
-		<a href="/WEB-INF/views/restaurants/list.do"><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a>
+		<a href="../restaurants/list.do"><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a>
 	</span>
 	
 <!-- 	<span id="right"> -->

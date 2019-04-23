@@ -15,8 +15,8 @@
 	#boardListContainer #no {
 		width: 150px;
 	}
-	#boardListContainer .title{
-		width: 520px;
+	#boardListContainer .boardTitle{
+		width: 530px;
 		
 	}
 	#boardListContainer #writer{
@@ -30,7 +30,7 @@
 		font-size: 14px;
 		
 	}
-	#boardListContainer .title {
+	#boardListContainer .boardTitle {
 		text-align: left;
 	}
 	#boardListContainer #top td{
@@ -38,7 +38,7 @@
 		font-size: 15px;
 		
 	}
-	#boardListContainer #top .title{
+	#boardListContainer #top .boardTitle{
 		text-align: center;
 	}
 	
@@ -74,8 +74,8 @@
 		margin-left: 750px;
 	}
 	
-	#center #write{
-		margin-left: 300px;
+	#center .write{
+		
 	}
 	
 	#boardListContainer > button{
@@ -118,7 +118,7 @@
 		</tr>
 		<tr id="top">
 			<td id="no">번호</td>
-			<td class="title">제목</td>
+			<td class="boardTitle">제목</td>
 			<td id="writer">작성자</td>
 			<td id="createDate">작성일</td>
 		</tr>
@@ -147,11 +147,13 @@
 				value="${keyword}">
 		</form>
 	
-		<button id="before" onclick="href.location=''">메인화면으로</button>
 		<c:if test="${_memberVo_ != null}">
-			<button id="write" onclick="location.href='add.do'">글쓰기</button>
+			<button class="write" onclick="location.href='add.do'">글쓰기</button>
 		</c:if>
-	
+		<c:if test="${_memberVo_ == null}">
+			<button class="write" type="button" onclick="location.href='../auth/login.do'">글쓰기</button>
+		</c:if>
+		
 	<jsp:include page="../Tail.jsp"/>
 		
 	</div>	
