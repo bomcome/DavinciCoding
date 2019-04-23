@@ -11,7 +11,7 @@ public class CommentVo {
 	String contents;
 	Date createDate;
 	Date modifiedDate;
-	
+	int rowNum;
 	
 	
 	public CommentVo() {
@@ -31,6 +31,7 @@ public class CommentVo {
 		this.modifiedDate = modifiedDate;
 	}
 
+	
 
 	public int getCommentNo() {
 		return commentNo;
@@ -99,6 +100,16 @@ public class CommentVo {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
 	}
 	
 	
