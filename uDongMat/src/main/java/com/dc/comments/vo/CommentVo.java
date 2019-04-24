@@ -11,12 +11,31 @@ public class CommentVo {
 	String contents;
 	Date createDate;
 	Date modifiedDate;
-	
-	
+	int rowNum;
+	int parentCommentNo;
 	
 	public CommentVo() {
 		super();
 	}
+
+
+	
+	
+	public CommentVo(int commentNo, int boardNo, int memberNo, String nickname, String contents, Date createDate,
+			Date modifiedDate, int rowNum, int parentCommentNo) {
+		super();
+		this.commentNo = commentNo;
+		this.boardNo = boardNo;
+		this.memberNo = memberNo;
+		this.nickname = nickname;
+		this.contents = contents;
+		this.createDate = createDate;
+		this.modifiedDate = modifiedDate;
+		this.rowNum = rowNum;
+		this.parentCommentNo = parentCommentNo;
+	}
+
+
 
 
 	public CommentVo(int commentNo, int boardNo, int memberNo, String nickname, String contents, Date createDate,
@@ -31,6 +50,7 @@ public class CommentVo {
 		this.modifiedDate = modifiedDate;
 	}
 
+	
 
 	public int getCommentNo() {
 		return commentNo;
@@ -99,6 +119,16 @@ public class CommentVo {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
 	}
 	
 	

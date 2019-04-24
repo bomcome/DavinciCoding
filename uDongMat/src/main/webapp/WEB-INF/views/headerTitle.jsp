@@ -46,6 +46,10 @@
  		
 	}
 	
+	#header1 #titleTag >a{
+		color: black;
+	}
+	
 /* 	#header #right{ */
 /* 		margin-left: 370px; */
 /* 	} */

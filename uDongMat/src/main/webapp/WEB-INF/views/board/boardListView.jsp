@@ -111,7 +111,7 @@
 					<form action="./list.do" method="get" id="formTag">	
 						<div>
 							<input type="text" name="keyword" value="${keyword}">
-							<input type="submit" value="검색">
+							<input type="submit" value="검색" style="display: none;">
 						</div>
 					</form>
 			</td>

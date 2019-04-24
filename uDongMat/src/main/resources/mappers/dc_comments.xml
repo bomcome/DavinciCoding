@@ -8,6 +8,7 @@
 		<id column="COMMENT_NO" property="commentNo" />
 		<result column="BOARD_NO" property="boardNo" />
 		<result column="MEMBER_NO" property="memberNo" />
+		<result column="PARENTCOMMENT_NO" property="parentCommentNo" />
 		<result column="CONTENTS" property="contents" />
 		<result column="CRE_DATE" property="createDate"
 			javaType="java.util.Date" />
@@ -19,14 +20,16 @@
 	
 	<select id="commentSelectList" parameterType="int"
 		resultMap="commentsResultMap">
-		SELECT ROWNUM, COMMENT_NO, BOARD_NO, MEMBER_NO, NICKNAME, CONTENTS, CRE_DATE, MOD_DATE
+		SELECT ROWNUM, COMMENT_NO, BOARD_NO, MEMBER_NO, PARENTCOMMENT_NO, NICKNAME, CONTENTS, CRE_DATE, MOD_DATE
 		FROM
 		(
-		    SELECT C.COMMENT_NO AS COMMENT_NO, C.BOARD_NO AS BOARD_NO, C.MEMBER_NO AS MEMBER_NO
+		    SELECT C.COMMENT_NO AS COMMENT_NO, C.BOARD_NO AS BOARD_NO, C.MEMBER_NO AS MEMBER_NO, C.PARENTCOMMENT_NO
 		        , M.NICKNAME AS NICKNAME, C.CONTENTS AS CONTENTS, C.CRE_DATE AS CRE_DATE, C.MOD_DATE AS MOD_DATE
-		    FROM COMMENTS C, BOARD B, MEMBERS M
+		    FROM COMMENTS C, BOARD B, MEMBERS M, COMMENTS C2 
 		    WHERE C.BOARD_NO = B.BOARD_NO
 		    AND M.MEMBER_NO = C.MEMBER_NO
+		    AND C.PARENTCOMMENT_NO = C2.PARENTCOMMENT_NO
+		    AND C.PARENTCOMMENT_NO = #{parentCommentNo}
 		    AND B.BOARD_NO = #{boardNo}
 		    ORDER BY C.COMMENT_NO DESC
 		)

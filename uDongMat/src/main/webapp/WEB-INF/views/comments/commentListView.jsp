@@ -40,13 +40,15 @@
 	}
 	
 	
-	.commentUpdateContainer .commentUpdateForm #contents {
+	.commentUpdateContainer .commentUpdateForm #commentContentsUpdate {
 		width: 1020px;
 		resize: none;
 	}
 	.commentUpdateContainer {
-		margin-top: 10px;
 		margin-left: 80px;
+	}
+	.commentContentsTextarea{
+		width:300px;overflow:visible;
 	}
 	
 </style>
@@ -56,9 +58,57 @@
 		
 	}	
 	
-	function commentUpdateFnc() {
-		$('.commentUpdateContainer').show();
+	function commentUpdateFnc(rowNum) {
+		var rowNum = rowNum - 1;
+		
+		var commentDivObj = document.getElementsByClassName("commentUpdateContainer")[rowNum];
+		commentDivObj.style.display = 'inline';
+		
+		var commentSpanObj = document.getElementsByClassName("commentContentsSpan")[rowNum];
+		commentSpanObj.style.display = 'none';
+// 		$('.commentUpdateContainer').show();
+		
+		var commentButtonObj = document.getElementsByClassName("updateButton")[rowNum];
+		commentButtonObj.style.display = 'none';
 	}
+	
+	function commentCancelFnc(rowNum) {
+		var rowNum = rowNum - 1;
+		
+		var commentDivObj = document.getElementsByClassName("commentUpdateContainer")[rowNum];
+		commentDivObj.style.display = 'none';
+		
+		var commentSpanObj = document.getElementsByClassName("commentContentsSpan")[rowNum];
+		commentSpanObj.style.display = 'inline';
+// 		$('.commentUpdateContainer').show();
+		var commentButtonObj = document.getElementsByClassName("updateButton")[rowNum];
+		commentButtonObj.style.display = 'inline';
+	}
+
+	function commentUpdateRegisterFnc(rowNum) {
+		
+		var rowNum = rowNum - 1;
+		
+		var commentContentsUpdateObj = document.getElementsByClassName("commentContentsUpdate")[rowNum];
+		var commentContentsUpdateVal = commentContentsUpdate.value;
+		
+		var commentUpdateFormObj = document.getElementsByClassName("commentUpdateForm")[rowNum];
+		
+		if(commentContentsUpdateVal == ''){
+			commentContentsUpdateObj.focus();
+		}else{
+			commentUpdateFormObj.submit();
+		}
+	
+	}
+	
+// 	window.onload = function()
+// 	{
+// 	    var tarArr = document.getElementsByClassName("commentContentsSpan").document.getElementsByTagName('textarea');
+// 	    for(var i=0; i<tarArr.length; i++) {
+// 	    	tarArr[i].style.height = tarArr[i].scrollHeight; 
+// 	    }
+// 	}
 </script>
 
 		<div id=commentListContainer>
@@ -68,7 +118,7 @@
 			<c:forEach var="commentVo" items="${commentList}">
 				<table>
 				
-					<tr>
+				 	<tr>
 						<td class="commentFirstTd">
 							<input type="hidden" name="commentNo" value="${commentVo.commentNo}">
 							<input type="hidden" name="boardNo" value="${commentVo.boardNo}">
@@ -77,7 +127,7 @@
 							<span class="commentSpan">
 							
 							<c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">
-								<input type="button" value="수정" onclick="commentUpdateFnc();">
+								<input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${commentVo.rowNum});">
 								<button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
 							</c:if>
 							</span>
@@ -85,15 +135,19 @@
 					</tr>	
 					<tr>
 						<td class="commentsContents">
-							<span>${commentVo.contents}</span>
+							<span class="commentContentsSpan">
+								<textarea class="commentContentsTextarea" id="contents" style="border: none; height: 50px;" class="contents" name="contents" readonly="readonly" onkeyup='this.style.height = this.scrollHeight'>
+									${commentVo.contents}
+								</textarea></span>
 							<div class="commentUpdateContainer" style="display: none;">
-								${commentVo.boardNo}여긴 commentListView
 								<form class="commentUpdateForm" action="../comment/updateCtr.do" method="post">
 									<input type="hidden" id="commentNo" class="commentNo" name="commentNo" value="${commentVo.commentNo}">
 									<input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${commentVo.boardNo}">
 						 			<input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
-									<textarea id="contents" class="contents" name="contents"  rows="2">${commentVo.contents}</textarea>
-									<div><input type="submit" value="등록"></div>
+									<textarea id="commentContentsUpdate" class="commentContentsUpdate" name="contents"  rows="3">${commentVo.contents}</textarea>
+									<div><input type="button" onclick="commentUpdateRegisterFnc(${commentVo.rowNum})" value="등록">
+										<input type="button" onclick="commentCancelFnc(${commentVo.rowNum});" value="취소">
+									</div>
 								</form>
 							</div>
 <%-- 							<jsp:include page="../comments/commentUpdateForm.jsp"> --%>
