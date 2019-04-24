@@ -130,6 +130,20 @@ public class CommentVo {
 	public void setRowNum(int rowNum) {
 		this.rowNum = rowNum;
 	}
+
+
+
+
+	public int getParentCommentNo() {
+		return parentCommentNo;
+	}
+
+
+
+
+	public void setParentCommentNo(int parentCommentNo) {
+		this.parentCommentNo = parentCommentNo;
+	}
 	
 	
 	
