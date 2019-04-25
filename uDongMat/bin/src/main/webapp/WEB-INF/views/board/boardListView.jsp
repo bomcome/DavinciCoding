@@ -13,27 +13,18 @@
  	}
  	
 	#boardListContainer #no {
-		width: 100px;
+		width: 150px;
 	}
 	#boardListContainer .boardTitle{
-		width: 470px;
+		width: 530px;
 		
 	}
 	#boardListContainer #writer{
-		width: 170px;
+		width: 230px;
 	}
 	#boardListContainer #createDate{
 		width: 200px;
 	}
-	
-	#boardListContainer #hitsTd{
-		width: 90px;
-	}
-	
-	#boardListContainer #resommendCountTd{
-		width: 90px;
-	}
-	
 	#boardListContainer td {
 		text-align: center;
 		font-size: 14px;
@@ -70,7 +61,6 @@
 	}
 	#boardListContainer input {
 		margin-top: 8px;
-		width: 250px;
 	}
 	#boardListContainer {
 		width: 1920px;
@@ -116,7 +106,7 @@
 	
 	<table id="board">
 		<tr>
-			<td id="boardInput" colspan="6">
+			<td id="boardInput" colspan="4">
 				<span id="freeBoard">우동맛게시판(${totalCount})</span>
 					<form action="./list.do" method="get" id="formTag">	
 						<div>
@@ -131,8 +121,6 @@
 			<td class="boardTitle">제목</td>
 			<td id="writer">작성자</td>
 			<td id="createDate">작성일</td>
-			<td id="hitsTd">조회수</td>
-			<td id="resommendCountTd">추천수</td>
 		</tr>
 		
 		<c:forEach var="boardVo" items="${boardList}">
@@ -143,8 +131,6 @@
 				</td>
 				<td>${boardVo.nickname}</td>
 				<td>${boardVo.createDate}</td>
-				<td>${boardVo.hits}</td>
-				<td>${boardVo.recommendCount}</td>
 			</tr>
 		</c:forEach>
 	</table>

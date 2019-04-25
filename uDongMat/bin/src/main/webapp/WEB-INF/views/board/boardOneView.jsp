@@ -66,15 +66,6 @@
 	#boardOne #inputForm #right > span > span{
 	font-weight: bold;
 	}
-	
-	#recommendButtonsDiv{
-	text-align: right;
-	width: 1920px;
-	}
-	
-	#recommendButtonsDiv #recommendButtonsSpan{
-	margin-right: 430px;
-	}
 </style>
 <title>Insert title here</title>
 </head>
@@ -101,17 +92,10 @@
 			</c:if>	
 	<!-- 		<button type="button" onclick="">답글쓰기</button> -->
 		</div>
+		
+		
 	</form>
-	<div id="recommendButtonsDiv">
-	<form action="../recommend/addCtr.do" method="post">
-		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
-		<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
-		<span id="recommendButtonsSpan">
-			<button type="submit" id="recommendAddButton">추천${boardVo.recommendCount}</button>
-			<input type="button" id="recommendDeleteButton" onclick="location.href='../recommend/delete.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${boardVo.recommendCount}">
-		</span>	
-	</form>
-	</div>
+	
 	<jsp:include page="../comments/commentListView.jsp"/>
 	<jsp:include page="../comments/commentAddForm.jsp"/>
 	

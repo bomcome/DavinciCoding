@@ -8,7 +8,7 @@
 		<id column="COMMENT_NO" property="commentNo" />
 		<result column="BOARD_NO" property="boardNo" />
 		<result column="MEMBER_NO" property="memberNo" />
-		<result column="PARENT_COMMENT_NO" property="parentCommentNo" />
+		<result column="PARENTCOMMENT_NO" property="parentCommentNo" />
 		<result column="CONTENTS" property="contents" />
 		<result column="PAR_NICKNAME" property="parentNickname" />
 		<result column="PAR_CONTENTS" property="parentContents" />
@@ -82,10 +82,10 @@
 
 	<select id="commentSelectList" parameterType="int"
 		resultMap="commentsResultMap">
-		SELECT ROWNUM, COMMENT_NO, BOARD_NO, MEMBER_NO, PARENT_COMMENT_NO, NICKNAME, CONTENTS, 
+		SELECT ROWNUM, COMMENT_NO, BOARD_NO, MEMBER_NO, PARENTCOMMENT_NO, NICKNAME, CONTENTS, 
 		    PAR_COMMENT_NO, PAR_NICKNAME, PAR_CONTENTS, CRE_DATE, MOD_DATE, RECOMMEND_COUNT
 		FROM
-		    (SELECT C2.COMMENT_NO, C2.BOARD_NO, C2.MEMBER_NO, C2.PARENT_COMMENT_NO, M2.NICKNAME, C2.CONTENTS,  
+		    (SELECT C2.COMMENT_NO, C2.BOARD_NO, C2.MEMBER_NO, C2.PARENTCOMMENT_NO, M2.NICKNAME, C2.CONTENTS,  
 		    	R.COMMENT_NO AS PAR_COMMENT_NO, R.NICKNAME AS PAR_NICKNAME, R.CONTENTS AS PAR_CONTENTS, 
 		    	C2.CRE_DATE, C2.MOD_DATE, C2.RECOMMEND_COUNT AS RECOMMEND_COUNT
 		        FROM
@@ -97,7 +97,7 @@
 		            AND M.MEMBER_NO = C.MEMBER_NO
 		            ORDER BY C.COMMENT_NO DESC
 		        )R RIGHT JOIN COMMENTS C2 
-		      ON R.COMMENT_NO = C2.PARENT_COMMENT_NO
+		      ON R.COMMENT_NO = C2.PARENTCOMMENT_NO
 		       JOIN MEMBERS M2
 		     ON C2.MEMBER_NO = M2.MEMBER_NO
 		     WHERE C2.BOARD_NO = #{board_no}
@@ -131,7 +131,7 @@
 		</selectKey>
 		
 		INSERT INTO COMMENTS
-		(COMMENT_NO, BOARD_NO, MEMBER_NO, PARENT_COMMENT_NO, CONTENTS, CRE_DATE, MOD_DATE, RECOMMEND_COUNT)
+		(COMMENT_NO, BOARD_NO, MEMBER_NO, PARENTCOMMENT_NO, CONTENTS, CRE_DATE, MOD_DATE, RECOMMEND_COUNT)
 		VALUES(#{commentNo}, #{boardNo}, #{memberNo}, #{parentCommentNo}, #{contents}, SYSDATE, SYSDATE, 0)
 	</insert>
 	

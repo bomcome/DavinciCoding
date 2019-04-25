@@ -8,100 +8,107 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 수정</title>
-
+	
 <script type="text/javascript" 
-	src="/springHome/resources/js/jquery-3.3.1.js"></script>
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 	
-	$(document).ready(function(){
-		$("a[id^='delete']").on("click", function(e){ //삭제 버튼 
-			e.preventDefault();
-			deleteFile($(this));
-		});
-	});
-	
-	function pageMoveDeleteFnc(mno){
-		var url = 'deleteCtr.do?mno=' + mno;
+	function pageMoveDeleteFnc(memberNo){
+		var url = 'deleteCtr.do?memberNo=' + memberNo;
 		location.href = url;
 	}
 	
-	function pageMoveBeforeFnc(no){
-		var url = 'listOne.do?no=' + no;
+	function pageMoveBeforeFnc(memberNo){
+		var url = 'listOne.do?memberNo=' + memberNo;
 		location.href = url;
 	}
+	function memberUpdateFnc(){
 	
-	function deleteFile(obj){
-		obj.parent().remove();
-	}
-	
-	function addFileFnc(){
-		var obj = $('#fileContent');
+		var updateFormObj = document.getElementById("updateForm");
+		var passwordVal = document.getElementById('password');
+		var passwordChkVal = document.getElementById('passwordChk');
 		
-		var htmlStr = "";
 		
-		htmlStr += '<div>';
-		htmlStr += '<input type="hidden" id="fileIdx" name="fileIdx" value="">';
-		htmlStr += '<input type="file" id="file0" name="file0">';		
-		htmlStr += '<a href="#this" id="delete0">삭제</a><br>';
-		htmlStr += '</div>';
+			if (passwordVal.value == '') {
+				alert('비밀번호를 입력하세요!');
+				passwordVal.focus();
+				
+				return;
+			}
+			else if (passwordChkVal.value == '') {
+				alert('비밀번호 확인을 입력하세요!');
+				passwordChkVal.focus();
+				return;
 			
-		obj.html(htmlStr);
-		
-		$("a[id^='delete']").on("click", function(e){ //삭제 버튼 
-			e.preventDefault();
-			deleteFile($(this));
-		});
+			}else if (passwordVal.value != passwordChkVal.value) {
+				alert('비밀번호가 틀립니다.\n다시 확인하세요!!');
+				
+				return;
+			}else{
+				var r = confirm("정말로 수정하시겠습니다??")
+				if(r == true){
+					
+					updateFormObj.submit();
+				} 
+				else{
+					return;
+				}
+			}
 	}
 	
 </script>
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+
+	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
 	
-	<h1>회원정보</h1>
-
-	<form action="./updateCtr.do" method="post" enctype="multipart/form-data">
-		<input type="hidden" name='no' value='${memberVo.no}'>
-		이름: <input type="text" name='name' id='memberName' 
-			value='${memberVo.name}'><br>
-		이메일: <input type="text" name="email" 
-			value='${memberVo.email}'><br>
-		비밀번호: <input type="password" name="password" 
-			value='' required="required"><br>
-		
-		첨부파일:
-		<div id="fileContent">
-			<div>
-			<c:choose>
-				<c:when test="${empty fileList}">
-					<input type="hidden" id="fileIdx" name="fileIdx" value="">
-					<input type="file" id="file0" name="file0">		
-					<a href="#this" id="delete0" onclick="addFileFnc();">삭제</a><br>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="row" items="${fileList}" varStatus="obj">
-					<input type="hidden" id="fileIdx_${obj.index}" name="fileIdx" value="${row.IDX}">
-					<img alt="image not found" style="width: 130px; height: 130px;"
-						 src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
-					${row.ORIGINAL_FILE_NAME} <input type="file" id="file_${obj.index}" name="file_${obj.index}">
-					(${row.FILE_SIZE}kb) <a href="#this" id="delete_${obj.index}">삭제</a><br>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-			</div>
-		</div>
-		가입일: <fmt:formatDate value="${memberVo.createDate}" 
-				pattern="yyyy-MM-dd"/><br>
+	<br/>
+	<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
+	<div id="member">
+		<form action="./updateCtr.do" id="updateForm" method="post" enctype="multipart/form-data">
+			<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
 			
-		<input type="button" value="파일추가" onclick="addFileFnc();">
-		<input type="submit" value="저장하기">
-		<input type="button" value='삭제하기' 
-			onclick="pageMoveDeleteFnc(${memberVo.no});">
-		<input type="button" value="뒤로가기" 
-			onclick="pageMoveBeforeFnc(${memberVo.no});">
-	</form>
-
+			<div style="text-align: left; padding-left: 70px;">
+			
+				이메일<br/>
+				<input type="text" name="email" value='${memberVo.email}' readonly="readonly" tabindex="-1"
+				style="color:#808080; background-color: #ffff;" onfocus="this.blur();"><br/>
+				<br/>	
+				
+				닉네임 <br/>
+				<input type="text" name='nickName' id='nickName' 
+					value='${memberVo.nickName}'><br/>
+				<br/>	
+				
+				비밀번호<br/>
+				 <input type="password" name="password" id="password"
+					value='' required="required"><br/>
+				<br/>
+					
+				비밀번호 확인<br/>
+				 <input type="password" name="passwordChk" id="passwordChk"
+					value='' required="required"><br/>
+				<br/>
+				
+			</div>
+				
+			<input type="button" class="memberInput" onclick="memberUpdateFnc();" value="수정하기"><br/>
+			
+			<br/>
+			
+			<input type="button" class="memberInput" value="수정취소" 
+				onclick="pageMoveBeforeFnc(${memberVo.memberNo});"><br/>
+		</form>
+	</div>
+	
+	<br/>
+	</c:if>
+	<c:if test="${sessionScope._memberVo_.memberNo != memberVo.memberNo}">
+		해커는 꺼져라
+	</c:if>
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 
 </body>
