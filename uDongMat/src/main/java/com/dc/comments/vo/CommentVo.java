@@ -13,6 +13,9 @@ public class CommentVo {
 	Date modifiedDate;
 	int rowNum;
 	int parentCommentNo;
+	String parentNickname;
+	String parentContents;
+	int recommendCount;
 	
 	public CommentVo() {
 		super();
@@ -21,19 +24,19 @@ public class CommentVo {
 
 	
 	
-	public CommentVo(int commentNo, int boardNo, int memberNo, String nickname, String contents, Date createDate,
-			Date modifiedDate, int rowNum, int parentCommentNo) {
-		super();
-		this.commentNo = commentNo;
-		this.boardNo = boardNo;
-		this.memberNo = memberNo;
-		this.nickname = nickname;
-		this.contents = contents;
-		this.createDate = createDate;
-		this.modifiedDate = modifiedDate;
-		this.rowNum = rowNum;
-		this.parentCommentNo = parentCommentNo;
-	}
+//	public CommentVo(int commentNo, int boardNo, int memberNo, String nickname, String contents, Date createDate,
+//			Date modifiedDate, int rowNum, int parentCommentNo) {
+//		super();
+//		this.commentNo = commentNo;
+//		this.boardNo = boardNo;
+//		this.memberNo = memberNo;
+//		this.nickname = nickname;
+//		this.contents = contents;
+//		this.createDate = createDate;
+//		this.modifiedDate = modifiedDate;
+//		this.rowNum = rowNum;
+//		this.parentCommentNo = parentCommentNo;
+//	}
 
 
 
@@ -51,6 +54,46 @@ public class CommentVo {
 	}
 
 	
+
+	public CommentVo(int commentNo, int boardNo, int memberNo, String nickname, String contents, Date createDate,
+			Date modifiedDate, int rowNum, int parentCommentNo, String parentNickname, String parentContents) {
+		super();
+		this.commentNo = commentNo;
+		this.boardNo = boardNo;
+		this.memberNo = memberNo;
+		this.nickname = nickname;
+		this.contents = contents;
+		this.createDate = createDate;
+		this.modifiedDate = modifiedDate;
+		this.rowNum = rowNum;
+		this.parentCommentNo = parentCommentNo;
+		this.parentNickname = parentNickname;
+		this.parentContents = parentContents;
+	}
+
+	
+
+
+	public CommentVo(int commentNo, int boardNo, int memberNo, String nickname, String contents, Date createDate,
+			Date modifiedDate, int rowNum, int parentCommentNo, String parentNickname, String parentContents,
+			int recommendCount) {
+		super();
+		this.commentNo = commentNo;
+		this.boardNo = boardNo;
+		this.memberNo = memberNo;
+		this.nickname = nickname;
+		this.contents = contents;
+		this.createDate = createDate;
+		this.modifiedDate = modifiedDate;
+		this.rowNum = rowNum;
+		this.parentCommentNo = parentCommentNo;
+		this.parentNickname = parentNickname;
+		this.parentContents = parentContents;
+		this.recommendCount = recommendCount;
+	}
+
+
+
 
 	public int getCommentNo() {
 		return commentNo;
@@ -143,6 +186,48 @@ public class CommentVo {
 
 	public void setParentCommentNo(int parentCommentNo) {
 		this.parentCommentNo = parentCommentNo;
+	}
+
+
+
+
+	public String getParentNickname() {
+		return parentNickname;
+	}
+
+
+
+
+	public void setParentNickname(String parentNickname) {
+		this.parentNickname = parentNickname;
+	}
+
+
+
+
+	public String getParentContents() {
+		return parentContents;
+	}
+
+
+
+
+	public void setParentContents(String parentContents) {
+		this.parentContents = parentContents;
+	}
+
+
+
+
+	public int getRecommendCount() {
+		return recommendCount;
+	}
+
+
+
+
+	public void setRecommendCount(int recommendCount) {
+		this.recommendCount = recommendCount;
 	}
 	
 	

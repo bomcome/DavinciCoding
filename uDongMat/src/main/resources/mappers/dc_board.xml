@@ -12,7 +12,9 @@
 		<result column="CRE_DATE" property="createDate"
 			javaType="java.util.Date" />
 		<result column="MOD_DATE" property="modifiedDate"
-			javaType="java.util.Date" /> 
+			javaType="java.util.Date" />
+		<result column="RECOMMEND_COUNT" property="recommendCount" />
+		<result column="HITS" property="hits" />
 	</resultMap>
 
 	
@@ -34,13 +36,15 @@
 	
 	<select id="boardSelectList" parameterType="map"
 		resultMap="boardResultMap">
-		SELECT BOARD_NO, TITLE, NICKNAME, CRE_DATE
+		SELECT BOARD_NO, TITLE, NICKNAME, CRE_DATE, RECOMMEND_COUNT, HITS
 		FROM(
-		    SELECT ROWNUM AS RNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE
-				FROM (SELECT B.BOARD_NO AS BOARD_NO, B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE
-				        FROM BOARD B, MEMBERS M
-				        WHERE B.MEMBER_NO = M.MEMBER_NO
-				        ORDER BY B.BOARD_NO DESC)
+		    SELECT ROWNUM AS RNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE, RECOMMEND_COUNT, HITS
+				FROM (SELECT B.BOARD_NO AS BOARD_NO, B.CONTENTS AS CONTENTS, B.TITLE AS TITLE
+					, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE
+					, B.RECOMMEND_COUNT AS RECOMMEND_COUNT, B.HITS AS HITS
+				      FROM BOARD B, MEMBERS M
+				      WHERE B.MEMBER_NO = M.MEMBER_NO
+				      ORDER BY B.BOARD_NO DESC)
 				WHERE TITLE LIKE '%'||#{keyword}||'%'
 				OR CONTENTS LIKE '%'||#{keyword}||'%'
 				OR NICKNAME LIKE '%'||#{keyword}||'%'
@@ -77,8 +81,8 @@
 		</selectKey>
 		
 		INSERT INTO BOARD
-		(BOARD_NO, MEMBER_NO, TITLE, CONTENTS, CRE_DATE, MOD_DATE)
-		VALUES(#{boardNo}, #{memberNo}, #{title}, #{contents}, SYSDATE, SYSDATE)
+		(BOARD_NO, MEMBER_NO, TITLE, CONTENTS, CRE_DATE, MOD_DATE, RECOMMEND_COUNT, HITS)
+		VALUES(#{boardNo}, #{memberNo}, #{title}, #{contents}, SYSDATE, SYSDATE, 0, 0)
 	</insert>
 	
 

@@ -33,7 +33,7 @@
 		margin-left: 380px;
 	}
 	#commentListContainer #commentTable{
-	
+		
 	}
 	#commentListContainer table .commentCreDate{
 		margin-left: 20px;
@@ -48,15 +48,28 @@
 		margin-left: 80px;
 	}
 	.commentContentsTextarea{
-		width:300px;overflow:visible;
+		width:1100px;
+		text-align: left;
+		
+	}
+	#commentListContainer .commentReceiver{
+		font-weight: bold;
+		color: gray;
+		font-size: 14px;
+	}
+	
+	.cocommentContents{
+		width:1100px;
 	}
 	
 </style>
 <script type="text/javascript">
 	window.onload = function(){
 		var divObj = document.getElementById('commentUpdateContainer');
-		
+		var divObj2 = document.getElementById('cocommentAddContainer');
 	}	
+	
+	
 	
 	function commentUpdateFnc(rowNum) {
 		var rowNum = rowNum - 1;
@@ -102,6 +115,73 @@
 	
 	}
 	
+	
+	
+	function cocommentAddFnc(rowNum) {
+		var rowNum = rowNum - 1;
+		
+		var commentDivObj = document.getElementsByClassName("cocommentAddContainer")[rowNum];
+		commentDivObj.style.display = 'inline';
+		
+// 		var commentSpanObj = document.getElementsByClassName("cocommentContentsSpan")[rowNum];
+// 		commentSpanObj.style.display = 'none';
+// 		$('.commentUpdateContainer').show();
+		
+		var commentButtonObj = document.getElementsByClassName("cocommentButton")[rowNum];
+		commentButtonObj.style.display = 'none';
+	}
+	
+	function cocommentAddCancelFnc(rowNum) {
+		var rowNum = rowNum - 1;
+		
+		var commentDivObj = document.getElementsByClassName("cocommentAddContainer")[rowNum];
+		commentDivObj.style.display = 'none';
+		
+// 		var commentSpanObj = document.getElementsByClassName("cocommentContentsSpan")[rowNum];
+// 		commentSpanObj.style.display = 'inline';
+// 		$('.commentUpdateContainer').show();
+		var commentButtonObj = document.getElementsByClassName("cocommentButton")[rowNum];
+		commentButtonObj.style.display = 'inline';
+	}
+	
+	function cocommentRegisterFnc(rowNum) {
+		var rowNum = rowNum - 1;
+		var cocommentContentsObj = document.getElementsByClassName('cocommentContents')[rowNum];
+		var cocommentContentsVal = cocommentContentsObj.value;
+		
+		var cocommentAddFormObj = document.getElementsByClassName('cocommentAddForm')[rowNum];
+		
+		if(cocommentContentsVal == ''){
+			cocommentContentsObj.focus();
+		}else{
+			cocommentAddFormObj.submit();
+		}
+	
+	}
+	
+	
+	function showParentContentsFnc(rowNum) {
+		var rowNum = rowNum - 1;
+		
+		var commentContentsDivObj = document.getElementsByClassName("commentsContents")[rowNum];
+		
+		var parentCommentContentsDivObj = commentContentsDivObj.getElementsByClassName("parentCommentContentsDiv")[0];
+		parentCommentContentsDivObj.style.display = 'inline';
+		
+// 		var commentSpanObj = document.getElementsByClassName("cocommentContentsSpan")[rowNum];
+// 		commentSpanObj.style.display = 'none';
+// 		$('.commentUpdateContainer').show();
+		
+// 		var commentButtonObj = document.getElementsByClassName("cocommentButton")[rowNum];
+// 		commentButtonObj.style.display = 'none';
+		
+	}
+	
+	
+	
+	
+	
+	
 // 	window.onload = function()
 // 	{
 // 	    var tarArr = document.getElementsByClassName("commentContentsSpan").document.getElementsByTagName('textarea');
@@ -130,26 +210,57 @@
 								<input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${commentVo.rowNum});">
 								<button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
 							</c:if>
+							<c:if test="${_memberVo_ != null}">
+								<input class="cocommentButton" type="button" value="답글" onclick="cocommentAddFnc(${commentVo.rowNum});">
+							</c:if>
+							<c:if test="${_memberVo_ == null}">
+								<button type="button" onclick="location.href='../auth/login.do'">답글</button>
+							</c:if>
 							</span>
+							<span>${commentVo.recommendCount}</span>
 						</td>
 					</tr>	
 					<tr>
 						<td class="commentsContents">
+							<span class="commentReceiver">
+							<c:if test="${commentVo.parentCommentNo != 0 && commentVo.parentCommentNo != null}">
+								TO. <button type="button" onclick="showParentContentsFnc(${commentVo.rowNum})" style="border: none;">${commentVo.parentNickname}</button>
+								<div class="parentCommentContentsDiv" style="display: none;">
+									${commentVo.parentContents}
+								</div>
+							</c:if>
+							</span>
+							
 							<span class="commentContentsSpan">
-								<textarea class="commentContentsTextarea" id="contents" style="border: none; height: 50px;" class="contents" name="contents" readonly="readonly" onkeyup='this.style.height = this.scrollHeight'>
-									${commentVo.contents}
-								</textarea></span>
+								<textarea class="commentContentsTextarea" id="commentContentsTextarea" 
+								style="border: none;"  name="contents" readonly="readonly">${commentVo.contents}</textarea></span>
 							<div class="commentUpdateContainer" style="display: none;">
 								<form class="commentUpdateForm" action="../comment/updateCtr.do" method="post">
 									<input type="hidden" id="commentNo" class="commentNo" name="commentNo" value="${commentVo.commentNo}">
 									<input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${commentVo.boardNo}">
 						 			<input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
 									<textarea id="commentContentsUpdate" class="commentContentsUpdate" name="contents"  rows="3">${commentVo.contents}</textarea>
-									<div><input type="button" onclick="commentUpdateRegisterFnc(${commentVo.rowNum})" value="등록">
+									<div>
+										<input type="button" onclick="commentUpdateRegisterFnc(${commentVo.rowNum})" value="등록">
 										<input type="button" onclick="commentCancelFnc(${commentVo.rowNum});" value="취소">
 									</div>
 								</form>
 							</div>
+							<div class="cocommentAddContainer" style="display: none;">
+								<div class="cocommentAddLetter">답글쓰기</div>
+								<form class="cocommentAddForm" action="../comment/addCtr.do" method="post">
+									<input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${boardVo.boardNo}">
+									<input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
+									<input type="hidden" id="parentCommentNo" class="parentCommentNo" name="parentCommentNo" value="${commentVo.commentNo}">
+									
+									<textarea id="cocommentContents" class="cocommentContents" name="contents"></textarea>
+									<div>
+										<input  type="button" onclick="cocommentRegisterFnc(${commentVo.rowNum});" value="등록">
+										<input type="button" onclick="cocommentAddCancelFnc(${commentVo.rowNum});" value="취소">
+										
+									</div>
+								</form>
+						</div>
 <%-- 							<jsp:include page="../comments/commentUpdateForm.jsp"> --%>
 <%-- 								<jsp:param value="${commentVo}" name="commentVoTest"/> --%>
 <%-- 							</jsp:include> --%>
