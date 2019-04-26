@@ -122,7 +122,7 @@
 		AND C.COMMENT_NO = #{commentNo}
 	</select>
 	
-	
+	 
 	<insert id="commentInsertOne" 
 		parameterType= "boardVo"
 		useGeneratedKeys="true" keyProperty="commentNo">
