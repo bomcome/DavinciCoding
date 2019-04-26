@@ -66,15 +66,6 @@
 	#boardOne #inputForm #right > span > span{
 	font-weight: bold;
 	}
-	
-	#recommendButtonsDiv{
-	text-align: right;
-	width: 1920px;
-	}
-	
-	#recommendButtonsDiv #recommendButtonsSpan{
-	margin-right: 430px;
-	}
 </style>
 <title>Insert title here</title>
 </head>
@@ -101,29 +92,9 @@
 			</c:if>	
 	<!-- 		<button type="button" onclick="">답글쓰기</button> -->
 		</div>
+		
+		
 	</form>
-	
-	<c:if test="${_memberVo_ != null}">
-		<div id="recommendButtonsDiv">
-		<form action="../recommend/addCtr.do" method="post">
-			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
-			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
-			<span id="recommendButtonsSpan">
-			<c:if test="${recommendVo == null}">
-				<button type="submit" id="recommendAddButton">추천${boardVo.recommendCount}</button>
-			</c:if>
-			<c:if test="${recommendVo != null}">
-				<input type="button" id="recommendDeleteButton" onclick="location.href='../recommend/delete.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${boardVo.recommendCount}">
-			</c:if>
-			</span>	
-		</form>
-		</div>
-	</c:if>
-	<c:if test="${_memberVo_ == null}">
-		<button type="button" onclick="location.href='../auth/login.do'">추천${boardVo.recommendCount}</button>
-	</c:if>
-	
-	
 	
 	<jsp:include page="../comments/commentListView.jsp"/>
 	<jsp:include page="../comments/commentAddForm.jsp"/>

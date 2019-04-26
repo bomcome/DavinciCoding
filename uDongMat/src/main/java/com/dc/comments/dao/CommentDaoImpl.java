@@ -54,4 +54,16 @@ public class CommentDaoImpl implements CommentDao{
 		// TODO Auto-generated method stub
 		sqlSession.delete(namespace +"commentDelete", commentNo);
 	}
+
+	@Override
+	public void commentUpdateRecommendUp(int commentNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace +"commentUpdateRecommendUp", commentNo);
+	}
+
+	@Override
+	public void commentUpdateRecommendDown(int commentNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace +"commentUpdateRecommendDown", commentNo);
+	}
 }

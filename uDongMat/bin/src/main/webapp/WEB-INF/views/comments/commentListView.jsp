@@ -208,8 +208,7 @@
 							
 							<c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">
 								<input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${commentVo.rowNum});">
-								<button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}
-								&boardNo=${commentVo.boardNo}'">삭제</button>
+								<button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
 							</c:if>
 							<c:if test="${_memberVo_ != null}">
 								<input class="cocommentButton" type="button" value="답글" onclick="cocommentAddFnc(${commentVo.rowNum});">
@@ -218,7 +217,7 @@
 								<button type="button" onclick="location.href='../auth/login.do'">답글</button>
 							</c:if>
 							</span>
-							
+							<span>${commentVo.recommendCount}</span>
 						</td>
 					</tr>	
 					<tr>
@@ -236,14 +235,6 @@
 								<textarea class="commentContentsTextarea" id="commentContentsTextarea" 
 								style="border: none;"  name="contents" readonly="readonly">${commentVo.contents}</textarea></span>
 							<div class="commentUpdateContainer" style="display: none;">
-							<form action="../recommend/commentUpCtr" method="post">
-								<input type="hidden" name="commentNo" value="${commentVo.commentNo}">
-								<input type="hidden" name="boardNo" value="${commentVo.boardNo}">
-								<input type="hidden" name="memberNo" value="">
-								<input type="hidden" name="recommendNo" value="">
-								<button type="submit">${commentVo.recommendCount}"</button>
-								<button onclick="location.href='../recommend/commentDownCtr.do?'">${commentVo.recommendCount}</button>
-							</form>
 								<form class="commentUpdateForm" action="../comment/updateCtr.do" method="post">
 									<input type="hidden" id="commentNo" class="commentNo" name="commentNo" value="${commentVo.commentNo}">
 									<input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${commentVo.boardNo}">
@@ -260,8 +251,8 @@
 								<form class="cocommentAddForm" action="../comment/addCtr.do" method="post">
 									<input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${boardVo.boardNo}">
 									<input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
-									<input type="hidden" id="parentCommentNo" class="parentCommentNo" 
-										name="parentCommentNo" value="${commentVo.commentNo}">
+									<input type="hidden" id="parentCommentNo" class="parentCommentNo" name="parentCommentNo" value="${commentVo.commentNo}">
+									
 									<textarea id="cocommentContents" class="cocommentContents" name="contents"></textarea>
 									<div>
 										<input  type="button" onclick="cocommentRegisterFnc(${commentVo.rowNum});" value="등록">

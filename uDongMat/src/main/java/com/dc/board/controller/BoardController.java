@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dc.board.service.BoardService;
 import com.dc.board.vo.BoardVo;
+import com.dc.members.vo.MemberVo;
+import com.dc.recommend.service.RecommendService;
+import com.dc.recommend.vo.RecommendVo;
 import com.dc.util.Paging;
 
 @Controller
@@ -23,6 +26,7 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	private RecommendService recommendService;
 	
 	@RequestMapping(value="/board/list.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String boardList(
@@ -39,7 +43,6 @@ public class BoardController {
 		List<BoardVo> boardList = 
 				boardService.boardSelectList(keyword, start, end);
 		
-		
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("totalCount", totalCount);
 		pagingMap.put("boardPaging", boardPaging);
@@ -54,11 +57,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/one.do", method= {RequestMethod.GET})
-	public String boardOne(Model model, int boardNo, HttpServletRequest req) {
+	public String boardOne(Model model, int boardNo, HttpServletRequest req, HttpSession session) {
 		
 		BoardVo boardVo = boardService.boardSelectOne(boardNo);
 		
 		req.setAttribute("boardVo", boardVo);
+		
+		MemberVo memberVo = (MemberVo)session.getAttribute("_memberVo_");
+		
+		if(memberVo != null) {
+			RecommendVo recommendVo = recommendService.boardRecommendSelectOne(boardNo, memberVo.getMemberNo());
+			model.addAttribute("recommendVo", recommendVo);
+		}
+		
+		
+		
 		
 		return "forward:/comment/list.do";
 		

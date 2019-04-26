@@ -49,4 +49,16 @@ public class CommentServiceImpl implements CommentService{
 		// TODO Auto-generated method stub
 		commentDao.commentDelete(commentNo);
 	}
+
+	@Override
+	public void commentUpdateRecommendUp(int commentNo) {
+		// TODO Auto-generated method stub
+		commentDao.commentUpdateRecommendUp(commentNo);
+	}
+
+	@Override
+	public void commentUpdateRecommendDown(int commentNo) {
+		// TODO Auto-generated method stub
+		commentDao.commentUpdateRecommendDown(commentNo);
+	}
 }

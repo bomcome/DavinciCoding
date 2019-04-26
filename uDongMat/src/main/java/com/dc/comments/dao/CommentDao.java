@@ -13,4 +13,6 @@ public interface CommentDao{
 	public void commentUpdateOne(CommentVo commentVo);
 	public CommentVo commentDetailOne(int commentNo);
 	public void commentDelete(int commentNo);
+	public void commentUpdateRecommendUp(int commentNo);
+	public void commentUpdateRecommendDown(int commentNo);
 }
