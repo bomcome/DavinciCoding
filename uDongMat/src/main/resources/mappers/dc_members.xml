@@ -6,8 +6,8 @@
 
 	<resultMap type="com.dc.members.vo.MemberVo"
 		id="memberResultMap">
-		<id column="member_no" property="memberNo" />
-		<result column="Rownum" property="rownum" />
+		<id column="MEMBER_NO" property="memberNo" />
+		<result column="ROWNUM" property="rownum" />
 		<result column="MEMBER_GRADE" property="memberGrade" />
 		<result column="EMAIL" property="email" />
 		<result column="NICKNAME" property="nickName" />
@@ -20,7 +20,7 @@
 	
 	<!-- 회원 전체보기  -->
 	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
-		SELECT ROWNUM, MEMBER_NO, EMAIL, NICKNAME, CRE_DATsE
+		SELECT ROWNUM, MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
 		FROM MEMBERS
 		WHERE MEMBER_GRADE = 'member'
 		ORDER BY ROWNUM DESC
