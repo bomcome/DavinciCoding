@@ -1,7 +1,6 @@
 package com.dc.board.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.dc.board.vo.BoardVo;
 
@@ -15,4 +14,7 @@ public interface BoardDao {
 //	public int boardTotalCount();
 	
 	public int boardSelectTotalCount(String keyword);
+	
+	
+	
 }

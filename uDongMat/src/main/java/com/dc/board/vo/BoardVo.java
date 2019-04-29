@@ -11,6 +11,9 @@ public class BoardVo {
 	String contents;
 	Date createDate;
 	Date modifiedDate;
+	int recommendCount;
+	int	hits;
+	
 	
 	public BoardVo() {
 		super();
@@ -26,6 +29,22 @@ public class BoardVo {
 		this.contents = contents;
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
+	}
+
+	
+	
+	public BoardVo(int boardNo, int memberNo, String nickname, String title, String contents, Date createDate,
+			Date modifiedDate, int recommendCount, int hits) {
+		super();
+		this.boardNo = boardNo;
+		this.memberNo = memberNo;
+		this.nickname = nickname;
+		this.title = title;
+		this.contents = contents;
+		this.createDate = createDate;
+		this.modifiedDate = modifiedDate;
+		this.recommendCount = recommendCount;
+		this.hits = hits;
 	}
 
 	public int getBoardNo() {
@@ -82,6 +101,22 @@ public class BoardVo {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public int getRecommendCount() {
+		return recommendCount;
+	}
+
+	public void setRecommendCount(int recommendCount) {
+		this.recommendCount = recommendCount;
+	}
+
+	public int getHits() {
+		return hits;
+	}
+
+	public void setHits(int hits) {
+		this.hits = hits;
 	}
 
 	

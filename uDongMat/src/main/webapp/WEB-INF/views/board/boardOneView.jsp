@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,13 @@
 		height: 25px;
 		margin-bottom: 15px;
 		clear: both;
+		font-size: 16px;
+	}
+	
+	#boardOne #contents{
+		font-size: 16px;
+		width: 1105px;
+		resize: none;
 	}
 	
 	#boardOne #inputForm {
@@ -58,6 +66,15 @@
 	#boardOne #inputForm #right > span > span{
 	font-weight: bold;
 	}
+	
+	#recommendButtonsDiv{
+	text-align: right;
+	width: 1920px;
+	}
+	
+	#recommendButtonsDiv #recommendButtonsSpan{
+	margin-right: 430px;
+	}
 </style>
 <title>Insert title here</title>
 </head>
@@ -67,24 +84,53 @@
 	<jsp:include page="../headerButtons.jsp"/>
 	
 	
-		<form id="inputForm" action="./update.do" method="get">
+	<form id="inputForm" action="./update.do" method="get">
+		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
+		<div id="titleLeft">제목</div><div id="right"><span><span>작성자:</span> ${boardVo.nickname}</span><span><span>작성일:</span> ${boardVo.createDate}</span></div>
+		<input name='title' id='title' type="text" value='${boardVo.title}' readOnly="readonly">
+		<div>내용</div>
+		<textarea name='contents' id='contents' rows="30" cols="155" readOnly="readonly">${boardVo.contents}</textarea>
+		
+		
+		
+		<div id='buttons'>		
+			<input type="button" onclick='location.href="list.do"' value="목록보기">
+			<c:if test="${_memberVo_.memberNo eq boardVo.memberNo}">
+				<input type="submit" onclick="location.href='update.do'" value="수정">
+				<input type="button" onclick="location.href='delete.do?boardNo=${boardVo.boardNo}'" value="삭제">
+			</c:if>	
+	<!-- 		<button type="button" onclick="">답글쓰기</button> -->
+		</div>
+	</form>
+	
+	<c:if test="${_memberVo_ != null}">
+		<div id="recommendButtonsDiv">
+		<form action="../recommend/addCtr.do" method="post">
 			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
-			<div id="titleLeft">제목</div><div id="right"><span><span>작성자:</span> ${boardVo.nickname}</span><span><span>작성일:</span> ${boardVo.createDate}</span></div>
-			<input name='title' id='title' type="text" value='${boardVo.title}' readOnly="readonly">
-			<div>내용</div>
-			<textarea name='contents' id='contents' rows="30" cols="155" readOnly="readonly">${boardVo.contents}</textarea>
-			<div id='buttons'>
-				<input type="button" onclick='location.href="list.do"' value="목록보기">
-				<c:if test="${_memberVo_.memberNo eq boardVo.memberNo}">
-					<input type="submit" onclick="location.href='update.do'" value="수정">
-					<input type="button" onclick="location.href='delete.do?boardNo=${boardVo.boardNo}'" value="삭제">
-				</c:if>
-				
-				
-<!-- 				<button type="button" onclick="">답글쓰기</button> -->
-			</div>
-			
+			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
+			<span id="recommendButtonsSpan">
+			<c:if test="${recommendVo == null}">
+				<button type="submit" id="recommendAddButton">추천${boardVo.recommendCount}</button>
+			</c:if>
+			<c:if test="${recommendVo != null}">
+				<input type="button" id="recommendDeleteButton" onclick="location.href='../recommend/delete.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${boardVo.recommendCount}">
+			</c:if>
+			</span>	
 		</form>
+		</div>
+	</c:if>
+	<c:if test="${_memberVo_ == null}">
+		<button type="button" onclick="location.href='../auth/login.do'">추천${boardVo.recommendCount}</button>
+	</c:if>
+	
+	
+	
+	<jsp:include page="../comments/commentListView.jsp"/>
+	<jsp:include page="../comments/commentAddForm.jsp"/>
+	
+	
+	
+	
 	<jsp:include page="../Tail.jsp"/>
 	</div>
 </body>

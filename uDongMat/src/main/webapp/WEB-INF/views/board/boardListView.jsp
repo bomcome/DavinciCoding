@@ -13,24 +13,33 @@
  	}
  	
 	#boardListContainer #no {
-		width: 150px;
+		width: 100px;
 	}
-	#boardListContainer .title{
-		width: 520px;
+	#boardListContainer .boardTitle{
+		width: 470px;
 		
 	}
 	#boardListContainer #writer{
-		width: 230px;
+		width: 170px;
 	}
 	#boardListContainer #createDate{
 		width: 200px;
 	}
+	
+	#boardListContainer #hitsTd{
+		width: 90px;
+	}
+	
+	#boardListContainer #resommendCountTd{
+		width: 90px;
+	}
+	
 	#boardListContainer td {
 		text-align: center;
 		font-size: 14px;
 		
 	}
-	#boardListContainer .title {
+	#boardListContainer .boardTitle {
 		text-align: left;
 	}
 	#boardListContainer #top td{
@@ -38,7 +47,7 @@
 		font-size: 15px;
 		
 	}
-	#boardListContainer #top .title{
+	#boardListContainer #top .boardTitle{
 		text-align: center;
 	}
 	
@@ -61,6 +70,7 @@
 	}
 	#boardListContainer input {
 		margin-top: 8px;
+		width: 250px;
 	}
 	#boardListContainer {
 		width: 1920px;
@@ -74,8 +84,8 @@
 		margin-left: 750px;
 	}
 	
-	#center #write{
-		margin-left: 300px;
+	#center .write{
+		
 	}
 	
 	#boardListContainer > button{
@@ -106,21 +116,23 @@
 	
 	<table id="board">
 		<tr>
-			<td id="boardInput" colspan="4">
+			<td id="boardInput" colspan="6">
 				<span id="freeBoard">우동맛게시판(${totalCount})</span>
 					<form action="./list.do" method="get" id="formTag">	
 						<div>
 							<input type="text" name="keyword" value="${keyword}">
-							<input type="submit" value="검색">
+							<input type="submit" value="검색" style="display: none;">
 						</div>
 					</form>
 			</td>
 		</tr>
 		<tr id="top">
 			<td id="no">번호</td>
-			<td class="title">제목</td>
+			<td class="boardTitle">제목</td>
 			<td id="writer">작성자</td>
 			<td id="createDate">작성일</td>
+			<td id="hitsTd">조회수</td>
+			<td id="resommendCountTd">추천수</td>
 		</tr>
 		
 		<c:forEach var="boardVo" items="${boardList}">
@@ -131,6 +143,8 @@
 				</td>
 				<td>${boardVo.nickname}</td>
 				<td>${boardVo.createDate}</td>
+				<td>${boardVo.hits}</td>
+				<td>${boardVo.recommendCount}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -147,11 +161,13 @@
 				value="${keyword}">
 		</form>
 	
-		<button id="before" onclick="href.location=''">메인화면으로</button>
 		<c:if test="${_memberVo_ != null}">
-			<button id="write" onclick="location.href='add.do'">글쓰기</button>
+			<button class="write" onclick="location.href='add.do'">글쓰기</button>
 		</c:if>
-	
+		<c:if test="${_memberVo_ == null}">
+			<button class="write" type="button" onclick="location.href='../auth/login.do'">글쓰기</button>
+		</c:if>
+		
 	<jsp:include page="../Tail.jsp"/>
 		
 	</div>	

@@ -64,6 +64,7 @@ function newDiv(){
    
 </script>
 </head>
+
 <body>
 
    <div>이미지 파일</div>
@@ -89,6 +90,9 @@ function newDiv(){
          <span><input type="text" name='contents'></span>
       </div>
    </form>
+
+
+<body style="width: 1920px;">
 
 </body>
 </html>

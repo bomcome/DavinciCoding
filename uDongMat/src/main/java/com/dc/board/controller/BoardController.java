@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dc.board.service.BoardService;
 import com.dc.board.vo.BoardVo;
+import com.dc.members.vo.MemberVo;
+import com.dc.recommend.service.RecommendService;
+import com.dc.recommend.vo.RecommendVo;
 import com.dc.util.Paging;
 
 @Controller
@@ -22,6 +26,7 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	private RecommendService recommendService;
 	
 	@RequestMapping(value="/board/list.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String boardList(
@@ -38,7 +43,6 @@ public class BoardController {
 		List<BoardVo> boardList = 
 				boardService.boardSelectList(keyword, start, end);
 		
-		
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("totalCount", totalCount);
 		pagingMap.put("boardPaging", boardPaging);
@@ -49,19 +53,28 @@ public class BoardController {
 		model.addAttribute("keyword", keyword);
 		
 		
-		
 		return "board/boardListView";
 	}
 	
 	@RequestMapping(value="/board/one.do", method= {RequestMethod.GET})
-	public String boardOne(Model model, int boardNo) {
+	public String boardOne(Model model, int boardNo, HttpServletRequest req, HttpSession session) {
 		
-		BoardVo boardVo = 
-				boardService.boardSelectOne(boardNo);
+		BoardVo boardVo = boardService.boardSelectOne(boardNo);
 		
-		model.addAttribute("boardVo", boardVo);
+		req.setAttribute("boardVo", boardVo);
 		
-		return "board/boardOneView";
+		MemberVo memberVo = (MemberVo)session.getAttribute("_memberVo_");
+		
+		if(memberVo != null) {
+			RecommendVo recommendVo = recommendService.boardRecommendSelectOne(boardNo, memberVo.getMemberNo());
+			model.addAttribute("recommendVo", recommendVo);
+		}
+		
+		
+		
+		
+		return "forward:/comment/list.do";
+		
 	}
 	
 	@RequestMapping(value="/board/add.do", method= {RequestMethod.GET})

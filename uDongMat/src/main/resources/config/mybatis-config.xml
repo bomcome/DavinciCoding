@@ -7,6 +7,8 @@
   <typeAliases>
   	<typeAlias type="com.dc.board.vo.BoardVo" alias="boardVo"/>
   	<typeAlias type="com.dc.members.vo.MemberVo" alias="memberVo"/>
+  	<typeAlias type="com.dc.comments.vo.CommentVo" alias="commentVo"/>
+  	<typeAlias type="com.dc.recommend.vo.RecommendVo" alias="recommendVo"/>
   </typeAliases> 
 
   

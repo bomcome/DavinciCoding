@@ -1,94 +1,193 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?> -->
-<!-- <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- <mapper namespace="com.dc.comments"> -->
-<!-- 	<resultMap type="com.dc.comments.vo.CommentsVo" -->
-<!-- 		id="commentsResultMap"> -->
-<!-- 		<id column="COMMENT_NO" property="commentNo" /> -->
-<!-- 		<result column="BOARD_NO" property="boardNo" /> -->
-<!-- 		<result column="MEMBER_NO" property="memberNo" /> -->
-<!-- 		<result column="CONTENTS" property="contents" /> -->
-<!-- 		<result column="CRE_DATE" property="createDate" -->
-<!-- 			javaType="java.util.Date" /> -->
-<!-- 		<result column="MOD_DATE" property="modifiedDate" -->
-<!-- 			javaType="java.util.Date" />  -->
-<!-- 	</resultMap> -->
+
+<mapper namespace="com.dc.comments">
+	<resultMap type="com.dc.comments.vo.CommentVo"
+		id="commentsResultMap">
+		<id column="COMMENT_NO" property="commentNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="PARENT_COMMENT_NO" property="parentCommentNo" />
+		<result column="CONTENTS" property="contents" />
+		<result column="PAR_NICKNAME" property="parentNickname" />
+		<result column="PAR_CONTENTS" property="parentContents" />
+		<result column="CRE_DATE" property="createDate"
+			javaType="java.util.Date" />
+		<result column="MOD_DATE" property="modifiedDate"
+			javaType="java.util.Date" /> 
+		<result column="RECOMMEND_COUNT" property="recommendCount" />
+	</resultMap>
 
 	
 	
-<!-- 	<select id="boardSelectList" parameterType="map" -->
-<!-- 		resultMap="boardResultMap"> -->
-<!-- 		SELECT BOARD_NO, TITLE, NICKNAME, CRE_DATE -->
-<!-- 		FROM( -->
-<!-- 		    SELECT ROWNUM AS RNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE -->
-<!-- 				FROM (SELECT B.BOARD_NO AS BOARD_NO, B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE -->
-<!-- 				        FROM BOARD B, MEMBERS M -->
-<!-- 				        WHERE B.MEMBER_NO = M.MEMBER_NO -->
-<!-- 				        ORDER BY B.BOARD_NO DESC) -->
-<!-- 				WHERE TITLE LIKE '%'||#{keyword}||'%' -->
-<!-- 				OR CONTENTS LIKE '%'||#{keyword}||'%' -->
-<!-- 				OR NICKNAME LIKE '%'||#{keyword}||'%' -->
-<!-- 		    ) -->
-<!-- 		WHERE RNUM BETWEEN #{start} AND #{end} -->
+<!-- 	<select id="commentSelectList" parameterType="int" -->
+<!-- 		resultMap="commentsResultMap"> -->
+<!-- 		SELECT ROWNUM, COMMENT_NO, BOARD_NO, MEMBER_NO, NICKNAME, CONTENTS, CRE_DATE, MOD_DATE -->
+<!-- 		FROM -->
+<!-- 		( -->
+<!-- 		    SELECT C.COMMENT_NO AS COMMENT_NO, C.BOARD_NO AS BOARD_NO, C.MEMBER_NO AS MEMBER_NO -->
+<!-- 		        , M.NICKNAME AS NICKNAME, C.CONTENTS AS CONTENTS, C.CRE_DATE AS CRE_DATE, C.MOD_DATE AS MOD_DATE -->
+<!-- 		    FROM COMMENTS C, BOARD B, MEMBERS M -->
+<!-- 		    WHERE C.BOARD_NO = B.BOARD_NO -->
+<!-- 		    AND M.MEMBER_NO = C.MEMBER_NO -->
+<!-- 		    AND B.BOARD_NO = #{boardNo} -->
+<!-- 		    ORDER BY C.COMMENT_NO DESC -->
+<!-- 		) -->
 <!-- 	</select> -->
 	
 	
 	
-
-<!-- 	<select id="boardSelectOne" parameterType="int" -->
-<!-- 		resultMap="boardResultMap"> -->
-<!-- 		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE -->
-<!-- 		FROM BOARD B, MEMBERS M -->
-<!-- 		WHERE B.MEMBER_NO = M.MEMBER_NO -->
-<!-- 		AND B.BOARD_NO = #{boardNo} -->
+<!-- 	<select id="commentSelectList" parameterType="int" -->
+<!-- 		resultMap="commentsResultMap"> -->
+<!-- 		SELECT ROWNUM, C2.COMMENT_NO, C2.BOARD_NO, C2.MEMBER_NO, C2.PARENTCOMMENT_NO, M2.NICKNAME,  -->
+<!-- 		R.NICKNAME AS PAR_NICKNAME, C2.CONTENTS, C2.CRE_DATE, C2.MOD_DATE -->
+<!-- 			FROM -->
+<!-- 			( -->
+<!-- 			    SELECT C.COMMENT_NO AS COMMENT_NO, M.NICKNAME AS NICKNAME, C.BOARD_NO AS BOARD_NO -->
+<!-- 			    FROM COMMENTS C, BOARD B, MEMBERS M -->
+<!-- 			    WHERE C.BOARD_NO = B.BOARD_NO -->
+<!-- 			    AND M.MEMBER_NO = C.MEMBER_NO -->
+<!-- 			    ORDER BY C.COMMENT_NO DESC -->
+<!-- 			)R RIGHT JOIN COMMENTS C2  -->
+<!-- 		  ON R.COMMENT_NO = C2.PARENTCOMMENT_NO -->
+<!-- 		   JOIN MEMBERS M2 -->
+<!-- 		 ON C2.MEMBER_NO = M2.MEMBER_NO -->
+<!-- 		 WHERE C2.BOARD_NO = #{board_no} -->
 <!-- 	</select> -->
 	
-<!-- 	<insert id="boardInsertOne"  -->
-<!-- 		parameterType= "boardVo" -->
-<!-- 		useGeneratedKeys="true" keyProperty="boardNo"> -->
-<!-- 		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE"> -->
-<!-- 			SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL -->
-<!-- 		</selectKey> -->
+	
+<!-- 	<select id="commentSelectList" parameterType="int" -->
+<!-- 		resultMap="commentsResultMap"> -->
+<!-- 		SELECT ROWNUM, comment_no, board_no, member_no, parentcomment_no, nickname,  -->
+<!-- 		    par_comment_no, par_nickname, CONTENTS, CRE_DATE, MOD_DATE -->
+<!-- 		FROM -->
+<!-- 		    (SELECT c2.comment_no, c2.board_no, c2.member_no, c2.parentcomment_no, m2.nickname,  -->
+<!-- 		    r.COMMENT_NO as par_comment_no, r.NICKNAME as par_nickname, c2.CONTENTS, c2.CRE_DATE, c2.MOD_DATE -->
+<!-- 		        FROM -->
+<!-- 		        ( -->
+<!-- 		            SELECT C.COMMENT_NO AS COMMENT_NO, M.NICKNAME AS NICKNAME, c.board_No as board_No -->
+<!-- 		            FROM COMMENTS C, BOARD B, MEMBERS M -->
+<!-- 		            WHERE C.BOARD_NO = B.BOARD_NO -->
+<!-- 		            AND M.MEMBER_NO = C.MEMBER_NO -->
+<!-- 		            ORDER BY C.COMMENT_NO DESC -->
+<!-- 		        )r right join comments c2  -->
+<!-- 		      on r.comment_no = c2.parentComment_no -->
+<!-- 		       join members m2 -->
+<!-- 		     on c2.member_no = m2.member_no -->
+<!-- 		     where c2.board_no = #{board_no} -->
+<!-- 		     order by comment_no desc) -->
+<!-- 	</select>	 -->
+
+
+	<select id="commentSelectList" parameterType="int"
+		resultMap="commentsResultMap">
+		SELECT ROWNUM, COMMENT_NO, BOARD_NO, MEMBER_NO, PARENT_COMMENT_NO, NICKNAME, CONTENTS, 
+		    PAR_COMMENT_NO, PAR_NICKNAME, PAR_CONTENTS, CRE_DATE, MOD_DATE, RECOMMEND_COUNT
+		FROM
+		    (SELECT C2.COMMENT_NO, C2.BOARD_NO, C2.MEMBER_NO, C2.PARENT_COMMENT_NO, M2.NICKNAME, C2.CONTENTS,  
+		    	R.COMMENT_NO AS PAR_COMMENT_NO, R.NICKNAME AS PAR_NICKNAME, R.CONTENTS AS PAR_CONTENTS, 
+		    	C2.CRE_DATE, C2.MOD_DATE, C2.RECOMMEND_COUNT AS RECOMMEND_COUNT
+		        FROM
+		        (
+		            SELECT C.COMMENT_NO AS COMMENT_NO, M.NICKNAME AS NICKNAME, C.BOARD_NO AS BOARD_NO
+		            	, C.CONTENTS AS CONTENTS 
+		            FROM COMMENTS C, BOARD B, MEMBERS M
+		            WHERE C.BOARD_NO = B.BOARD_NO
+		            AND M.MEMBER_NO = C.MEMBER_NO
+		            ORDER BY C.COMMENT_NO DESC
+		        )R RIGHT JOIN COMMENTS C2 
+		      ON R.COMMENT_NO = C2.PARENT_COMMENT_NO
+		       JOIN MEMBERS M2
+		     ON C2.MEMBER_NO = M2.MEMBER_NO
+		     WHERE C2.BOARD_NO = #{board_no}
+		     ORDER BY COMMENT_NO DESC)
+	</select>	
+
+	<select id="commentSelectOne" parameterType="int"
+		resultMap="commentsResultMap">
+		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE
+		FROM BOARD B, MEMBERS M
+		WHERE B.MEMBER_NO = M.MEMBER_NO
+		AND B.BOARD_NO = #{boardNo}
+	</select>
+	
+	
+	<select id="commentDetailOne" parameterType="int"
+		resultMap="commentsResultMap">
+		SELECT C.COMMENT_NO, C.BOARD_NO, C.CONTENTS, C.MEMBER_NO, M.NICKNAME, C.CRE_DATE, C.MOD_DATE
+		FROM COMMENTS C, BOARD B, MEMBERS M
+		WHERE C.BOARD_NO = B.BOARD_NO
+		AND C.MEMBER_NO = M.MEMBER_NO
+		AND C.COMMENT_NO = #{commentNo}
+	</select>
+	
+	 
+	<insert id="commentInsertOne" 
+		parameterType= "boardVo"
+		useGeneratedKeys="true" keyProperty="commentNo">
+		<selectKey keyProperty="commentNo" resultType="int" order="BEFORE">
+			SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		
-<!-- 		INSERT INTO BOARD -->
-<!-- 		(BOARD_NO, MEMBER_NO, TITLE, CONTENTS, CRE_DATE, MOD_DATE) -->
-<!-- 		VALUES(#{boardNo}, #{memberNo}, #{title}, #{contents}, SYSDATE, SYSDATE) -->
-<!-- 	</insert> -->
+		INSERT INTO COMMENTS
+		(COMMENT_NO, BOARD_NO, MEMBER_NO, PARENT_COMMENT_NO, CONTENTS, CRE_DATE, MOD_DATE, RECOMMEND_COUNT)
+		VALUES(#{commentNo}, #{boardNo}, #{memberNo}, #{parentCommentNo}, #{contents}, SYSDATE, SYSDATE, 0)
+	</insert>
+	
+	
+	<update id="commentUpdateOne" parameterType="commentVo">
+		UPDATE COMMENTS
+		<set>
+			<if test="contents != ''">CONTENTS = #{contents},</if>
+			MOD_DATE = SYSDATE			
+		</set>
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
+
+
+	<update id="commentUpdateRecommendUp" parameterType="int">
+		UPDATE COMMENTS
+		<set>
+			RECOMMEND_COUNT = RECOMMEND_COUNT + 1,
+			MOD_DATE = SYSDATE			
+		</set>
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
+	
+	<update id="commentUpdateRecommendDown" parameterType="int">
+		UPDATE COMMENTS
+		<set>
+			RECOMMEND_COUNT = RECOMMEND_COUNT - 1,
+			MOD_DATE = SYSDATE			
+		</set>
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
+
+ 	<delete id="commentDelete" parameterType="int"> 
+		DELETE FROM COMMENTS
+		WHERE COMMENT_NO = #{commentNo}
+	</delete>
 	
 
 	
-<!-- 	<update id="boardUpdateOne" parameterType="boardVo"> -->
-<!-- 		UPDATE 	BOARD -->
-<!-- 		<set> -->
-<!-- 			<if test="title != ''">TITLE = #{title},</if> -->
-<!-- 			<if test="contents != ''">CONTENTS = #{contents},</if> -->
-<!-- 			MOD_DATE = SYSDATE			 -->
-<!-- 		</set> -->
-<!-- 		WHERE 	 BOARD_NO = #{boardNo} -->
-<!-- 	</update> -->
-
-
-<!--  	<delete id="boardDelete" parameterType="int">  -->
-<!-- 		DELETE FROM BOARD -->
-<!-- 		WHERE BOARD_NO = #{boardNo} -->
-<!-- 	</delete> -->
-	
-
-	
-<!-- 	<select id="boardSelectTotalCount" parameterType="String" -->
-<!-- 		resultType="int"> -->
-<!-- 		SELECT COUNT(*) -->
-<!-- 		FROM (SELECT B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME -->
-<!-- 	        FROM BOARD B, MEMBERS M -->
-<!-- 	        WHERE B.MEMBER_NO = M.MEMBER_NO -->
-<!-- 	        ORDER BY B.BOARD_NO) -->
-<!-- 			WHERE title LIKE '%'||#{keyword}||'%' -->
-<!-- 			or contents LIKE '%'||#{keyword}||'%' -->
-<!-- 			or nickname LIKE '%'||#{keyword}||'%' -->
-<!-- 	</select> -->
+	<select id="commentSelectTotalCount" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM
+		(
+		    SELECT C.COMMENT_NO AS COMMENT_NO, C.BOARD_NO AS BOARD_NO, C.MEMBER_NO AS MEMBER_NO
+		        , M.NICKNAME AS NICKNAME, C.CONTENTS AS CONTENTS, C.CRE_DATE AS CRE_DATE, C.MOD_DATE AS MOD_DATE
+		    FROM COMMENTS C, BOARD B, MEMBERS M
+		    WHERE C.BOARD_NO = B.BOARD_NO
+		    AND M.MEMBER_NO = C.MEMBER_NO
+		    AND B.BOARD_NO = #{boardNo}
+		    ORDER BY C.COMMENT_NO DESC
+		)
+	</select>
 	
 	
 	
 	
 	
-<!-- </mapper> -->
+</mapper>
