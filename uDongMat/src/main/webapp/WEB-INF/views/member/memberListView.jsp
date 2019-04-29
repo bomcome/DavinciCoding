@@ -8,20 +8,34 @@
 <meta charset="UTF-8">
 <style type="text/css">
 	table{
-		width: auto;
+		width: 1000px;;
 		margin: auto;
 		text-align: center;
 		border-collapse: collapse;
 	}
 	
-	table, tr, td{
-		border: 1px solid black;
+	tr, th ,td {
+	  padding: 8px;
+	  text-align: left;
+	  border-bottom: 1px solid #ddd;
 	}
+	
+	th{
+	  border-bottom: 3px solid black;
+	}
+
+	tr:nth-child(even){
+		background-color: #f2f2f2
+	}
+	
 	#text{
 		padding-left : 730px;
 		text-align: left;
 		border-collapse: collapse;
 	}
+	
+	
+
 </style>
 <title>회원 목록</title>
 
@@ -37,30 +51,26 @@
 
 
 <c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">
-	<div id="text">
-	<h1>회원목록</h1>
-		<a href="add.do">신규 회원</a>
-	</div>
-	<br />
+
 
 <!--  var=변수명  items=목록데이터 begin=시작인덱스 end=종료인덱스 -->
 
 	<table>
 		<tr>
-			<td>번호</td><td>회원이름</td>
-			<td>이메일</td><td>가입일</td>
-			<td>삭제</td>
+			<th>번호</th><th>회원이름</th>
+			<th>이메일</th><th>가입일</th>
+			<th>삭제</th>
 		</tr>
 	<c:forEach var="memberVo" items="${memberList}">
 		<tr>
-			<td>${memberVo.memberNo}</td>
+			<td>${memberVo.rownum}</td>
 			<td>
 				<a href='./listOne.do?memberNo=${memberVo.memberNo}'>${memberVo.nickName}</a>
 			</td>
 			<td>${memberVo.email}</td>
 			<td>
 				<fmt:formatDate value="${memberVo.createDate}"
-					pattern="yyyy년MM월dd일 hh시mm분"/>
+					pattern="yyyy년 MM월 dd일 hh시 mm분"/>
 			</td>
 			<td>
 				<a href='./deleteCtr.do?memberNo=${memberVo.memberNo}'>[삭제]</a>

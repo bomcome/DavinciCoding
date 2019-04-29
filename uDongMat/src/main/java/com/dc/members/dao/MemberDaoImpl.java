@@ -53,6 +53,18 @@ public class MemberDaoImpl implements MemberDao{
 	public int memberDelete(int memberNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete(namespace + "memberDelete", memberNo);
-	} 
+	}
+
+	@Override
+	public String memberEmailChk(String email) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberEmailChk", email);
+	}
+
+	@Override
+	public String memberNickNameCHk(String nickName) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberNickNameCHk", nickName);
+	}
 
 }

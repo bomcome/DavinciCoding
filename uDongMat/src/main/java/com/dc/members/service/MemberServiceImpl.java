@@ -57,10 +57,16 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberDelete(memberNo);
 	}
 
-	
+	@Override
+	public String memberEmailChk(String email) {
+		// TODO Auto-generated method stub
+		return memberDao.memberEmailChk(email);
+	}
 
-
-
-
+	@Override
+	public String memberNickNameCHk(String nickName) {
+		// TODO Auto-generated method stub
+		return memberDao.memberNickNameCHk(nickName);
+	}
 
 }
