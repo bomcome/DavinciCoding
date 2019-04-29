@@ -26,6 +26,7 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
 	private RecommendService recommendService;
 	
 	@RequestMapping(value="/board/list.do", method= {RequestMethod.GET, RequestMethod.POST})
@@ -69,9 +70,6 @@ public class BoardController {
 			RecommendVo recommendVo = recommendService.boardRecommendSelectOne(boardNo, memberVo.getMemberNo());
 			model.addAttribute("recommendVo", recommendVo);
 		}
-		
-		
-		
 		
 		return "forward:/comment/list.do";
 		

@@ -25,7 +25,7 @@ public class RecommendDaoImpl implements RecommendDao{
 	@Override
 	public void recommendDelete(int recommendNo) {
 		// TODO Auto-generated method stub
-		sqlSession.delete(namespace +"recommendInsertOne", recommendNo);
+		sqlSession.delete(namespace +"recommendDelete", recommendNo);
 	}
 
 	@Override

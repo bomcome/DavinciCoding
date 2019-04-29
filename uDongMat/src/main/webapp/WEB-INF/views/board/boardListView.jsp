@@ -137,7 +137,7 @@
 		
 		<c:forEach var="boardVo" items="${boardList}">
 			<tr>
-				<td>${boardVo.boardNo}</td>
+				<td>${boardVo.rownum}</td>
 				<td class="title">
 					<a href='./one.do?boardNo=${boardVo.boardNo}'>${boardVo.title}</a>
 				</td>

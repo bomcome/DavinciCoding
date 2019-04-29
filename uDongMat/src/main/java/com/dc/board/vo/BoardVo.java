@@ -13,7 +13,7 @@ public class BoardVo {
 	Date modifiedDate;
 	int recommendCount;
 	int	hits;
-	
+	int rownum;
 	
 	public BoardVo() {
 		super();
@@ -45,6 +45,23 @@ public class BoardVo {
 		this.modifiedDate = modifiedDate;
 		this.recommendCount = recommendCount;
 		this.hits = hits;
+	}
+
+	
+	
+	public BoardVo(int boardNo, int memberNo, String nickname, String title, String contents, Date createDate,
+			Date modifiedDate, int recommendCount, int hits, int rownum) {
+		super();
+		this.boardNo = boardNo;
+		this.memberNo = memberNo;
+		this.nickname = nickname;
+		this.title = title;
+		this.contents = contents;
+		this.createDate = createDate;
+		this.modifiedDate = modifiedDate;
+		this.recommendCount = recommendCount;
+		this.hits = hits;
+		this.rownum = rownum;
 	}
 
 	public int getBoardNo() {
@@ -117,6 +134,14 @@ public class BoardVo {
 
 	public void setHits(int hits) {
 		this.hits = hits;
+	}
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
 	}
 
 	

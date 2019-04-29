@@ -3,28 +3,28 @@ package com.dc.recommend.vo;
 public class RecommendVo {
 
 	
-	int recommendNo;
-	int commentNo;
-	int boardNo;
-	int memberNo;
+	private int recommendNo;
+	private int commentNo;
+	private int boardNo;
+	private int memberNo;
 	
 	public RecommendVo() {
 		super();
 	}
 
-	public RecommendVo(int recommnedNo, int commentNo, int boardNo, int memberNo) {
+	public RecommendVo(int recommendNo, int commentNo, int boardNo, int memberNo) {
 		super();
-		this.recommendNo = recommnedNo;
+		this.recommendNo = recommendNo;
 		this.commentNo = commentNo;
 		this.boardNo = boardNo;
 		this.memberNo = memberNo;
 	}
 
-	public int getRecommnedNo() {
+	public int getRecommendNo() {
 		return recommendNo;
 	}
 
-	public void setRecommnedNo(int recommendNo) {
+	public void setRecommendNo(int recommendNo) {
 		this.recommendNo = recommendNo;
 	}
 
@@ -50,6 +50,12 @@ public class RecommendVo {
 
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+
+	@Override
+	public String toString() {
+		return "RecommendVo [recommendNo=" + recommendNo + ", commentNo=" + commentNo + ", boardNo=" + boardNo
+				+ ", memberNo=" + memberNo + "]";
 	}
 	
 	

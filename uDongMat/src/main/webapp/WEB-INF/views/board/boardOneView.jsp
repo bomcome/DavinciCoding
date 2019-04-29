@@ -75,6 +75,10 @@
 	#recommendButtonsDiv #recommendButtonsSpan{
 	margin-right: 430px;
 	}
+	
+	#boardOne.recommendUpdateButton {
+	
+	}
 </style>
 <title>Insert title here</title>
 </head>
@@ -103,25 +107,32 @@
 		</div>
 	</form>
 	
+	<div id="recommendButtonsDiv">
+	<span id="recommendButtonsSpan">
 	<c:if test="${_memberVo_ != null}">
-		<div id="recommendButtonsDiv">
-		<form action="../recommend/addCtr.do" method="post">
+		
+		<form action="../recommend/addBoardCtr.do" method="post">
 			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
 			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
-			<span id="recommendButtonsSpan">
+			
+			
 			<c:if test="${recommendVo == null}">
-				<button type="submit" id="recommendAddButton">추천${boardVo.recommendCount}</button>
+				<button type="submit" id="recommendAddButton" class= "recommendUpdateButton">추천${boardVo.recommendCount}</button>
 			</c:if>
 			<c:if test="${recommendVo != null}">
-				<input type="button" id="recommendDeleteButton" onclick="location.href='../recommend/delete.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${boardVo.recommendCount}">
+				
+				<input type="button" id="recommendDeleteButton" class= "recommendUpdateButton" onclick="location.href='../recommend/deleteBoard.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${boardVo.recommendCount}">
 			</c:if>
-			</span>	
+			
 		</form>
-		</div>
+		
 	</c:if>
 	<c:if test="${_memberVo_ == null}">
-		<button type="button" onclick="location.href='../auth/login.do'">추천${boardVo.recommendCount}</button>
+		<button type="button" class= "recommendUpdateButton" onclick="location.href='../auth/login.do'">추천${boardVo.recommendCount}</button>
 	</c:if>
+	</span>	
+	</div>
+
 	
 	
 	

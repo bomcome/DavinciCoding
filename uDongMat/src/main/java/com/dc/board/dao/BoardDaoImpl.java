@@ -66,5 +66,17 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne(namespace +"boardSelectTotalCount", keyword);
 	}
 
+	@Override
+	public void boardUpdateRecommendUp(int boardNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace +"boardUpdateRecommendUp", boardNo);
+	}
+
+	@Override
+	public void boardUpdateRecommendDown(int boardNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace +"boardUpdateRecommendDown", boardNo);
+	}
+
 	
 }

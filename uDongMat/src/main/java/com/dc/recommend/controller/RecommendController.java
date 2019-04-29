@@ -16,45 +16,56 @@ import com.dc.recommend.vo.RecommendVo;
 @Controller
 public class RecommendController {
 
+	
+//	@Autowired
+//	private CommentService commentService;
 	@Autowired
-	private BoardService boardService;
-	private CommentService commentService;
 	private RecommendService recommendService;
 	
 	
-	@RequestMapping(value="/recommend/recommendUpCtr.do", method= {RequestMethod.GET})
-	public String commentRecommendAdd(HttpSession session, Model model, RecommendVo recommendVo, int commentNo) {
-	
-		recommendService.recommendInsertOne(recommendVo);
-		commentService.commentUpdateRecommendUp(commentNo);
+	@RequestMapping(value="/recommend/addCommentCtr.do", method= {RequestMethod.POST})
+	public String commentRecommendAdd(HttpSession session, Model model, RecommendVo recommendVo, int boardNo) {
+		
+		RecommendVo recommendVo2 = recommendService.commentRecommendSelectOne(recommendVo.getCommentNo(), recommendVo.getMemberNo());
+		if(recommendVo2 == null) {
+			System.out.println(recommendVo);
+			recommendService.commentRecommendInsertOne(recommendVo);
+		}else if(recommendVo2 != null) {
+			recommendService.recommendDelete(recommendVo);
+		}
+		
+//		recommendService.commentRecommendInsertOne(recommendVo);
+//		commentService.commentUpdateRecommendUp(commentNo);
 		
 		return "redirect:/board/one.do?boardNo=" + recommendVo.getBoardNo();
 	}
 	
-	@RequestMapping(value="/recommend/recommendDownCtr.do", method= {RequestMethod.GET})
-	public String commentRecommendDelete(int recommendNo, int commentNo, int memberNo) {
-		System.out.println(commentNo);
-		
-		recommendService.recommendDelete(recommendNo);
-		commentService.commentUpdateRecommendDown(commentNo);
-		
-		return "redirect:/board/one.do?boardNo=" + commentNo;
-	}
+//	@RequestMapping(value="/recommend/deleteComment.do", method= {RequestMethod.GET})
+//	public String commentRecommendDelete(int recommendNo, int commentNo, int memberNo) {
+//		System.out.println(commentNo);
+//		
+//		RecommendVo recommendVo = recommendService.commentRecommendSelectOne(commentNo, memberNo);
+//		recommendService.recommendDelete(recommendVo);
+//		
+//		return "redirect:/board/one.do?boardNo=" + boardNo;
+//	}
 	
-	@RequestMapping(value="/recommend/addboardCtr.do", method= {RequestMethod.POST})
+	@RequestMapping(value="/recommend/addBoardCtr.do", method= {RequestMethod.POST})
 	public String boardRecommendAdd(HttpSession session, Model model, RecommendVo recommendVo) {
-		recommendService.boardRecommendSelectOne(recommendVo.getBoardNo(), recommendVo.getMemberNo());
+//		recommendService.boardRecommendSelectOne(recommendVo.getBoardNo(), recommendVo.getMemberNo());
+		
 		recommendService.recommendInsertOne(recommendVo);
 		
 		
 		return "redirect:/board/one.do?boardNo=" + recommendVo.getBoardNo();
 	}
 	
-	@RequestMapping(value="/recommend/deleteboard.do", method= {RequestMethod.GET})
-	public String boardRecommendDelete(int recommendNo, int boardNo, int memberNo) {
-		System.out.println(boardNo);
+	@RequestMapping(value="/recommend/deleteBoard.do", method= {RequestMethod.GET})
+	public String boardRecommendDelete(int boardNo, int memberNo) {
 		
-		recommendService.recommendDelete(recommendNo);
+		RecommendVo recommendVo = recommendService.boardRecommendSelectOne(boardNo, memberNo);
+		recommendService.recommendDelete(recommendVo);
+
 		
 		return "redirect:/board/one.do?boardNo=" + boardNo;
 	}

@@ -15,6 +15,7 @@
 			javaType="java.util.Date" />
 		<result column="RECOMMEND_COUNT" property="recommendCount" />
 		<result column="HITS" property="hits" />
+		<result column="ROWNUM" property="rownum" />
 	</resultMap>
 
 	
@@ -36,9 +37,9 @@
 	
 	<select id="boardSelectList" parameterType="map"
 		resultMap="boardResultMap">
-		SELECT BOARD_NO, TITLE, NICKNAME, CRE_DATE, RECOMMEND_COUNT, HITS
+		SELECT ROWNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE, RECOMMEND_COUNT, HITS
 		FROM(
-		    SELECT ROWNUM AS RNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE, RECOMMEND_COUNT, HITS
+		    SELECT ROWNUM RNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE, RECOMMEND_COUNT, HITS
 				FROM (SELECT B.BOARD_NO AS BOARD_NO, B.CONTENTS AS CONTENTS, B.TITLE AS TITLE
 					, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE
 					, B.RECOMMEND_COUNT AS RECOMMEND_COUNT, B.HITS AS HITS
@@ -48,6 +49,7 @@
 				WHERE TITLE LIKE '%'||#{keyword}||'%'
 				OR CONTENTS LIKE '%'||#{keyword}||'%'
 				OR NICKNAME LIKE '%'||#{keyword}||'%'
+				ORDER BY RECOMMEND_COUNT DESC
 		    )
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
@@ -67,7 +69,7 @@
 	
 	<select id="boardSelectOne" parameterType="int"
 		resultMap="boardResultMap">
-		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE
+		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE, B.RECOMMEND_COUNT
 		FROM BOARD B, MEMBERS M
 		WHERE B.MEMBER_NO = M.MEMBER_NO
 		AND B.BOARD_NO = #{boardNo}
@@ -97,6 +99,9 @@
 		WHERE 	 BOARD_NO = #{boardNo}
 	</update>
 
+	
+	
+	
 
  	<delete id="boardDelete" parameterType="int"> 
 		DELETE FROM BOARD
@@ -123,8 +128,30 @@
 			or nickname LIKE '%'||#{keyword}||'%'
 	</select>
 	
+	<update id="boardUpdateRecommendUp" parameterType="int">
+		UPDATE BOARD
+		<set>
+			RECOMMEND_COUNT = RECOMMEND_COUNT + 1,		
+		</set>
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="boardUpdateRecommendDown" parameterType="int">
+		UPDATE BOARD
+		<set>
+			RECOMMEND_COUNT = RECOMMEND_COUNT - 1,		
+		</set>
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 	
 	
+<!-- 	<update id="boardUpdateHits" parameterType="int"> -->
+<!-- 		UPDATE BOARD -->
+<!-- 		<set> -->
+<!-- 			HITS = HITS + 1,		 -->
+<!-- 		</set> -->
+<!-- 		WHERE BOARD_NO = #{boardNo} -->
+<!-- 	</update> -->
 	
 	
 </mapper>

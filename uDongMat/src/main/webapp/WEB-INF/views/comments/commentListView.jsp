@@ -230,6 +230,34 @@
 									${commentVo.parentContents}
 								</div>
 							</c:if>
+							
+	
+	<span id="recommendButtonsSpan">
+	<c:if test="${_memberVo_ != null}">
+		
+		<form action="../recommend/addCommentCtr.do" method="post">
+			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
+			<input type="hidden" name='commentNo' value='${commentVo.commentNo}'>
+			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
+			<button type="submit" id="recommendAddButton" class= "recommendUpdateButton">추천${commentVo.recommendCount}</button>
+			
+<%-- 			<c:if test="${recommendVo == null}"> --%>
+<%-- 				<button type="submit" id="recommendAddButton" class= "recommendUpdateButton">추천${commentVo.recommendCount}</button> --%>
+<%-- 			</c:if> --%>
+<%-- 			<c:if test="${recommendVo != null}"> --%>
+				
+<%-- 				<input type="button" id="recommendDeleteButton" class= "recommendUpdateButton" onclick="location.href='../recommend/deleteComment.do?commentNo=${commentVo.commentNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${commentVo.recommendCount}"> --%>
+<%-- 			</c:if> --%>
+			
+		</form>
+		
+	</c:if>
+	<c:if test="${_memberVo_ == null}">
+		<button type="button" class= "recommendUpdateButton" onclick="location.href='../auth/login.do'">추천${commentVo.recommendCount}</button>
+	</c:if>
+	</span>	
+	
+							
 							</span>
 							
 							<span class="commentContentsSpan">

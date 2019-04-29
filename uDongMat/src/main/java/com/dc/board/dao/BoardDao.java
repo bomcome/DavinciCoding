@@ -14,7 +14,8 @@ public interface BoardDao {
 //	public int boardTotalCount();
 	
 	public int boardSelectTotalCount(String keyword);
-	
+	public void boardUpdateRecommendUp(int boardNo);
+	public void boardUpdateRecommendDown(int boardNo);
 	
 	
 }

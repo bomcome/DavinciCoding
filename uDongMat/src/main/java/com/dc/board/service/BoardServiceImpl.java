@@ -60,4 +60,16 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return boardDao.boardSelectTotalCount(keyword);
 	}
+
+	@Override
+	public void boardUpdateRecommendUp(int boardNo) {
+		// TODO Auto-generated method stub
+		boardDao.boardUpdateRecommendUp(boardNo);
+	}
+
+	@Override
+	public void boardUpdateRecommendDown(int boardNo) {
+		// TODO Auto-generated method stub
+		boardDao.boardUpdateRecommendDown(boardNo);
+	}
 }

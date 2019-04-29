@@ -13,7 +13,7 @@
 
 	<select id="commentRecommendSelectOne" parameterType="map"
 		resultMap="recommendResultMap">
-		SELECT RECOMMNED_NO, COMMENT_NO, BOARD_NO, MEMBER_NO
+		SELECT RECOMMEND_NO, COMMENT_NO, BOARD_NO, MEMBER_NO
 		FROM RECOMMEND
 		WHERE COMMENT_NO = #{commentNo} 
 		AND MEMBER_NO = #{memberNo}
@@ -21,7 +21,7 @@
 	
 	<select id="boardRecommendSelectOne" parameterType="map"
 		resultMap="recommendResultMap">
-		SELECT RECOMMNED_NO, COMMENT_NO, BOARD_NO, MEMBER_NO
+		SELECT RECOMMEND_NO, COMMENT_NO, BOARD_NO, MEMBER_NO
 		FROM RECOMMEND
 		WHERE BOARD_NO = #{boardNo} 
 		AND MEMBER_NO = #{memberNo}
@@ -36,7 +36,7 @@
 			SELECT RECOMMEND_NO_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		
-		INSERT INTO BOARD
+		INSERT INTO RECOMMEND
 		(RECOMMEND_NO, COMMENT_NO, BOARD_NO, MEMBER_NO)
 		VALUES(#{recommendNo}, #{commentNo}, #{boardNo}, #{memberNo})
 	</insert>
@@ -47,21 +47,7 @@
 	</delete>
 
 	
-<!-- 	<update id="boardUpdateOne" parameterType="boardVo"> -->
-<!-- 		UPDATE 	BOARD -->
-<!-- 		<set> -->
-<!-- 			<if test="title != ''">TITLE = #{title},</if> -->
-<!-- 			<if test="contents != ''">CONTENTS = #{contents},</if> -->
-<!-- 			MOD_DATE = SYSDATE			 -->
-<!-- 		</set> -->
-<!-- 		WHERE 	 BOARD_NO = #{boardNo} -->
-<!-- 	</update> -->
-
-
-<!--  	<delete id="recommendDelete" parameterType="int">  -->
-<!-- 		DELETE FROM BOARD -->
-<!-- 		WHERE BOARD_NO = #{boardNo} -->
-<!-- 	</delete> -->
+	
 	
 	
 
