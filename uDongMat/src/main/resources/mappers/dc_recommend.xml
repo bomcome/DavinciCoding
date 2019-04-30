@@ -37,8 +37,20 @@
 		</selectKey>
 		
 		INSERT INTO RECOMMEND
-		(RECOMMEND_NO, COMMENT_NO, BOARD_NO, MEMBER_NO)
-		VALUES(#{recommendNo}, #{commentNo}, #{boardNo}, #{memberNo})
+		(RECOMMEND_NO, BOARD_NO, MEMBER_NO)
+		VALUES(#{recommendNo}, #{boardNo}, #{memberNo})
+	</insert>
+	
+	<insert id="commentRecommendInsertOne" 
+		parameterType= "recommendVo"
+		useGeneratedKeys="true" keyProperty="recommendNo">
+		<selectKey keyProperty="recommendNo" resultType="int" order="BEFORE">
+			SELECT RECOMMEND_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO RECOMMEND
+		(RECOMMEND_NO, COMMENT_NO, MEMBER_NO)
+		VALUES(#{recommendNo}, #{commentNo}, #{memberNo})
 	</insert>
 	
 	<delete id="recommendDelete" parameterType="int"> 

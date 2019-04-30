@@ -6,6 +6,8 @@ import com.dc.recommend.vo.RecommendVo;
 
 public interface RecommendDao {
 
+	
+	public void commentRecommendInsertOne(RecommendVo recommendVo);
 	public void recommendInsertOne(RecommendVo recommendVo);
 	public void recommendDelete(int recommendNo);
 	

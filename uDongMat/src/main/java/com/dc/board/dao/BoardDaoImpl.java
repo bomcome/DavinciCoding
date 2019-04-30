@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dc.board.vo.BoardVo;
+import com.dc.board.vo.HitsVo;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -78,5 +79,36 @@ public class BoardDaoImpl implements BoardDao{
 		sqlSession.update(namespace +"boardUpdateRecommendDown", boardNo);
 	}
 
+//	@Override
+//	public void hitsInsertOne(HitsVo hitsVo) {
+//		// TODO Auto-generated method stub
+//		sqlSession.insert(namespace +"hitsInsertOne", hitsVo);
+//	}
+
+	@Override
+	public void hitsInsertOne(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace +"hitsInsertOne", map);
+	}
+	
+
+	@Override
+	public HitsVo hitsSelectOne(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "hitsSelectOne", map);
+	}
+
+	@Override
+	public void boardUpdateHitsUp(int boardNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace +"boardUpdateHitsUp", boardNo);
+	}
+
+	@Override
+	public void hitsUpdateDate(int hitsNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace +"hitsUpdateDate", hitsNo);
+	}
+	
 	
 }

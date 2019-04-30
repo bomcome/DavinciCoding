@@ -40,4 +40,10 @@ public class RecommendDaoImpl implements RecommendDao{
 		return sqlSession.selectOne(namespace +"commentRecommendSelectOne", map);
 	}
 
+	@Override
+	public void commentRecommendInsertOne(RecommendVo recommendVo) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace +"commentRecommendInsertOne", recommendVo);
+	}
+
 }

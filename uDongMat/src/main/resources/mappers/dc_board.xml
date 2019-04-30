@@ -16,6 +16,15 @@
 		<result column="RECOMMEND_COUNT" property="recommendCount" />
 		<result column="HITS" property="hits" />
 		<result column="ROWNUM" property="rownum" />
+	</resultMap>	
+	
+	<resultMap type="com.dc.board.vo.HitsVo"
+		id="hitsResultMap">
+		<id column="HITS_NO" property="hitsNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="CRE_DATE" property="createDate" />
+		<result column="TIME_DIFFERENCE" property="timeDifference" />
 	</resultMap>
 
 	
@@ -69,7 +78,8 @@
 	
 	<select id="boardSelectOne" parameterType="int"
 		resultMap="boardResultMap">
-		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE, B.RECOMMEND_COUNT
+		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE, B.RECOMMEND_COUNT, B.HITS
+		
 		FROM BOARD B, MEMBERS M
 		WHERE B.MEMBER_NO = M.MEMBER_NO
 		AND B.BOARD_NO = #{boardNo}
@@ -143,6 +153,54 @@
 		</set>
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+	
+	<update id="boardUpdateHitsUp" parameterType="int">
+		UPDATE BOARD
+		<set>
+			HITS = HITS + 1,		
+		</set>
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
+	
+	<select id="hitsSelectOne" parameterType="map"
+		resultMap="hitsResultMap">
+		SELECT HITS_NO, BOARD_NO, MEMBER_NO, CRE_DATE, SYSDATE-CRE_DATE AS TIME_DIFFERENCE
+		FROM HITS
+		WHERE BOARD_NO = #{boardNo} 
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	
+	<insert id="hitsInsertOne" 
+		parameterType= "map" 
+		useGeneratedKeys="true" keyProperty="hitsNo">
+		<selectKey keyProperty="hitsNo" resultType="int" order="BEFORE">
+			SELECT HITS_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO HITS
+		(HITS_NO, BOARD_NO, MEMBER_NO, CRE_DATE)
+		VALUES(#{hitsNo}, #{boardNo}, #{memberNo}, SYSDATE)
+	</insert>
+	
+	
+	<update id="hitsUpdateDate" parameterType="int">
+		UPDATE HITS
+		<set>
+			CRE_DATE = SYSDATE		
+		</set>
+		WHERE HITS_NO = #{hitsNo}
+	</update>
+	
+	
+	<delete id="hitsDelete" parameterType="int"> 
+		DELETE FROM HITS
+		WHERE HITS_NO = #{hitsNo}
+	</delete>
 	
 	
 <!-- 	<update id="boardUpdateHits" parameterType="int"> -->

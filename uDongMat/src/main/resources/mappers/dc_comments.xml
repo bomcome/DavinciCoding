@@ -149,8 +149,7 @@
 	<update id="commentUpdateRecommendUp" parameterType="int">
 		UPDATE COMMENTS
 		<set>
-			RECOMMEND_COUNT = RECOMMEND_COUNT + 1,
-			MOD_DATE = SYSDATE			
+			RECOMMEND_COUNT = RECOMMEND_COUNT + 1,			
 		</set>
 		WHERE COMMENT_NO = #{commentNo}
 	</update>
@@ -158,8 +157,7 @@
 	<update id="commentUpdateRecommendDown" parameterType="int">
 		UPDATE COMMENTS
 		<set>
-			RECOMMEND_COUNT = RECOMMEND_COUNT - 1,
-			MOD_DATE = SYSDATE			
+			RECOMMEND_COUNT = RECOMMEND_COUNT - 1,			
 		</set>
 		WHERE COMMENT_NO = #{commentNo}
 	</update>

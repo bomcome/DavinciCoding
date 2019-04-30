@@ -72,12 +72,12 @@
 	width: 1920px;
 	}
 	
-	#recommendButtonsDiv #recommendButtonsSpan{
-	margin-right: 430px;
-	}
+/* 	#recommendButtonsDiv #recommendButtonsSpan{ */
+/* 	margin-right: 430px; */
+/* 	} */
 	
-	#boardOne.recommendUpdateButton {
-	
+	#boardOne .recommendUpdateButton {
+		margin-right: 430px;
 	}
 </style>
 <title>Insert title here</title>

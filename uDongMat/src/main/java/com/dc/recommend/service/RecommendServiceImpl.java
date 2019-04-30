@@ -25,28 +25,28 @@ public class RecommendServiceImpl implements RecommendService{
 		// TODO Auto-generated method stub
 		
 		recommendDao.recommendInsertOne(recommendVo);
-		commentDao.commentUpdateRecommendUp(recommendVo.getCommentNo());
+		boardDao.boardUpdateRecommendUp(recommendVo.getBoardNo());
 	}
 
 	@Override
 	public void recommendDelete(RecommendVo recommendVo) {
 		// TODO Auto-generated method stub
 		recommendDao.recommendDelete(recommendVo.getRecommendNo());
-		commentDao.commentUpdateRecommendDown(recommendVo.getCommentNo());
+		boardDao.boardUpdateRecommendDown(recommendVo.getBoardNo());
 	}
 
 	@Override
 	public void commentRecommendInsertOne(RecommendVo recommendVo) {
 		// TODO Auto-generated method stub
-		recommendDao.recommendInsertOne(recommendVo);
-		commentDao.commentUpdateRecommendUp(recommendVo.getBoardNo());
+		recommendDao.commentRecommendInsertOne(recommendVo);
+		commentDao.commentUpdateRecommendUp(recommendVo.getCommentNo());
 	}
 
 	@Override
 	public void commentRecommendDelete(RecommendVo recommendVo) {
 		// TODO Auto-generated method stub
 		recommendDao.recommendDelete(recommendVo.getRecommendNo());
-		commentDao.commentUpdateRecommendDown(recommendVo.getBoardNo());
+		commentDao.commentUpdateRecommendDown(recommendVo.getCommentNo());
 	}
 	
 	@Override
@@ -68,4 +68,5 @@ public class RecommendServiceImpl implements RecommendService{
 		return recommendDao.commentRecommendSelectOne(map);
 	}
 
+	
 }

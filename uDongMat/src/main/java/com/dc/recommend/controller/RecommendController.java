@@ -25,19 +25,19 @@ public class RecommendController {
 	
 	@RequestMapping(value="/recommend/addCommentCtr.do", method= {RequestMethod.POST})
 	public String commentRecommendAdd(HttpSession session, Model model, RecommendVo recommendVo, int boardNo) {
-		
+		System.out.println(recommendVo);
 		RecommendVo recommendVo2 = recommendService.commentRecommendSelectOne(recommendVo.getCommentNo(), recommendVo.getMemberNo());
 		if(recommendVo2 == null) {
-			System.out.println(recommendVo);
+			System.out.println(recommendVo2);
 			recommendService.commentRecommendInsertOne(recommendVo);
 		}else if(recommendVo2 != null) {
-			recommendService.recommendDelete(recommendVo);
+			recommendService.commentRecommendDelete(recommendVo2);
 		}
 		
 //		recommendService.commentRecommendInsertOne(recommendVo);
 //		commentService.commentUpdateRecommendUp(commentNo);
 		
-		return "redirect:/board/one.do?boardNo=" + recommendVo.getBoardNo();
+		return "redirect:/board/one.do?boardNo=" + boardNo;
 	}
 	
 //	@RequestMapping(value="/recommend/deleteComment.do", method= {RequestMethod.GET})

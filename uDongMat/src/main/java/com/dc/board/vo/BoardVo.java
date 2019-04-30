@@ -4,16 +4,18 @@ import java.util.Date;
 
 public class BoardVo {
 	
-	int boardNo;
-	int memberNo;
-	String nickname;
-	String title;
-	String contents;
-	Date createDate;
-	Date modifiedDate;
-	int recommendCount;
-	int	hits;
-	int rownum;
+	private int boardNo;
+	private int memberNo;
+	private String nickname;
+	private String title;
+	private String contents;
+	private Date createDate;
+	private Date modifiedDate;
+	private int recommendCount;
+	private int	hits;
+	private int rownum;
+	
+	
 	
 	public BoardVo() {
 		super();

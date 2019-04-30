@@ -59,12 +59,25 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/one.do", method= {RequestMethod.GET})
 	public String boardOne(Model model, int boardNo, HttpServletRequest req, HttpSession session) {
-		
-		BoardVo boardVo = boardService.boardSelectOne(boardNo);
-		
-		req.setAttribute("boardVo", boardVo);
-		
+
 		MemberVo memberVo = (MemberVo)session.getAttribute("_memberVo_");
+		
+		if(memberVo != null) {
+			System.out.println(memberVo.getMemberNo());
+			BoardVo boardVo = boardService.boardSelectOne(boardNo, memberVo.getMemberNo());
+			
+			req.setAttribute("boardVo", boardVo);
+		}else if(memberVo == null) {
+			System.out.println(boardNo);
+			BoardVo boardVo = boardService.boardSelectOne(boardNo);
+			
+			req.setAttribute("boardVo", boardVo);
+		}
+		
+//		BoardVo boardVo = boardService.boardSelectOne(boardNo, memberVo.getMemberNo());
+//		
+//		req.setAttribute("boardVo", boardVo);
+//		
 		
 		if(memberVo != null) {
 			RecommendVo recommendVo = recommendService.boardRecommendSelectOne(boardNo, memberVo.getMemberNo());
@@ -90,10 +103,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/update.do", method= {RequestMethod.GET})
-	public String boardUpdate(Model model, int boardNo) {
+	public String boardUpdate(HttpSession session, Model model, int boardNo) {
+		
+		MemberVo memberVo = (MemberVo)session.getAttribute("_memberVo_");
 		
 		BoardVo boardVo = 
-				boardService.boardSelectOne(boardNo);
+				boardService.boardSelectOne(boardNo, memberVo.getMemberNo());
 		
 		model.addAttribute("boardVo", boardVo);
 		
