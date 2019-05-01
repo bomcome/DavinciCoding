@@ -58,7 +58,7 @@
 				WHERE TITLE LIKE '%'||#{keyword}||'%'
 				OR CONTENTS LIKE '%'||#{keyword}||'%'
 				OR NICKNAME LIKE '%'||#{keyword}||'%'
-				ORDER BY RECOMMEND_COUNT DESC
+				ORDER BY RECOMMEND_COUNT DESC, BOARD_NO ASC
 		    )
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
@@ -188,6 +188,8 @@
 	</insert>
 	
 	
+	
+	
 	<update id="hitsUpdateDate" parameterType="int">
 		UPDATE HITS
 		<set>
@@ -210,6 +212,35 @@
 <!-- 		</set> -->
 <!-- 		WHERE BOARD_NO = #{boardNo} -->
 <!-- 	</update> -->
+	
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO TB_FILE
+			(IDX, PARENT_SEQ, ORIGINAL_FILE_NAME, 
+			STORED_FILE_NAME, FILE_SIZE, CRE_DATE)
+		VALUES
+			(TB_FILE_IDX_SEQ.NEXTVAL, #{parentSeq}, #{original_file_name},
+			#{stored_file_name}, #{file_size}, SYSDATE)
+	</insert>
+	
+	<select id="fileSelectList" parameterType="int"
+		resultType="map">
+		SELECT IDX, ORIGINAL_FILE_NAME, STORED_FILE_NAME, 
+			ROUND(FILE_SIZE/1024, 1) AS FILE_SIZE
+		FROM TB_FILE
+		WHERE PARENT_SEQ = #{no}
+	</select>
+	
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM TB_FILE
+		WHERE PARENT_SEQ = #{no}
+	</delete>
+
+	<select id="fileSelectStoredFileName" parameterType="int"
+		resultType="map">
+		SELECT IDX, STORED_FILE_NAME
+		FROM TB_FILE
+		WHERE PARENT_SEQ = #{no}
+	</select>
 	
 	
 </mapper>

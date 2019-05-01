@@ -60,11 +60,12 @@
 	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	
-		<form id="inputForm" action="./addCtr.do" method="post">
+		<form id="inputForm" action="./addCtr.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
 			<div>제목</div>
 			<input name='title' id='title' type="text">
 			<div>내용</div>
+			파일: <input type="file" name="file">
 			<textarea name='contents' id='contents' rows="30" cols="155" style="resize: none;"></textarea>
 			<div id='buttons'>
 				<button type="button" onclick="location.href='list.do'">작성취소</button>

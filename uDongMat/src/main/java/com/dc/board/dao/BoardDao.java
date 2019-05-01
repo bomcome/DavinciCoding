@@ -11,7 +11,7 @@ public interface BoardDao {
 	public List<BoardVo> boardSelectList(String keyword, int start, int end);
 	public BoardVo boardSelectOne(int boardNo);
 	public void boardInsertOne(BoardVo boardVo);
-	public int boardUpdateOne(BoardVo boardVo);
+	public void boardUpdateOne(BoardVo boardVo);
 	public void boardDelete(int no);
 //	public int boardTotalCount();
 	
@@ -23,7 +23,15 @@ public interface BoardDao {
 	
 //	public void hitsInsertOne(HitsVo hitsVo);
 	public void hitsInsertOne(Map<String, Object> map);
+	
 	public void hitsUpdateDate(int hitsNo);
 	
 	public HitsVo hitsSelectOne(Map<String, Object> map);
+	
+	
+	
+	public void insertFile(Map<String, Object> map);
+	public List<Map<String, Object>> fileSelectList(int no);
+	public int fileDelete(int no);
+	public Map<String, Object> fileSelectStoredFileName(int no);
 }

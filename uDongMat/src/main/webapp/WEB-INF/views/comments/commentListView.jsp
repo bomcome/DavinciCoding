@@ -208,8 +208,7 @@
 							
 							<c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">
 								<input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${commentVo.rowNum});">
-								<button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}
-								&boardNo=${commentVo.boardNo}'">삭제</button>
+								<button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
 							</c:if>
 							<c:if test="${_memberVo_ != null}">
 								<input class="cocommentButton" type="button" value="답글" onclick="cocommentAddFnc(${commentVo.rowNum});">

@@ -88,11 +88,24 @@
 	<jsp:include page="../headerButtons.jsp"/>
 	
 	
-	<form id="inputForm" action="./update.do" method="get">
+	<form id="inputForm" action="./update.do" method="get" >
 		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
 		<div id="titleLeft">제목</div><div id="right"><span><span>작성자:</span> ${boardVo.nickname}</span><span><span>작성일:</span> ${boardVo.createDate}</span></div>
 		<input name='title' id='title' type="text" value='${boardVo.title}' readOnly="readonly">
 		<div>내용</div>
+		첨부파일: 
+		<c:choose>
+			<c:when test="${empty fileList}">
+				첨부파일이 없습니다.<br>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="row" items="${fileList}">
+<%-- 				<input type="hidden" class="files" value="${row.IDX}"> --%>
+				${row.ORIGINAL_FILE_NAME} (${row.FILE_SIZE}kb)<br>
+				<img alt="image not found" src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 		<textarea name='contents' id='contents' rows="30" cols="155" readOnly="readonly">${boardVo.contents}</textarea>
 		
 		

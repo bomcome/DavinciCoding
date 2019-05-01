@@ -44,9 +44,9 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public int boardUpdateOne(BoardVo boardVo) {
+	public void boardUpdateOne(BoardVo boardVo) {
 		// TODO Auto-generated method stub
-		return sqlSession.update(namespace +"boardUpdateOne", boardVo );
+		sqlSession.update(namespace +"boardUpdateOne", boardVo );
 	}
 
 	@Override
@@ -110,5 +110,31 @@ public class BoardDaoImpl implements BoardDao{
 		sqlSession.update(namespace +"hitsUpdateDate", hitsNo);
 	}
 	
+	
+	
+	@Override
+	public void insertFile(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.insert(namespace + "insertFile", map);
+	}
+
+	@Override
+	public List<Map<String, Object>> fileSelectList(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "fileSelectList", no);
+	}
+
+	@Override
+	public int fileDelete(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace + "fileDelete", no);
+	}
+
+	@Override
+	public Map<String, Object> fileSelectStoredFileName(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", no);
+	}
 	
 }
