@@ -21,7 +21,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
-	<mvc:resources location="/resources/" mapping="/resources/**"/>
+<!-- 	<mvc:resources location="/resources/" mapping="/resources/**"/> junit 테스트-->
 <!-- 	<mvc:resources location="file:///C:/upload/" mapping="/images/**"/> -->
 
 	<bean id="multipartResolver" 

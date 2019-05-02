@@ -48,48 +48,68 @@
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
 	
-	<br/>
+
 	
 	<div id="member">
 		<form action="./update.do" method="get" >
 			<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
 			
 			<div style="text-align: left; padding-left: 70px;">
-				이메일<br/>
-				<input type="text" name="email" 
-					value='${memberVo.email}' readonly="readonly"><br/>
-				<br/>	
+				<div>
+					<ul>
+						<li>이메일
+						<li><input type="text" name="email" value='${memberVo.email}' readonly="readonly">
+					</ul>
+				</div>
+				
 			
 			
-				닉네임<br/>
-				<input type="text" name='nickName' id='nickName' value='${memberVo.nickName}' 
-						readonly="readonly"><br/>
-				<br/>		
-			<c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">			
-				가입일<br/>
-				<input type="text" name='createDate' id='createDate'  
-					value='<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd"/>' 
-				readonly="readonly"><br/>		
-				<br/>
+				<div>
+					<ul>
+						<li>닉네임
+						<li><input type="text" name='nickName' id='nickName' 
+								value='${memberVo.nickName}' readonly="readonly">
+					</ul>
+				</div>
+						
+			<c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">	
+				<div>		
+					<ul>
+						<li>가입일
+						<li><input type="text" name='createDate' id='createDate'  
+							value='<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd"/>'
+							readonly="readonly">
+					</ul>
+				</div>	
+			
 			</c:if>	
 			</div>
 		
-		<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
-					
-			<input type="submit" class="memberInput" value="정보수정"><br/>
-			<br/>
-		</c:if>	
-			<input type="button" class="memberInput" value="이전화면"  onclick="pageMoveListFnc();"><br/>
-			<br/>
-		<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">	
+			<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
+				<div>
+					<ul>
+						<li><input type="submit" class="memberInput" value="정보수정">
+					</ul>
+				</div>
+			</c:if>	
+		
+			<div>
+				<ul>
+					<li><input type="button" class="memberInput" value="이전화면"  onclick="pageMoveListFnc();">
+				</ul>
+			</div>
+
+			<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">	
 			<hr>
-			<br/>
-			<input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveDeleteFnc();">
-		</c:if>	
+				<div>
+					<ul>
+						<li><input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveDeleteFnc();">
+					</ul>
+				</div>
+			</c:if>	
 		</form>
 	</div>
 	
-	<br/>
 	<%-- <form action="../common/fileDownload.do" method="post">
 		<input type="hidden" id='filePno' name='filePno' value='${fileList[0].PNO}'>
 	</form> --%>

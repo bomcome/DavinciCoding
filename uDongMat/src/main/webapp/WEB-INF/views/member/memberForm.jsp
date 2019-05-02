@@ -12,8 +12,8 @@
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 
 <script type="text/javascript">
-
 	
+	//값을 체크한다
 	$(document).ready(function() {
 		//패스워드 체크
 		 $('#password').keyup(function() {
@@ -73,6 +73,7 @@
 		       }
 		    });//이메일 end
 	 });
+
 	
 	//회원가입 버튼
 	function memberInsertFnc() {
@@ -89,7 +90,6 @@
 		if (emailVal.value == '') {
 			alert("이메일을 입력하세요!");
 			emailVal.focus();
-			
 			return;
 		}
 		else if(emailVal.value.toString().indexOf('@') == -1 ){
@@ -128,56 +128,154 @@
 			
 			return;
 		}
-		else{
+		else if(${overlapEmail} == 1){
+			alert('이메일 중복 확인을 해주세요');
+
+			return;			
+		}
+		else if(${overlapEmail} == 0 && ${overlapNickName} == 0) {
+			alert('별명 중복 확인을 해주세요');
 			
+			return;	
+		}
+		else{
+			alert('환영 합니다.\n회원가입이 완료되었습니다!!');
 			addFormObj.submit();
 		}
 	}
 	
+	//로그인 페이지 이동
 	function pageLoginFormFnc(){
 		location.href = "../auth/login.do"
 	}
+	
+	//이메일 중복체크
+	function emailChkMoveFnc(){
+		
+ 		var addEmailChkFormObj = document.getElementById("addEmailChkForm");
+		var emailChkVal = document.getElementById('email');
+		var emailComChk = emailChkVal.value.toString().substring(emailChkVal.value.toString().length-4)
+		
+		var nickNameChkVal = document.getElementById('nickName');
+		
+		if (emailChkVal.value == '') {
+			alert("이메일을 입력하세요!");
+			emailChkVal.focus();
+			return;
+		}
+		else if(emailChkVal.value.toString().indexOf('@') == -1 ){
+			alert("이메일에 @은 필수입니다.");
+			emailVal.focus();
+		
+			return;
+		}
+		else if(emailComChk != '.com' ){
+			alert("이메일에 [.com]은 필수입니다.");;
+			emailChkVal.focus();
+		
+			return;
+		}
+		else{
+			var htmlStr = "<input type='hidden' name='email' value=" + emailChkVal.value + ">";
+			htmlStr = htmlStr + "<input type='hidden' name='nickName' value=" + nickNameChkVal.value + ">";
+	
+			
+			addEmailChkFormObj.innerHTML = htmlStr;
+			addEmailChkFormObj.submit();	
+		}
+		
+	}
+	
+	//별명 중복체크
+	function nickNameChkMoveFnc(){
+		
+ 		var addNickNameChkFormObj = document.getElementById("addNickNameChkForm");
+		var emailChkVal = document.getElementById('email');
+		var nickNameChkVal = document.getElementById('nickName');
+		
+		
+		if (nickNameChkVal.value == '') {
+			alert("별명을 입력하세요!");
+			nickNameChkVal.focus();
+			return;
+		}else{
+			
+			var htmlStr = "<input type='hidden' name='email' value=" + emailChkVal.value + ">";
+			htmlStr = htmlStr + "<input type='hidden' name='nickName' value=" + nickNameChkVal.value + ">";
+	
+			addNickNameChkFormObj.innerHTML = htmlStr;
+			addNickNameChkFormObj.submit();
+		}
+		
+	}
 </script>
-
+<style type="text/css">
+	
+	#emailChk, #nickNameChk{
+	 	width:65px; 
+	 	height:22px; 
+	 	margin-left: -6.5px; 
+	 	padding-bottom: 18px; 
+	 	font-size: 0.8em
+    }
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
-
-
-	<br/>
+<div>
+</div>
 	<div id="member">
 		<form action="./addCtr.do" id="addForm"method="post" style="font-weight: bold;"
 			enctype="multipart/form-data">
 			
 			<div style="text-align: left; padding-left: 70px;">
-				이메일<br/> 
-				<input type="email" required="required" id="email" name="email" placeholder="이메일 확인 "><br/>
-				<a id="emailChkMsg"></a>
-				<br/>
-				
-				닉네임<br/>
-				<input type="text" id="nickName" name='nickName' placeholder="닉네임 확인"><br/>
-				<br/>
-				
-				비밀번호<br/>
-				<input type="password" id="password" name='password' placeholder="비밀번호 확인"><br/>
-				<br/>
-				
-				비밀번호 확인 <br/>
-				<input type="password" id="passwordChk" name="passwordChk" placeholder="비밀번호 재확인"><br/>
-				<a id="passwordChkMsg"></a>
-				<br/>
+				<div>
+					<ul>
+						<li>이메일 
+						<li><input type="email" id="email" name="email" value='${memberVo.email}' placeholder="이메일 확인 ">
+						<input type="button" id="emailChk" value="증복확인" onclick="emailChkMoveFnc();">
+						<li><a id="emailChkMsg"></a>
+					</ul>
+				</div>	
+				<div>
+					<ul>
+						<li>닉네임
+						<li><input type="text" id="nickName" name='nickName' value='${memberVo.nickName}' placeholder="닉네임 확인">
+						<input type="button" id="nickNameChk" value="증복확인" onclick="nickNameChkMoveFnc();">
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>비밀번호
+						<li><input type="password" id="password" name='password' placeholder="비밀번호 확인">
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>비밀번호 확인 
+						<li><input type="password" id="passwordChk" name="passwordChk" placeholder="비밀번호 재확인">
+						<li><a id="passwordChkMsg"></a>
+					</ul>
+				</div>
 			</div>
-			<br/>
-			<input type="button" class="memberInput" onclick="memberInsertFnc();" value="회원가입"><br/>
-			<br/>
-			<input type="button" class="memberInput" onclick="pageLoginFormFnc()" value="가입취소">
+			<div>
+				<ul>
+					<li><input type="button" class="memberInput" onclick="memberInsertFnc();" value="회원가입">
+				</ul>
+				<ul>	
+					<li><input type="button" class="memberInput" onclick="pageLoginFormFnc()" value="가입취소">
+				</ul>
+			</div>
 		</form>
 	</div>
-	<br/>
-	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 
+	<form action="./addEmailChkCtr.do" id="addEmailChkForm" method="post">	
+	</form>
+	
+	<form action="./addNickNameChkCtr.do" id="addNickNameChkForm" method="post">	
+	</form>
+	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 </body>
 </html>

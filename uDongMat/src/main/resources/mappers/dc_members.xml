@@ -26,16 +26,16 @@
 		ORDER BY ROWNUM DESC
 	</select>
 	
-	<select id="memberEmailChk" parameterType="String" resultMap="memberResultMap">
+	<select id="memberEmailChk" parameterType="string" resultMap="memberResultMap">
 		SELECT EMAIL
 		FROM MEMBERS
-		WHERE EMAIL = #{email}
+		WHERE EMAIL = #{value}
 	</select>
 	
-	<select id="memberNickNameCHk" parameterType="String" resultMap="memberResultMap">
+	<select id="memberNickNameCHk" parameterType="string" resultMap="memberResultMap">
 		SELECT NICKNAME
 		FROM MEMBERS
-		WHERE NICKNAME = #{nickName}
+		WHERE NICKNAME = #{value}
 	</select>
 	
 	
