@@ -40,27 +40,34 @@
 	}
 	
 	
-	.commentUpdateContainer .commentUpdateForm #commentContentsUpdate {
+	#commentListContainer .commentUpdateContainer .commentUpdateForm #commentContentsUpdate {
 		width: 1020px;
 		resize: none;
 	}
-	.commentUpdateContainer {
+	#commentListContainer .commentUpdateContainer {
 		margin-left: 80px;
 	}
-	.commentContentsTextarea{
+	#commentListContainer .commentContentsTextarea{
 		width:1100px;
 		text-align: left;
 		
 	}
-	#commentListContainer .commentReceiver{
+	#commentListContainer #commentListContainer .commentReceiver{
 		font-weight: bold;
 		color: gray;
 		font-size: 14px;
 	}
 	
-	.cocommentContents{
+	#commentListContainer .cocommentContents{
 		width:1100px;
 	}
+	
+	#commentListContainer #commentRecommendButtonsdiv{
+		width: 1109px;
+		text-align: right;
+		
+	}
+	
 	
 </style>
 <script type="text/javascript">
@@ -179,7 +186,9 @@
 	
 	
 	
+	 
 	
+
 	
 	
 // 	window.onload = function()
@@ -203,7 +212,7 @@
 							<input type="hidden" name="commentNo" value="${commentVo.commentNo}">
 							<input type="hidden" name="boardNo" value="${commentVo.boardNo}">
 							${commentVo.nickname}
-							<span class="commentCreDate">${commentVo.createDate}</span>
+							<span class="commentCreDate"><fmt:formatDate value="${commentVo.createDate}" pattern="yyyy.MM.dd HH:mm:ss"/></span>
 							<span class="commentSpan">
 							
 							<c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">
@@ -230,47 +239,12 @@
 								</div>
 							</c:if>
 							
-	
-	<span id="recommendButtonsSpan">
-	<c:if test="${_memberVo_ != null}">
-		
-		<form action="../recommend/addCommentCtr.do" method="post">
-			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
-			<input type="hidden" name='commentNo' value='${commentVo.commentNo}'>
-			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
-			<button type="submit" id="recommendAddButton" class= "recommendUpdateButton">추천${commentVo.recommendCount}</button>
-			
-<%-- 			<c:if test="${recommendVo == null}"> --%>
-<%-- 				<button type="submit" id="recommendAddButton" class= "recommendUpdateButton">추천${commentVo.recommendCount}</button> --%>
-<%-- 			</c:if> --%>
-<%-- 			<c:if test="${recommendVo != null}"> --%>
-				
-<%-- 				<input type="button" id="recommendDeleteButton" class= "recommendUpdateButton" onclick="location.href='../recommend/deleteComment.do?commentNo=${commentVo.commentNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${commentVo.recommendCount}"> --%>
-<%-- 			</c:if> --%>
-			
-		</form>
-		
-	</c:if>
-	<c:if test="${_memberVo_ == null}">
-		<button type="button" class= "recommendUpdateButton" onclick="location.href='../auth/login.do'">추천${commentVo.recommendCount}</button>
-	</c:if>
-	</span>	
-	
-							
 							</span>
 							
 							<span class="commentContentsSpan">
 								<textarea class="commentContentsTextarea" id="commentContentsTextarea" 
 								style="border: none;"  name="contents" readonly="readonly">${commentVo.contents}</textarea></span>
 							<div class="commentUpdateContainer" style="display: none;">
-							<form action="../recommend/commentUpCtr" method="post">
-								<input type="hidden" name="commentNo" value="${commentVo.commentNo}">
-								<input type="hidden" name="boardNo" value="${commentVo.boardNo}">
-								<input type="hidden" name="memberNo" value="">
-								<input type="hidden" name="recommendNo" value="">
-								<button type="submit">${commentVo.recommendCount}"</button>
-								<button onclick="location.href='../recommend/commentDownCtr.do?'">${commentVo.recommendCount}</button>
-							</form>
 								<form class="commentUpdateForm" action="../comment/updateCtr.do" method="post">
 									<input type="hidden" id="commentNo" class="commentNo" name="commentNo" value="${commentVo.commentNo}">
 									<input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${commentVo.boardNo}">
@@ -282,6 +256,24 @@
 									</div>
 								</form>
 							</div>
+							
+							<div id="commentRecommendButtonsdiv"><span id="commentRecommendButtonsSpan">
+								<c:if test="${_memberVo_ != null}">
+									
+									<form action="../recommend/addCommentCtr.do" method="post">
+									<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
+									<input type="hidden" name='commentNo' value='${commentVo.commentNo}'>
+										<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
+										<button type="submit" id="recommendAddButton" 
+											class= "commentRecommendUpdateButton">추천${commentVo.recommendCount}</button>	
+									</form>
+									
+								</c:if>
+								<c:if test="${_memberVo_ == null}">
+									<button type="button" class= "recommendUpdateButton" onclick="location.href='../auth/login.do'">추천${commentVo.recommendCount}</button>
+								</c:if>
+							</span></div>
+							
 							<div class="cocommentAddContainer" style="display: none;">
 								<div class="cocommentAddLetter">답글쓰기</div>
 								<form class="cocommentAddForm" action="../comment/addCtr.do" method="post">
@@ -297,14 +289,12 @@
 									</div>
 								</form>
 						</div>
-<%-- 							<jsp:include page="../comments/commentUpdateForm.jsp"> --%>
-<%-- 								<jsp:param value="${commentVo}" name="commentVoTest"/> --%>
-<%-- 							</jsp:include> --%>
+
 						</td>
 						
 					</tr>	
 				</table>
 			</c:forEach>
 			
-<%-- 				<jsp:include page="../comments/commentListView.jsp"/> --%>
+
 		</div>

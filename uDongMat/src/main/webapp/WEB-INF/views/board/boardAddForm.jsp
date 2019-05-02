@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,13 @@
 		width: 1105px;
 		text-align: center;
 	}
+	#boardAdd #fileLetterSpan {
+		font-weight: normal;
+		font-size: 15px;
+	}
 </style>
+<script type="text/javascript" 
+	src="/springHome/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 
 	
@@ -65,7 +72,7 @@
 			<div>제목</div>
 			<input name='title' id='title' type="text">
 			<div>내용</div>
-			파일: <input type="file" name="file">
+			<div><span id="fileLetterSpan">첨부파일)</span> <input type="file" name="file"></div>
 			<textarea name='contents' id='contents' rows="30" cols="155" style="resize: none;"></textarea>
 			<div id='buttons'>
 				<button type="button" onclick="location.href='list.do'">작성취소</button>

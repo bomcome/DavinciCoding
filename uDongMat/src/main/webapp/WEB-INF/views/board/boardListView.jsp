@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <style type="text/css">
  	#boardListContainer tr, td {
- 		border-bottom: 1px solid #8C8C8C;
+ 		border-bottom: 1px solid #C6C6C6;
  		height: 35px; 
  	}
  	
@@ -20,10 +20,10 @@
 		
 	}
 	#boardListContainer #writer{
-		width: 170px;
+		width: 175px;
 	}
 	#boardListContainer #createDate{
-		width: 200px;
+		width: 170px;
 	}
 	
 	#boardListContainer #hitsTd{
@@ -95,10 +95,18 @@
 	}
 	
 	#pagingForm {
-		margin-bottom: 50px;
+/* 		margin-bottom: 50px; */
 	}
 	#center{
 		text-align: center;
+	}
+	
+	#boardListContainer #writeButtonsDiv{
+		text-align: right;
+	}
+	
+	#boardListContainer #writeButtonsDiv span{
+		margin-right: 435px;
 	}
 </style>
 
@@ -138,11 +146,12 @@
 		<c:forEach var="boardVo" items="${boardList}">
 			<tr>
 				<td>${boardVo.rownum}</td>
-				<td class="title">
+				<td class="boardTitle">
 					<a href='./one.do?boardNo=${boardVo.boardNo}'>${boardVo.title}</a>
 				</td>
 				<td>${boardVo.nickname}</td>
-				<td>${boardVo.createDate}</td>
+				<td><fmt:formatDate value="${boardVo.createDate}" 
+				pattern="yyyy.MM.dd HH:mm"/></td>
 				<td>${boardVo.hits}</td>
 				<td>${boardVo.recommendCount}</td>
 			</tr>
@@ -160,17 +169,21 @@
 			<input type="hidden" id="keyword" name="keyword" 
 				value="${keyword}">
 		</form>
-	
+	</div>
+	<div id="writeButtonsDiv">
+		<span>
 		<c:if test="${_memberVo_ != null}">
 			<button class="write" onclick="location.href='add.do'">글쓰기</button>
 		</c:if>
 		<c:if test="${_memberVo_ == null}">
 			<button class="write" type="button" onclick="location.href='../auth/login.do'">글쓰기</button>
 		</c:if>
+		</span>
+	</div>
 		
 	<jsp:include page="../Tail.jsp"/>
 		
-	</div>	
+		
 	</div>
 	
 </body>
