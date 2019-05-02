@@ -169,7 +169,7 @@ public class MemberController {
 
 
 	    if (memberVoNickNameChk != null) {
-			
+			 
 	    	model.addAttribute("memberVo", memberVo);
 	    	model.addAttribute("overlapNickName", 1);
 	    	
