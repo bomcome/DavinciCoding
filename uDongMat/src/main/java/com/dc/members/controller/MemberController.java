@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dc.members.service.MemberService;
 import com.dc.members.vo.MemberVo;
@@ -54,7 +55,7 @@ public class MemberController {
 	}
 	
 	
-	//회원 수정
+	//회원 수정 페이지로 이동
 	@RequestMapping(value = "/member/update.do",method = RequestMethod.GET)
 	public String memberUpdate(int memberNo, Model model) {
 		log.debug("Welcome memberUpdate enter! - {}", memberNo);
@@ -65,7 +66,7 @@ public class MemberController {
 
 		return "member/memberUpdateForm";
 	}
-	
+	//회원 수정 완료
 	@RequestMapping(value = "/member/updateCtr.do",method = RequestMethod.POST)
 	public String memberUpdateOne(HttpSession session, MemberVo memberVo,Model model) {
 		log.debug("Welcome memberUpdateCtr enter! - {}", memberVo);
@@ -105,27 +106,26 @@ public class MemberController {
 		
 
 	
-	//회원가입
-	@RequestMapping(value = "/member/add.do", method = RequestMethod.GET)
-	public String memberAdd(Model model,MemberVo memberVo) {
+	//회원가입 페이지로 이동
+	@RequestMapping(value = "/member/add.do", method = {RequestMethod.GET})
+	public String memberAdd(
+			@RequestParam(defaultValue ="1") int overlapEmail,
+			@RequestParam(defaultValue ="1") int overlapNickName,
+			Model model,MemberVo memberVo) {
 		log.debug("Welcome MemberController memberAdd 페이지 이동!" + memberVo);
 		
+		//중복체크를 인한 값 넘기기
+		model.addAttribute("overlapEmail", overlapEmail);
+		model.addAttribute("overlapNickName", overlapNickName);
 		
 		return "member/memberForm";
 	}
 	
-	
+	//회원가입 완료
 	@RequestMapping(value = "/member/addCtr.do", method = RequestMethod.POST)
 	public String memberAdd(MemberVo memberVo,  Model model) {
 		log.trace("Welcome MemberController memberAdd 신규등록 처리! " + memberVo);
 		
-//		String EmailChk;
-//		String NickNameCHk;
-
-//		EmailChk = memberService.memberEmailChk(memberVo.getEmail());
-//		NickNameCHk = memberService.memberNickNameCHk(memberVo.getNickName());
-
-			
 			try {
 				memberService.memberInsertOne(memberVo);
 			} catch (Exception e) {
@@ -135,6 +135,52 @@ public class MemberController {
 		
 
 		return "redirect:/auth/login.do";
+	}
+//	이메일 증복 체크
+	@RequestMapping(value = "/member/addEmailChkCtr.do", method = RequestMethod.POST)
+	public String memberAddEmailChk(MemberVo memberVo,  Model model) {
+		log.trace("Welcome MemberController memberAdd 증복체크 처리! " + memberVo);
+		
+
+	    MemberVo memberVoEmailChk = memberService.memberEmailChk(memberVo.getEmail());
+
+
+	    if (memberVoEmailChk != null) {
+			
+	    	model.addAttribute("memberVo", memberVo);
+	    	model.addAttribute("overlapEmail", 1);
+	    	
+		}else {
+			 
+			model.addAttribute("memberVo", memberVo);
+			model.addAttribute("overlapEmail", 0);
+		}
+
+		return "member/memberEmailChk";
+	}
+	
+//	별명 증복 체크
+	@RequestMapping(value = "/member/addNickNameChkCtr.do", method = RequestMethod.POST)
+	public String memberAddNickNameChk(MemberVo memberVo,  Model model) {
+		log.trace("Welcome MemberController memberAdd 증복체크 처리! " + memberVo);
+		
+
+	    MemberVo memberVoNickNameChk = memberService.memberNickNameChk(memberVo.getNickName());
+
+
+	    if (memberVoNickNameChk != null) {
+			
+	    	model.addAttribute("memberVo", memberVo);
+	    	model.addAttribute("overlapNickName", 1);
+	    	
+		}else {
+			 
+			model.addAttribute("memberVo", memberVo);
+			model.addAttribute("overlapEmail", 0);
+			model.addAttribute("overlapNickName", 0);
+		}
+
+		return "member/memberNickNameChk";
 	}
 	
 	
@@ -165,7 +211,7 @@ public class MemberController {
 		
 	}
 	
-	//로그인 하기
+	//로그인 페이지로 이동
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
 		log.debug("Welcome MemberController login 페이지 이동! -{}" + session);
@@ -173,6 +219,7 @@ public class MemberController {
 		return "auth/loginForm";
 	}
 	
+	//로그인  완료
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
 	public String loginCtr(String email, String password, HttpSession session, Model model) {
 		log.debug("Welcome MemberController loginCtr! - {} , {}" + email ,password);

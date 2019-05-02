@@ -56,13 +56,13 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public String memberEmailChk(String email) {
+	public MemberVo memberEmailChk(String email) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "memberEmailChk", email);
 	}
 
 	@Override
-	public String memberNickNameCHk(String nickName) {
+	public MemberVo memberNickNameChk(String nickName) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "memberNickNameCHk", nickName);
 	}

@@ -58,15 +58,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String memberEmailChk(String email) {
+	public MemberVo memberEmailChk(String email) {
 		// TODO Auto-generated method stub
 		return memberDao.memberEmailChk(email);
 	}
 
 	@Override
-	public String memberNickNameCHk(String nickName) {
+	public MemberVo memberNickNameChk(String nickName) {
 		// TODO Auto-generated method stub
-		return memberDao.memberNickNameCHk(nickName);
+		return memberDao.memberNickNameChk(nickName);
 	}
 
 }

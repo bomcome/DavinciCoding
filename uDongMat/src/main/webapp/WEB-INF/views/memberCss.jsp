@@ -5,14 +5,14 @@
 <style type="text/css">
 	
 	#member{
-		width:300px;
+		width:310px;
 		text-align: center;
 		margin:auto;
 		font-weight: bold;
 	}
 	.memberInput {
 		width: 173px;
-		margin-left: 12px;
+		margin-left: 0px;
 		
 	}
 	
@@ -20,6 +20,11 @@
 		width: 173px;
 		color: #FFD9EC;
 		background-color: #5D5D5D;
-
 	}
+	
+   form > div ul{
+	   list-style:none;
+	   padding-left:0px;
+   }
+
 </style>
