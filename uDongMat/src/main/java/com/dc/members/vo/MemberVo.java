@@ -3,7 +3,8 @@ package com.dc.members.vo;
 import java.util.Date;
 
 public class MemberVo {
-
+	
+	private int rownum;
 	private int memberNo;
 	private String memberGrade;
 	private String email;
@@ -15,11 +16,13 @@ public class MemberVo {
 	public MemberVo() {
 		super();
 	}
+	
+	
 
-	public MemberVo(int memberNo, String memberGrade, String email, String nickName, String password, 
+	public MemberVo(int rownum, int memberNo, String memberGrade, String email, String nickName, String password,
 			Date createDate, Date modifiedDate) {
-		
 		super();
+		this.rownum = rownum;
 		this.memberNo = memberNo;
 		this.memberGrade = memberGrade;
 		this.email = email;
@@ -27,6 +30,16 @@ public class MemberVo {
 		this.password = password;
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
+	}
+
+
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
 	}
 
 	public int getMemberNo() {
@@ -85,12 +98,15 @@ public class MemberVo {
 		this.modifiedDate = modifiedDate;
 	}
 
+
 	@Override
 	public String toString() {
-		return "MemberVo [memberNo=" + memberNo + ", memberGrade=" + memberGrade + ", email=" + email + ", nickName="
-				+ nickName + ", password=" + password + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate
-				+ "]";
+		return "MemberVo [rownum=" + rownum + ", memberNo=" + memberNo + ", memberGrade=" + memberGrade + ", email="
+				+ email + ", nickName=" + nickName + ", password=" + password + ", createDate=" + createDate
+				+ ", modifiedDate=" + modifiedDate + "]";
 	}
+		
+	
 	
 	
 }

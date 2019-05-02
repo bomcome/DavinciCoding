@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
+<script type="text/javascript">
+	function pageMemberInsertFnc(){
+// 		alert(${memberVo.memberNo});
+		
+		location.href = "../member/add.do";
+	}
+</script>
 <style type="text/css">
 	#loginForm{
 		width:300px;
@@ -12,23 +19,14 @@
 		margin:auto;
 		font-weight: bold;
 	}
-	
-	.memberInput{
-		width: 160px;
-	}
 </style>
-<script type="text/javascript">
-	function pageMemberFormFnc(){
-		
-		location.href = "../member/add.do";
-	}
-</script>
 </head>
 <body>
 
 
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
 
 	
 	<br/>
@@ -44,10 +42,10 @@
 				<input type="password" name='password' id='password' placeholder="비밀번호"><br/>
 				<br/>
 					
-				<input type="submit" class="memberInput" value="로그인"><br/>
+				<input type="submit" class="memberInput" style="margin-left: 0px;" value="로그인"><br/>
 				<br/>
 				
-				<input type="button" class="memberInput" value="이전화면"  onclick="pageMoveListFnc();"><br/>
+				<input type="button" class="memberInput" style="margin-left: 0px;" value="이전화면"  onclick="pageMoveListFnc();"><br/>
 				<br/>
 				
 			</div>
@@ -56,7 +54,7 @@
 			
 			<br/>
 			
-			<input type="button" class="memberInput" value="회원가입"  onclick="pageMemberFormFnc();">
+			<input type="button" class="memberInput" value="회원가입"  onclick="pageMemberInsertFnc();">
 		</form>
 	</div>
 	<br/>

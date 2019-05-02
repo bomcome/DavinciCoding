@@ -127,6 +127,7 @@ public class BoardController {
 
 		List<Map<String, Object>> fileList = (List<Map<String, Object>>)map.get("fileList");
 
+		model.addAttribute("boardVo", (BoardVo)map.get("boardVo"));
 		model.addAttribute("memberVo", memberVo);
 		model.addAttribute("fileList", fileList);
 		

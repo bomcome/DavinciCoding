@@ -91,6 +91,7 @@ public class MemberController {
 					MemberVo newMemberVo = new MemberVo();
 
 					newMemberVo.setMemberNo(memberVo.getMemberNo());
+					newMemberVo.setMemberGrade(memberVo.getMemberGrade());
 					newMemberVo.setEmail(memberVo.getEmail());
 					newMemberVo.setNickName(memberVo.getNickName());
 
@@ -99,15 +100,16 @@ public class MemberController {
 					session.setAttribute("_memberVo_", newMemberVo);
 				}
 			}
-			return "redirect:/member/list.do";
+			return "redirect:/restaurants/list.do";
 		}
 		
 
 	
 	//회원가입
 	@RequestMapping(value = "/member/add.do", method = RequestMethod.GET)
-	public String memberAdd(Model model) {
-		log.debug("Welcome MemberController memberAdd 페이지 이동! ");
+	public String memberAdd(Model model,MemberVo memberVo) {
+		log.debug("Welcome MemberController memberAdd 페이지 이동!" + memberVo);
+		
 		
 		return "member/memberForm";
 	}
@@ -116,13 +118,21 @@ public class MemberController {
 	@RequestMapping(value = "/member/addCtr.do", method = RequestMethod.POST)
 	public String memberAdd(MemberVo memberVo,  Model model) {
 		log.trace("Welcome MemberController memberAdd 신규등록 처리! " + memberVo);
+		
+//		String EmailChk;
+//		String NickNameCHk;
 
-		try {
-			memberService.memberInsertOne(memberVo);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		EmailChk = memberService.memberEmailChk(memberVo.getEmail());
+//		NickNameCHk = memberService.memberNickNameCHk(memberVo.getNickName());
+
+			
+			try {
+				memberService.memberInsertOne(memberVo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 
 		return "redirect:/auth/login.do";
 	}
@@ -139,35 +149,51 @@ public class MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		session.invalidate();
-		return "redirect:/member/list.do";
+		
+		MemberVo sessionMemberVo = (MemberVo) session.getAttribute("_memberVo_");
+		
+		if (sessionMemberVo != null) {
+		
+			if (sessionMemberVo.getMemberNo() == memberNo) {
+
+
+				session.removeAttribute("_memberVo_");
+
+			}
+		}
+		return "redirect:/restaurants/list.do";
+		
 	}
 	
 	//로그인 하기
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
-		log.debug("Welcome MemberController login 페이지 이동! ");
+		log.debug("Welcome MemberController login 페이지 이동! -{}" + session);
 
 		return "auth/loginForm";
 	}
 	
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
 	public String loginCtr(String email, String password, HttpSession session, Model model) {
-		log.debug("Welcome MemberController loginCtr! -{} ,{}" + email, password);
+		log.debug("Welcome MemberController loginCtr! - {} , {}" + email ,password);
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("email", email);
 		paramMap.put("password", password);
 
-		MemberVo memberVo = memberService.memberExist(paramMap);
+		
 
+		
+	    MemberVo memberVo = memberService.memberExist(paramMap);
+	
+		
 		String viewUrl = "";
 		if (memberVo != null) {
 			// 회원이 존재한다면 세션에 담고
 			// 회원 전체 조회 페이지로 이동
 			session.setAttribute("_memberVo_", memberVo);
 
-			viewUrl = "redirect:/member/list.do";
+			viewUrl = "redirect:/restaurants/list.do";
 		} else {
 			viewUrl = "/auth/loginFail";
 		}

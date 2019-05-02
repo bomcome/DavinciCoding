@@ -136,5 +136,11 @@ public class BoardDaoImpl implements BoardDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", no);
 	}
+
+	@Override
+	public void hitsInsertOneOther(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace +"hitsInsertOneOther", map);
+	}
 	
 }

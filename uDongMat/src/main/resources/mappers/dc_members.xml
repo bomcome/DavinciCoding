@@ -6,7 +6,8 @@
 
 	<resultMap type="com.dc.members.vo.MemberVo"
 		id="memberResultMap">
-		<id column="member_no" property="memberNo" />
+		<id column="MEMBER_NO" property="memberNo" />
+		<result column="ROWNUM" property="rownum" />
 		<result column="MEMBER_GRADE" property="memberGrade" />
 		<result column="EMAIL" property="email" />
 		<result column="NICKNAME" property="nickName" />
@@ -19,30 +20,47 @@
 	
 	<!-- 회원 전체보기  -->
 	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
-		SELECT MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
+		SELECT ROWNUM, MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
 		FROM MEMBERS
 		WHERE MEMBER_GRADE = 'member'
+		ORDER BY ROWNUM DESC
+	</select>
+	
+	<select id="memberEmailChk" parameterType="String" resultMap="memberResultMap">
+		SELECT EMAIL
+		FROM MEMBERS
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<select id="memberNickNameCHk" parameterType="String" resultMap="memberResultMap">
+		SELECT NICKNAME
+		FROM MEMBERS
+		WHERE NICKNAME = #{nickName}
 	</select>
 	
 	
 	<!-- 회원 상세정보보기  -->
 	<select id="memberSelectOne" parameterType="int" resultMap="memberResultMap">
-		SELECT MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
+		SELECT MEMBER_NO, MEMBER_GRADE, EMAIL, NICKNAME, CRE_DATE
 		FROM MEMBERS
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
+	<!-- 회원 로그인 -->
 	<select id="memberExist" parameterType="map"
 		resultMap="memberResultMap">
-		SELECT MEMBER_NO, MEMBER_GRADE, EMAIL, NICKNAME
+		SELECT MEMBER_NO, MEMBER_GRADE, EMAIL, NICKNAME, CRE_DATE
 		FROM MEMBERS
 		WHERE EMAIL = #{email} AND PASSWORD = #{password}
 	</select>
+
+	
 	
 	<!-- 회원정보 수정  -->
 	<update id="memberUpdateOne" parameterType="memberVo">
 		UPDATE 	MEMBERS
 		<set>
+			<if test="memberGrade != ''">MEMBER_GRADE = #{memberGrade},</if>
 			<if test="email != ''">EMAIL = #{email},</if>
 			<if test="nickName != ''">NICKNAME = #{nickName},</if>
 			<if test="password != ''">PASSWORD = #{password},</if>

@@ -9,26 +9,34 @@
 <meta charset="UTF-8">
 <title>회원정보 조회</title>
 
+
 <script type="text/javascript" 
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 	
 	function pageMoveListFnc(){
-		location.href = "list.do";
+		location.href = "../restaurants/list.do";
 	}
 	
 	function pageMoveDeleteFnc(){
-		
-		
-		var r = confirm("정말로 탈퇴하시겟습니까?")
-		if(r == true){
-			var url = 'deleteCtr.do?memberNo=' + ${memberVo.memberNo};
-			location.href = url;
-		} 
-		else{
+			
+		//first if문
+		if(${memberVo.memberGrade == 'admin'}){
+			alert("관리자는 탈퇴를 못합니다!!");
 			return;
 		}
-
+		else{
+			var r = confirm("정말로 탈퇴하시겟습니까?")
+			
+			//second if문
+			if(r == true){
+				var url = 'deleteCtr.do?memberNo=' + ${memberVo.memberNo};
+				location.href = url;
+			} 
+			else{
+				return;
+			}//second if문 end
+		}//first if문 end
 	}
 		
 </script>
@@ -53,10 +61,17 @@
 				<br/>	
 			
 			
-				닉네임 <br/>
+				닉네임<br/>
 				<input type="text" name='nickName' id='nickName' value='${memberVo.nickName}' 
 						readonly="readonly"><br/>
+				<br/>		
+			<c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">			
+				가입일<br/>
+				<input type="text" name='createDate' id='createDate'  
+					value='<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd"/>' 
+				readonly="readonly"><br/>		
 				<br/>
+			</c:if>	
 			</div>
 		
 		<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
@@ -66,9 +81,9 @@
 		</c:if>	
 			<input type="button" class="memberInput" value="이전화면"  onclick="pageMoveListFnc();"><br/>
 			<br/>
+		<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">	
 			<hr>
 			<br/>
-		<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">	
 			<input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveDeleteFnc();">
 		</c:if>	
 		</form>

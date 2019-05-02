@@ -11,12 +11,13 @@
 		font-weight: bold;
 	}
 	.memberInput {
-		width: 160px;
+		width: 173px;
+		margin-left: 12px;
 		
 	}
 	
 	.memberInput:hover{
-		width: 160px;
+		width: 173px;
 		color: #FFD9EC;
 		background-color: #5D5D5D;
 

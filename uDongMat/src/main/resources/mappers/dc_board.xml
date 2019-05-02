@@ -188,6 +188,18 @@
 	</insert>
 	
 	
+	<insert id="hitsInsertOneOther" 
+		parameterType= "map" 
+		useGeneratedKeys="true" keyProperty="hitsNo">
+		<selectKey keyProperty="hitsNo" resultType="int" order="BEFORE">
+			SELECT HITS_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO HITS
+		(HITS_NO, BOARD_NO, CRE_DATE)
+		VALUES(#{hitsNo}, #{boardNo}, SYSDATE)
+	</insert>
+	
 	
 	
 	<update id="hitsUpdateDate" parameterType="int">

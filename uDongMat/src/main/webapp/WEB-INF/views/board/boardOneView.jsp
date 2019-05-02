@@ -102,7 +102,8 @@
 				<c:forEach var="row" items="${fileList}">
 <%-- 				<input type="hidden" class="files" value="${row.IDX}"> --%>
 				${row.ORIGINAL_FILE_NAME} (${row.FILE_SIZE}kb)<br>
-				<img alt="image not found" src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
+				<img alt="image not found" style="width: 1000px; height: auto;"
+					 src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>

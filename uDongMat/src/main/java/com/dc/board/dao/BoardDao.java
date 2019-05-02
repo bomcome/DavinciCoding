@@ -23,6 +23,8 @@ public interface BoardDao {
 	
 //	public void hitsInsertOne(HitsVo hitsVo);
 	public void hitsInsertOne(Map<String, Object> map);
+	public void hitsInsertOneOther(Map<String, Object> map);
+	
 	
 	public void hitsUpdateDate(int hitsNo);
 	
