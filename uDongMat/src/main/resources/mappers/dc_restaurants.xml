@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dc.restaurants">
+
+	<resultMap type="com.dc.restaurants.vo.RestaurantsVo"
+		id="restaurantsResultMap">
+		<id column="RESTAURANT_NO" property="restaurantNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="RESTAURANT_NAME" property="restaurantName" />
+		<result column="CATEGORY" property="category" />
+		<result column="PHONE" property="phone" />
+		<result column="OPERATING_TIME" property="operatingTime" />
+		<result column="ADDRESS" property="address" />
+		<result column="CONTENTS" property="contents" />
+		<result column="STORED_FILE_NAME" property="storedFileName" />
+		<result column="CRE_DATE" property="createDate" javaType="java.util.Date" />
+		<result column="MOD_DATE" property="modifiedDate" javaType="java.util.Date" />
+	</resultMap>
+
+	<select id="restaurantsSelectList" parameterType="map"
+		resultMap="restaurantsResultMap">
+		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
+		ON R.RESTAURANT_NO = F.PARENT_SEQ
+		WHERE R.RESTAURANT_NAME LIKE '%'||#{keyword}||'%' OR R.CATEGORY LIKE '%'||#{keyword}||'%'
+		ORDER BY RESTAURANT_NO DESC
+	</select>
+	
+	<select id="restaurantsSelectListOrder" parameterType="map"
+		resultMap="restaurantsResultMap">
+		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
+		ON R.RESTAURANT_NO = F.PARENT_SEQ
+		WHERE R.RESTAURANT_NAME LIKE '%'||#{category}||'%' OR R.CATEGORY LIKE '%'||#{category}||'%'
+		ORDER BY RESTAURANT_NO DESC
+	</select>
+	
+	<select id="restaurantsSelectListSelect" parameterType="map"
+		resultMap="restaurantsResultMap">
+		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
+		ON R.RESTAURANT_NO = F.PARENT_SEQ
+		ORDER BY '%'||#{orderSelect}||'%' DESC
+	</select>
+	
+	<select id="restaurantsSelectOne" parameterType="int"
+		resultMap="restaurantsResultMap">
+		SELECT RESTAURANT_NO, RESTAURANT_NAME, CATEGORY, PHONE, OPERATING_TIME, ADDRESS, CONTENTS
+		FROM RESTAURANTS
+		WHERE RESTAURANT_NO = #{restaurantNo}
+	</select>
+	
+	<insert id="restaurantsInsertOne" 
+		parameterType="com.dc.restaurants.vo.RestaurantsVo"
+		useGeneratedKeys="true" keyProperty="restaurantNo">
+		<selectKey keyProperty="restaurantNo" resultType="int" order="BEFORE">
+			SELECT RESTAURANT_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO RESTAURANTS(RESTAURANT_NO, RESTAURANT_NAME, CATEGORY, PHONE, OPERATING_TIME, ADDRESS, CONTENTS, MOD_DATE)
+		VALUES(#{restaurantNo}, #{restaurantName}, #{category}, #{phone}, #{operatingTime}, #{address}, #{contents}, SYSDATE)
+	</insert>
+	
+	<update id="restaurantsUpdate" parameterType="restaurantsVo">
+		UPDATE 	RESTAURANTS
+		<set>
+			<if test="restaurantName != ''">RESTAURANT_NAME = #{restaurantName},</if>
+			<if test="category != ''">CATEGORY = #{category},</if>
+			<if test="phone != ''">PHONE = #{phone},</if>
+			<if test="operatingTime != ''">OPERATING_TIME = #{operatingTime},</if>
+			<if test="address != ''">ADDRESS = #{address},</if>
+			<if test="contents != ''">CONTENTS = #{contents},</if>
+			MOD_DATE = SYSDATE
+		</set>
+		WHERE 	RESTAURANT_NO = #{restaurantNo}
+	</update>
+	
+	<delete id="restaurantsDelete" parameterType="int">
+		DELETE FROM RESTAURANTS
+		WHERE RESTAURANT_NO = #{restaurantNo}
+	</delete>
+	
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO TB_FILE
+			(IDX, PARENT_SEQ, ORIGINAL_FILE_NAME, STORED_FILE_NAME, FILE_SIZE, CRE_DATE)
+		VALUES
+			(TB_FILE_IDX_SEQ.NEXTVAL, #{parentSeq}, #{original_file_name}, #{stored_file_name}, #{file_size}, SYSDATE)
+	</insert>
+	
+	<select id="fileSelectList" parameterType="int" resultType="map">
+		SELECT IDX, ORIGINAL_FILE_NAME, STORED_FILE_NAME, ROUND(FILE_SIZE/1024, 1) AS FILE_SIZE
+		FROM TB_FILE
+		WHERE PARENT_SEQ = #{restaurantNo}
+	</select>
+	
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM TB_FILE
+		WHERE PARENT_SEQ = #{restaurantNo}
+	</delete>
+
+	<select id="fileSelectStoredFileName" parameterType="int"
+		resultType="map">
+		SELECT IDX, STORED_FILE_NAME
+		FROM TB_FILE
+		WHERE PARENT_SEQ = #{restaurantNo}
+	</select>
+
+</mapper>

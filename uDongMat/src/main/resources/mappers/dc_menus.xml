@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dc.menus">
+
+	<resultMap type="com.dc.menus.vo.MenusVo" id="menusResultMap">
+		<id column="MENU_NO" property="menuNo" />
+		<result column="RESTAURANT_NO" property="restaurantNo" />
+		<result column="MENU_NAME" property="menuName" />
+		<result column="PRICE" property="price" />
+		<result column="CRE_DATE" property="createDate" javaType="java.util.Date" />
+		<result column="MOD_DATE" property="modifiedDate" javaType="java.util.Date" />
+	</resultMap>
+
+	<select id="menusSelectList" parameterType="int"
+		resultMap="menusResultMap">
+		SELECT MENU_NO, MENU_NAME, PRICE
+		FROM MENUS
+		WHERE
+		RESTAURANT_NO = #{restaurantNo}
+		ORDER BY RESTAURANT_NO DESC
+	</select>
+
+	<insert id="menusInsert" parameterType="com.dc.menus.vo.MenusVo">
+		INSERT INTO MENUS(MENU_NO, RESTAURANT_NO, MENU_NAME, PRICE, CRE_DATE)
+		VALUES(MENU_NO_SEQ.NEXTVAL, #{restaurantNo}, #{menuName}, #{price}, SYSDATE)
+	</insert>
+	
+	<insert id="menusUpdate" parameterType="com.dc.menus.vo.MenusVo">
+		INSERT INTO MENUS(MENU_NO, RESTAURANT_NO, MENU_NAME, PRICE, CRE_DATE)
+		VALUES(MENU_NO_SEQ.NEXTVAL, #{restaurantNo}, #{menuName}, #{price}, SYSDATE)
+	</insert>
+	
+	<delete id="menusDelete" parameterType="int">
+		DELETE FROM MENUS
+		WHERE RESTAURANT_NO = #{restaurantNo}
+	</delete>
+
+</mapper>

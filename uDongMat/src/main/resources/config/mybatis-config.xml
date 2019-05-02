@@ -4,8 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   
-<!--   <typeAliases>
-  	<typeAlias type="com.edu.member.vo.MemberVo" alias="memberVo"/>
-  </typeAliases> -->
+  <typeAliases>
+  	<typeAlias type="com.dc.restaurants.vo.RestaurantsVo" alias="restaurantsVo"/>
+  	<typeAlias type="com.dc.menus.vo.MenusVo" alias="menusVo"/>
+  </typeAliases>
   
 </configuration>
