@@ -1,9 +1,11 @@
 package com.dc.util;
 
 import java.util.UUID;
+
 //
 /*fsd*/
 //alt + shift + j : 문서화주석 api
+
 public class CommonUtils {
 
 	// 파일의 이름을 난수화 시킬 메서드

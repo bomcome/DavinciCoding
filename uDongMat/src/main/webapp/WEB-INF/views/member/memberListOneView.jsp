@@ -9,56 +9,107 @@
 <meta charset="UTF-8">
 <title>회원정보 조회</title>
 
+
 <script type="text/javascript" 
-	src="/springHome/resources/js/jquery-3.3.1.js"></script>
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
-	window.onload = function(){
-		var memberNameInputObj = 
-			document.getElementById('memberName');
-		
-		memberNameInputObj.style.backgroundColor = '#E7E7E7';
-	}
 	
 	function pageMoveListFnc(){
-		location.href = "list.do";
+		location.href = "../restaurants/list.do";
+	}
+	
+	function pageMoveDeleteFnc(){
+			
+		//first if문
+		if(${memberVo.memberGrade == 'admin'}){
+			alert("관리자는 탈퇴를 못합니다!!");
+			return;
+		}
+		else{
+			var r = confirm("정말로 탈퇴하시겟습니까?")
+			
+			//second if문
+			if(r == true){
+				var url = 'deleteCtr.do?memberNo=' + ${memberVo.memberNo};
+				location.href = url;
+			} 
+			else{
+				return;
+			}//second if문 end
+		}//first if문 end
 	}
 		
 </script>
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+
+	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
 	
-	<h1>회원정보</h1>
 
-	<form action="./update.do" method="get">
-		<input type="hidden" name='no' value='${memberVo.no}'>
-		이름: <input type="text" name='name' id='memberName' value='${memberVo.name}' 
-				readonly="readonly"><br>
-		이메일: <input type="text" name="email" 
-			value='${memberVo.email}' readonly="readonly"><br>
+	
+	<div id="member">
+		<form action="./update.do" method="get" >
+			<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
 			
-		첨부파일: 
-		<c:choose>
-			<c:when test="${empty fileList}">
-				첨부파일이 없습니다.<br>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="row" items="${fileList}">
-<%-- 				<input type="hidden" class="files" value="${row.IDX}"> --%>
-				${row.ORIGINAL_FILE_NAME} (${row.FILE_SIZE}kb)<br>
-				<img alt="image not found" src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
+			<div style="text-align: left; padding-left: 70px;">
+				<div>
+					<ul>
+						<li>이메일
+						<li><input type="text" name="email" value='${memberVo.email}' readonly="readonly">
+					</ul>
+				</div>
+				
+			
+			
+				<div>
+					<ul>
+						<li>닉네임
+						<li><input type="text" name='nickName' id='nickName' 
+								value='${memberVo.nickName}' readonly="readonly">
+					</ul>
+				</div>
+						
+			<c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">	
+				<div>		
+					<ul>
+						<li>가입일
+						<li><input type="text" name='createDate' id='createDate'  
+							value='<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd"/>'
+							readonly="readonly">
+					</ul>
+				</div>	
+			
+			</c:if>	
+			</div>
 		
-		가입일: <fmt:formatDate value="${memberVo.createDate}" 
-				pattern="yyyy-MM-dd"/><br>
-		<input type="submit" value="수정하기">
-		<input type="button" value="이전페이지" 
-				onclick="pageMoveListFnc();">
-	</form>
+			<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
+				<div>
+					<ul>
+						<li><input type="submit" class="memberInput" value="정보수정">
+					</ul>
+				</div>
+			</c:if>	
+		
+			<div>
+				<ul>
+					<li><input type="button" class="memberInput" value="이전화면"  onclick="pageMoveListFnc();">
+				</ul>
+			</div>
 
+			<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">	
+			<hr>
+				<div>
+					<ul>
+						<li><input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveDeleteFnc();">
+					</ul>
+				</div>
+			</c:if>	
+		</form>
+	</div>
+	
 	<%-- <form action="../common/fileDownload.do" method="post">
 		<input type="hidden" id='filePno' name='filePno' value='${fileList[0].PNO}'>
 	</form> --%>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dc.recommend">
+	<resultMap type="com.dc.recommend.vo.RecommendVo"
+		id="recommendResultMap">
+		<id column="RECOMMEND_NO" property="recommendNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="COMMENT_NO" property="commentNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+	</resultMap>
+
+
+	<select id="commentRecommendSelectOne" parameterType="map"
+		resultMap="recommendResultMap">
+		SELECT RECOMMEND_NO, COMMENT_NO, BOARD_NO, MEMBER_NO
+		FROM RECOMMEND
+		WHERE COMMENT_NO = #{commentNo} 
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="boardRecommendSelectOne" parameterType="map"
+		resultMap="recommendResultMap">
+		SELECT RECOMMEND_NO, COMMENT_NO, BOARD_NO, MEMBER_NO
+		FROM RECOMMEND
+		WHERE BOARD_NO = #{boardNo} 
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	
+	<insert id="recommendInsertOne" 
+		parameterType= "recommendVo"
+		useGeneratedKeys="true" keyProperty="recommendNo">
+		<selectKey keyProperty="recommendNo" resultType="int" order="BEFORE">
+			SELECT RECOMMEND_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO RECOMMEND
+		(RECOMMEND_NO, BOARD_NO, MEMBER_NO)
+		VALUES(#{recommendNo}, #{boardNo}, #{memberNo})
+	</insert>
+	
+	<insert id="commentRecommendInsertOne" 
+		parameterType= "recommendVo"
+		useGeneratedKeys="true" keyProperty="recommendNo">
+		<selectKey keyProperty="recommendNo" resultType="int" order="BEFORE">
+			SELECT RECOMMEND_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO RECOMMEND
+		(RECOMMEND_NO, COMMENT_NO, MEMBER_NO)
+		VALUES(#{recommendNo}, #{commentNo}, #{memberNo})
+	</insert>
+	
+	<delete id="recommendDelete" parameterType="int"> 
+		DELETE FROM RECOMMEND
+		WHERE RECOMMEND_NO = #{recommendNo}
+	</delete>
+
+	
+	
+	
+	
+
+	
+	
+<!-- 	<select id="boardSelectTotalCount" parameterType="String" -->
+<!-- 		resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM (SELECT B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME -->
+<!-- 	        FROM BOARD B, MEMBERS M -->
+<!-- 	        WHERE B.MEMBER_NO = M.MEMBER_NO -->
+<!-- 	        ORDER BY B.BOARD_NO) -->
+<!-- 			WHERE title LIKE '%'||#{keyword}||'%' -->
+<!-- 			or contents LIKE '%'||#{keyword}||'%' -->
+<!-- 			or nickname LIKE '%'||#{keyword}||'%' -->
+<!-- 	</select> -->
+	
+	
+	
+	
+	
+</mapper>

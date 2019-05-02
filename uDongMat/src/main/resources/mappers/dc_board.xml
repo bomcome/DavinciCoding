@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dc.board">
+	<resultMap type="com.dc.board.vo.BoardVo"
+		id="boardResultMap">
+		<id column="BOARD_NO" property="boardNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+<!-- 		<result column="NICKNAME" property="nickname" /> -->
+		<result column="TITLE" property="title" />
+		<result column="CONTENTS" property="contents" />
+		<result column="CRE_DATE" property="createDate"
+			javaType="java.util.Date" />
+		<result column="MOD_DATE" property="modifiedDate"
+			javaType="java.util.Date" />
+		<result column="RECOMMEND_COUNT" property="recommendCount" />
+		<result column="HITS" property="hits" />
+		<result column="ROWNUM" property="rownum" />
+	</resultMap>	
+	
+	<resultMap type="com.dc.board.vo.HitsVo"
+		id="hitsResultMap">
+		<id column="HITS_NO" property="hitsNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="CRE_DATE" property="createDate" />
+		<result column="TIME_DIFFERENCE" property="timeDifference" />
+	</resultMap>
+
+	
+	
+<!-- 	<select id="boardSelectList" parameterType="map" -->
+<!-- 		resultMap="boardResultMap"> -->
+<!-- 		SELECT BOARD_NO, TITLE, NICKNAME, CRE_DATE -->
+<!-- 		FROM (SELECT B.BOARD_NO AS BOARD_NO, B.CONTENTS AS CONTENTS,  B.TITLE AS TITLE, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE -->
+<!-- 		        FROM BOARD B, MEMBERS M -->
+<!-- 		        WHERE B.MEMBER_NO = M.MEMBER_NO -->
+<!-- 		        ORDER BY B.BOARD_NO) -->
+<!-- 		WHERE TITLE LIKE '%'||#{keyword}||'%' -->
+<!-- 		OR CONTENTS LIKE '%'||#{keyword}||'%' -->
+<!-- 		OR NICKNAME LIKE '%'||#{keyword}||'%' -->
+<!-- 	</select> -->
+	
+	
+	
+	
+	<select id="boardSelectList" parameterType="map"
+		resultMap="boardResultMap">
+		SELECT ROWNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE, RECOMMEND_COUNT, HITS
+		FROM(
+		    SELECT ROWNUM RNUM, BOARD_NO, TITLE, NICKNAME, CRE_DATE, RECOMMEND_COUNT, HITS
+				FROM (SELECT B.BOARD_NO AS BOARD_NO, B.CONTENTS AS CONTENTS, B.TITLE AS TITLE
+					, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE
+					, B.RECOMMEND_COUNT AS RECOMMEND_COUNT, B.HITS AS HITS
+				      FROM BOARD B, MEMBERS M
+				      WHERE B.MEMBER_NO = M.MEMBER_NO
+				      ORDER BY B.BOARD_NO DESC)
+				WHERE TITLE LIKE '%'||#{keyword}||'%'
+				OR CONTENTS LIKE '%'||#{keyword}||'%'
+				OR NICKNAME LIKE '%'||#{keyword}||'%'
+				ORDER BY RECOMMEND_COUNT DESC, BOARD_NO ASC
+		    )
+		WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	
+	
+	
+	
+<!-- 	<select id="boardSelectList" parameterType="map" -->
+<!-- 		resultMap="boardResultMap"> -->
+<!-- 		SELECT B.BOARD_NO, B.TITLE, M.NICKNAME, B.CRE_DATE -->
+<!-- 		FROM BOARD B, MEMBERS M -->
+<!-- 		WHERE B.MEMBER_NO = M.MEMBER_NO -->
+<!-- 		ORDER BY B.BOARD_NO -->
+<!-- 	</select> -->
+	
+	<select id="boardSelectOne" parameterType="int"
+		resultMap="boardResultMap">
+		SELECT B.BOARD_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE, B.RECOMMEND_COUNT, B.HITS
+		
+		FROM BOARD B, MEMBERS M
+		WHERE B.MEMBER_NO = M.MEMBER_NO
+		AND B.BOARD_NO = #{boardNo}
+	</select>
+	
+	<insert id="boardInsertOne" 
+		parameterType= "boardVo"
+		useGeneratedKeys="true" keyProperty="boardNo">
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+			SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO BOARD
+		(BOARD_NO, MEMBER_NO, TITLE, CONTENTS, CRE_DATE, MOD_DATE, RECOMMEND_COUNT, HITS)
+		VALUES(#{boardNo}, #{memberNo}, #{title}, #{contents}, SYSDATE, SYSDATE, 0, 0)
+	</insert>
+	
+
+	
+	<update id="boardUpdateOne" parameterType="boardVo">
+		UPDATE 	BOARD
+		<set>
+			<if test="title != ''">TITLE = #{title},</if>
+			<if test="contents != ''">CONTENTS = #{contents},</if>
+			MOD_DATE = SYSDATE			
+		</set>
+		WHERE 	 BOARD_NO = #{boardNo}
+	</update>
+
+	
+	
+	
+
+ 	<delete id="boardDelete" parameterType="int"> 
+		DELETE FROM BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</delete>
+	
+	
+<!-- 	<select id="boardTotalCount" -->
+<!-- 		resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM BOARD -->
+<!-- 	</select> -->
+	
+	
+	<select id="boardSelectTotalCount" parameterType="String"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME
+	        FROM BOARD B, MEMBERS M
+	        WHERE B.MEMBER_NO = M.MEMBER_NO
+	        ORDER BY B.BOARD_NO)
+			WHERE title LIKE '%'||#{keyword}||'%'
+			or contents LIKE '%'||#{keyword}||'%'
+			or nickname LIKE '%'||#{keyword}||'%'
+	</select>
+	
+	<update id="boardUpdateRecommendUp" parameterType="int">
+		UPDATE BOARD
+		<set>
+			RECOMMEND_COUNT = RECOMMEND_COUNT + 1,		
+		</set>
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="boardUpdateRecommendDown" parameterType="int">
+		UPDATE BOARD
+		<set>
+			RECOMMEND_COUNT = RECOMMEND_COUNT - 1,		
+		</set>
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
+	<update id="boardUpdateHitsUp" parameterType="int">
+		UPDATE BOARD
+		<set>
+			HITS = HITS + 1,		
+		</set>
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
+	
+	<select id="hitsSelectOne" parameterType="map"
+		resultMap="hitsResultMap">
+		SELECT HITS_NO, BOARD_NO, MEMBER_NO, CRE_DATE, SYSDATE-CRE_DATE AS TIME_DIFFERENCE
+		FROM HITS
+		WHERE BOARD_NO = #{boardNo} 
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	
+	<insert id="hitsInsertOne" 
+		parameterType= "map" 
+		useGeneratedKeys="true" keyProperty="hitsNo">
+		<selectKey keyProperty="hitsNo" resultType="int" order="BEFORE">
+			SELECT HITS_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO HITS
+		(HITS_NO, BOARD_NO, MEMBER_NO, CRE_DATE)
+		VALUES(#{hitsNo}, #{boardNo}, #{memberNo}, SYSDATE)
+	</insert>
+	
+	
+	<insert id="hitsInsertOneOther" 
+		parameterType= "map" 
+		useGeneratedKeys="true" keyProperty="hitsNo">
+		<selectKey keyProperty="hitsNo" resultType="int" order="BEFORE">
+			SELECT HITS_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO HITS
+		(HITS_NO, BOARD_NO, CRE_DATE)
+		VALUES(#{hitsNo}, #{boardNo}, SYSDATE)
+	</insert>
+	
+	
+	
+	<update id="hitsUpdateDate" parameterType="int">
+		UPDATE HITS
+		<set>
+			CRE_DATE = SYSDATE		
+		</set>
+		WHERE HITS_NO = #{hitsNo}
+	</update>
+	
+	
+	<delete id="hitsDelete" parameterType="int"> 
+		DELETE FROM HITS
+		WHERE HITS_NO = #{hitsNo}
+	</delete>
+	
+	
+<!-- 	<update id="boardUpdateHits" parameterType="int"> -->
+<!-- 		UPDATE BOARD -->
+<!-- 		<set> -->
+<!-- 			HITS = HITS + 1,		 -->
+<!-- 		</set> -->
+<!-- 		WHERE BOARD_NO = #{boardNo} -->
+<!-- 	</update> -->
+	
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO TB_FILE
+			(IDX, PARENT_SEQ, ORIGINAL_FILE_NAME, 
+			STORED_FILE_NAME, FILE_SIZE, CRE_DATE)
+		VALUES
+			(TB_FILE_IDX_SEQ.NEXTVAL, #{parentSeq}, #{original_file_name},
+			#{stored_file_name}, #{file_size}, SYSDATE)
+	</insert>
+	
+	<select id="fileSelectList" parameterType="int"
+		resultType="map">
+		SELECT IDX, ORIGINAL_FILE_NAME, STORED_FILE_NAME, 
+			ROUND(FILE_SIZE/1024, 1) AS FILE_SIZE
+		FROM TB_FILE
+		WHERE PARENT_SEQ = #{no}
+	</select>
+	
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM TB_FILE
+		WHERE PARENT_SEQ = #{no}
+	</delete>
+
+	<select id="fileSelectStoredFileName" parameterType="int"
+		resultType="map">
+		SELECT IDX, STORED_FILE_NAME
+		FROM TB_FILE
+		WHERE PARENT_SEQ = #{no}
+	</select>
+	
+	
+</mapper>
