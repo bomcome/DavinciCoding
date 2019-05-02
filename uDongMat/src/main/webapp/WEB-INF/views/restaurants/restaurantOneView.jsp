@@ -38,7 +38,9 @@
 </script>
 </head>
 <body>
-
+ 	<jsp:include page="../headerTitle.jsp"/> 
+	<jsp:include page="../headerButtons.jsp"/>
+	
 	<div>이미지 파일</div>
 	<form action="./update.do" method="get">
 		<div id="fileContent">
@@ -75,6 +77,8 @@
 	<input type="button" value="삭제" onclick="moveTodeleteCtrFnc(${restaurantsVo.restaurantNo});">
 	
 	</form>
+	
+	<jsp:include page="../Tail.jsp"/>
 
 </body>
 </html>
