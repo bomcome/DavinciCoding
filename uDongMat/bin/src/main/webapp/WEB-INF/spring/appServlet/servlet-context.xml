@@ -16,7 +16,7 @@
 	<context:component-scan	base-package="com.dc"/>
 
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven /> 
 
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 

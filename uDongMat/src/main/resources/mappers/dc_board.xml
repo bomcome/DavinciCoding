@@ -226,7 +226,7 @@
 <!-- 	</update> -->
 	
 	<insert id="insertFile" parameterType="map">
-		INSERT INTO TB_FILE
+		INSERT INTO BOARD_FILE
 			(IDX, PARENT_SEQ, ORIGINAL_FILE_NAME, 
 			STORED_FILE_NAME, FILE_SIZE, CRE_DATE)
 		VALUES
@@ -238,19 +238,19 @@
 		resultType="map">
 		SELECT IDX, ORIGINAL_FILE_NAME, STORED_FILE_NAME, 
 			ROUND(FILE_SIZE/1024, 1) AS FILE_SIZE
-		FROM TB_FILE
+		FROM BOARD_FILE
 		WHERE PARENT_SEQ = #{no}
 	</select>
 	
 	<delete id="fileDelete" parameterType="int">
-		DELETE FROM TB_FILE
+		DELETE FROM BOARD_FILE
 		WHERE PARENT_SEQ = #{no}
 	</delete>
 
 	<select id="fileSelectStoredFileName" parameterType="int"
 		resultType="map">
 		SELECT IDX, STORED_FILE_NAME
-		FROM TB_FILE
+		FROM BOARD_FILE
 		WHERE PARENT_SEQ = #{no}
 	</select>
 	

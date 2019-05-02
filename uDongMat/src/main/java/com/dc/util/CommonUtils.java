@@ -4,7 +4,7 @@ import java.util.UUID;
 
 //
 /*fsd*/
-//alt + shift + j : 문서화 주석
+//alt + shift + j : 문서화주석 api
 
 public class CommonUtils {
 
