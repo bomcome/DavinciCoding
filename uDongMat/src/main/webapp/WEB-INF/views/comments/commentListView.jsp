@@ -212,7 +212,7 @@
 							<input type="hidden" name="commentNo" value="${commentVo.commentNo}">
 							<input type="hidden" name="boardNo" value="${commentVo.boardNo}">
 							${commentVo.nickname}
-							<span class="commentCreDate"><fmt:formatDate value="${commentVo.createDate}" pattern="yyyy.MM.dd HH:mm:ss"/></span>
+							<span class="commentCreDate"><fmt:formatDate value="${commentVo.createDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span>
 							<span class="commentSpan">
 							
 							<c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">

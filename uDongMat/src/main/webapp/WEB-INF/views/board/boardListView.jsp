@@ -151,7 +151,7 @@
 				</td>
 				<td>${boardVo.nickname}</td>
 				<td><fmt:formatDate value="${boardVo.createDate}" 
-				pattern="yyyy.MM.dd HH:mm"/></td>
+				pattern="yyyy/MM/dd HH:mm"/></td>
 				<td>${boardVo.hits}</td>
 				<td>${boardVo.recommendCount}</td>
 			</tr>

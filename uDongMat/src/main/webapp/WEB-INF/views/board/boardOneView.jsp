@@ -99,7 +99,7 @@
 	<form id="inputForm" action="./update.do" method="get" >
 		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
 		<div id="titleLeft">제목</div><div id="right"><span><span>작성자:</span> ${boardVo.nickname}</span>
-		<span><span>작성일:</span><fmt:formatDate value="${boardVo.createDate}" pattern="yyyy.MM.dd HH:mm"/></span></div>
+		<span><span>작성일:</span><fmt:formatDate value="${boardVo.createDate}" pattern="yyyy/MM/dd HH:mm"/></span></div>
 		<input name='title' id='title' type="text" value='${boardVo.title}' readOnly="readonly">
 		<div>내용</div>
 		 
