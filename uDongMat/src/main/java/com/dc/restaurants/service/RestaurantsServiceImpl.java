@@ -114,7 +114,6 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 				menusDao.menusUpdate(menusVo);
 			}
 
-			restaurantsDao.fileDelete(restaurantsVo.getRestaurantNo());
 			int parentSeq = restaurantsVo.getRestaurantNo();
 			Map<String, Object> tempFileMap = restaurantsDao.fileSelectStoredFileName(parentSeq);
 

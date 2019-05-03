@@ -23,7 +23,9 @@
 		       var successMsg = "비밀번호가 일치하지 않습니다.";
 		       var failMsg = "";
 		          
-		       if (passwordObj != passwordChkObj) {
+		       if (passwordChkObj == null) {
+		    	   
+		       } else if (passwordObj != passwordChkObj) {
 		          $('#passwordChkMsg').css('color', 'red');
 		          $('#passwordChkMsg').css('font-size','12px');
 		          $('#passwordChkMsg').html(successMsg);

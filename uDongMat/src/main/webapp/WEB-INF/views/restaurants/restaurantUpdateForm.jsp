@@ -16,6 +16,8 @@
 }
 </style>
 <title>Insert title here</title>
+<script type="text/javascript" 
+	src="/springHome/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(){
@@ -93,7 +95,7 @@
 								src="<c:url value='/img/${row.STORED_FILE_NAME}'/>" />
 							<br>
 							${row.ORIGINAL_FILE_NAME} <input type="file" id="file_${obj.index}" name="file_${obj.index}">
-							(${row.FILE_SIZE}kb) <br>
+							(${row.FILE_SIZE}kb) <a href="#this" id="delete_${obj.index}">삭제</a><br>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -129,6 +131,8 @@
       <input type="button" value="수정취소" onclick="moveToListFnc(${restaurantsVo.restaurantNo});">
       <input type="submit" value="수정완료">
    </form>
+   
+   <jsp:include page="/WEB-INF/views/Tail.jsp"/>
 
 </body>
 </html>
