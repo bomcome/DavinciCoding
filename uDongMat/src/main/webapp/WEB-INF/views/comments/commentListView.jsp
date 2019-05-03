@@ -76,7 +76,19 @@
 		var divObj2 = document.getElementById('cocommentAddContainer');
 	}	
 	
-	
+	window.onload = function(){
+		var commentTextareaArr = document.getElementsByClassName('commentContentsTextarea');
+		for(var i = 0; i < commentTextareaArr.length; i++){
+			var commentTextareaVal = commentTextareaArr[i].value;
+			var arr = commentTextareaVal.split("\n");
+			for(var n = 0; n < arr.length; n++){
+				count += arr[n] / commentTextareaArr[i].cols; 
+			}
+			count += arr.length;
+			commentTextareaArr[i].style.height = (count * 15) + "px";
+			alert(count);
+		}
+	}
 	
 	function commentUpdateFnc(rowNum) {
 		var rowNum = rowNum - 1;
@@ -166,15 +178,19 @@
 	
 	}
 	
-	
+	var button = true;
 	function showParentContentsFnc(rowNum) {
 		var rowNum = rowNum - 1;
+		button = !button;
 		
 		var commentContentsDivObj = document.getElementsByClassName("commentsContents")[rowNum];
-		
-		var parentCommentContentsDivObj = commentContentsDivObj.getElementsByClassName("parentCommentContentsDiv")[0];
-		parentCommentContentsDivObj.style.display = 'inline';
-		
+		if(button == false){
+			var parentCommentContentsDivObj = commentContentsDivObj.getElementsByClassName("parentCommentContentsDiv")[0];
+			parentCommentContentsDivObj.style.display = 'inline';
+		}else{
+			var parentCommentContentsDivObj = commentContentsDivObj.getElementsByClassName("parentCommentContentsDiv")[0];
+			parentCommentContentsDivObj.style.display = 'none';
+		}
 // 		var commentSpanObj = document.getElementsByClassName("cocommentContentsSpan")[rowNum];
 // 		commentSpanObj.style.display = 'none';
 // 		$('.commentUpdateContainer').show();
@@ -241,9 +257,12 @@
 							
 							</span>
 							
+							
+							
+							
 							<span class="commentContentsSpan">
 								<textarea class="commentContentsTextarea" id="commentContentsTextarea" 
-								style="border: none;"  name="contents" readonly="readonly">${commentVo.contents}</textarea></span>
+								style="border: none;" cols="150" name="contents" readonly="readonly"><c:out value="${commentVo.contents}" /></textarea></span>
 							<div class="commentUpdateContainer" style="display: none;">
 								<form class="commentUpdateForm" action="../comment/updateCtr.do" method="post">
 									<input type="hidden" id="commentNo" class="commentNo" name="commentNo" value="${commentVo.commentNo}">

@@ -15,6 +15,9 @@ public class BoardVo {
 	private int	hits;
 	private int rownum;
 	
+	private int commentCount;
+	
+	
 	
 	
 	public BoardVo() {
@@ -147,6 +150,13 @@ public class BoardVo {
 	}
 
 	
-	
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+
 	
 }

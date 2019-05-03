@@ -19,6 +19,7 @@
 	#boardOne #contents{
 		font-size: 16px;
 		width: 1105px; 
+/* 		border: none; */
 		
 	}
 	

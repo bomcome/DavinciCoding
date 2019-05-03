@@ -31,9 +31,9 @@ public class BoardServiceImpl implements BoardService{
 	private FileUtils fileUtils;
 	
 	@Override
-	public List<BoardVo> boardSelectList(String keyword, int start, int end) {
+	public List<BoardVo> boardSelectList(String keyword, int start, int end, String searchOption) {
 		// TODO Auto-generated method stub
-		return boardDao.boardSelectList(keyword, start, end);
+		return boardDao.boardSelectList(keyword, start, end, searchOption);
 	}
 
 	@Override
@@ -163,9 +163,9 @@ public class BoardServiceImpl implements BoardService{
 //	}
 
 	@Override
-	public int boardSelectTotalCount(String keyword) {
+	public int boardSelectTotalCount(String keyword, String searchOption) {
 		// TODO Auto-generated method stub
-		return boardDao.boardSelectTotalCount(keyword);
+		return boardDao.boardSelectTotalCount(keyword, searchOption);
 	}
 
 	@Override
@@ -178,5 +178,11 @@ public class BoardServiceImpl implements BoardService{
 	public void boardUpdateRecommendDown(int boardNo) {
 		// TODO Auto-generated method stub
 		boardDao.boardUpdateRecommendDown(boardNo);
+	}
+
+	@Override
+	public int boardCommentCount(int boardNo) {
+		// TODO Auto-generated method stub
+		return boardDao.boardCommentCount(boardNo);
 	}
 }

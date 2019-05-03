@@ -8,14 +8,14 @@ import com.dc.board.vo.HitsVo;
 
 public interface BoardDao {
 	
-	public List<BoardVo> boardSelectList(String keyword, int start, int end);
+	public List<BoardVo> boardSelectList(String keyword, int start, int end, String searchOption);
 	public BoardVo boardSelectOne(int boardNo);
 	public void boardInsertOne(BoardVo boardVo);
 	public void boardUpdateOne(BoardVo boardVo);
 	public void boardDelete(int no);
 //	public int boardTotalCount();
 	
-	public int boardSelectTotalCount(String keyword);
+	public int boardSelectTotalCount(String keyword, String searchOption);
 	public void boardUpdateRecommendUp(int boardNo);
 	public void boardUpdateRecommendDown(int boardNo);
 	
@@ -30,6 +30,8 @@ public interface BoardDao {
 	
 	public HitsVo hitsSelectOne(Map<String, Object> map);
 	
+	
+	public int boardCommentCount(int boardNo);
 	
 	
 	public void insertFile(Map<String, Object> map);
