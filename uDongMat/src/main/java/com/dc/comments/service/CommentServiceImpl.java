@@ -1,6 +1,8 @@
 package com.dc.comments.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,12 @@ public class CommentServiceImpl implements CommentService{
 	private CommentDao commentDao;
 
 	@Override
-	public List<CommentVo> commentSelectList(int boardNo) {
+	public List<CommentVo> commentSelectList(int end, int boardNo) {
 		// TODO Auto-generated method stub
-		return commentDao.commentSelectList(boardNo);
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardNo", boardNo);
+		map.put("end", end);
+		return commentDao.commentSelectList(map);
 	}
 
 	@Override

@@ -95,13 +95,13 @@
 		            FROM COMMENTS C, BOARD B, MEMBERS M
 		            WHERE C.BOARD_NO = B.BOARD_NO
 		            AND M.MEMBER_NO = C.MEMBER_NO
-		            ORDER BY C.COMMENT_NO DESC
 		        )R RIGHT JOIN COMMENTS C2 
 		      ON R.COMMENT_NO = C2.PARENT_COMMENT_NO
 		       JOIN MEMBERS M2
 		     ON C2.MEMBER_NO = M2.MEMBER_NO
-		     WHERE C2.BOARD_NO = #{board_no}
-		     ORDER BY COMMENT_NO DESC)
+		     WHERE C2.BOARD_NO = #{boardNo}
+		     ORDER BY C2.RECOMMEND_COUNT DESC, C2.COMMENT_NO DESC)
+    	WHERE ROWNUM BETWEEN 1 AND #{end}
 	</select>	
 
 	<select id="commentSelectOne" parameterType="int"
@@ -124,10 +124,10 @@
 	
 	 
 	<insert id="commentInsertOne" 
-		parameterType= "boardVo"
+		parameterType= "commentVo"
 		useGeneratedKeys="true" keyProperty="commentNo">
 		<selectKey keyProperty="commentNo" resultType="int" order="BEFORE">
-			SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL
+			SELECT COMMENT_NO_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		
 		INSERT INTO COMMENTS

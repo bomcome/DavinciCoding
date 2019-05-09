@@ -33,17 +33,28 @@ public class BoardController {
 	@RequestMapping(value="/board/list.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String boardList(
 			@RequestParam(defaultValue ="1") int curPage,
+			@RequestParam(defaultValue ="title") String searchOption,
 			@RequestParam(defaultValue ="") String keyword,
 			Model model) {
 		
-		int totalCount = boardService.boardSelectTotalCount(keyword);
+		int totalCount = boardService.boardSelectTotalCount(keyword, searchOption);
 		
 		Paging boardPaging = new Paging(totalCount, curPage);
 		int start = boardPaging.getPageBegin();
 		int end = boardPaging.getPageEnd();
 		
 		List<BoardVo> boardList = 
-				boardService.boardSelectList(keyword, start, end);
+				boardService.boardSelectList(keyword, start, end, searchOption);
+		
+		for (BoardVo boardVo : boardList) {
+
+			int boardNo = boardVo.getBoardNo();
+			int commentCount = boardService.boardCommentCount(boardNo);
+			boardVo.setCommentCount(commentCount);
+			System.out.println(commentCount);
+
+		}
+		
 		
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("totalCount", totalCount);
@@ -53,13 +64,17 @@ public class BoardController {
 		model.addAttribute("totalCount", totalCount);		
 		model.addAttribute("pagingMap", pagingMap);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("searchOption", searchOption);
+		
+		
 		
 		
 		return "board/boardListView";
 	}
 	
 	@RequestMapping(value="/board/one.do", method= {RequestMethod.GET})
-	public String boardOne(Model model, int boardNo, HttpServletRequest req, HttpSession session, Map<String, Object> map) {
+	public String boardOne(@RequestParam(defaultValue ="1") int curPage, 
+			Model model, int boardNo, HttpServletRequest req, HttpSession session, Map<String, Object> map) {
 
 		MemberVo memberVo = (MemberVo)session.getAttribute("_memberVo_");
 		
@@ -74,6 +89,8 @@ public class BoardController {
 			
 			req.setAttribute("boardVo", (BoardVo)map.get("boardVo"));
 		}
+		
+		req.setAttribute("curPage", curPage);
 		
 //		BoardVo boardVo = boardService.boardSelectOne(boardNo, memberVo.getMemberNo());
 //		

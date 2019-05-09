@@ -20,11 +20,12 @@ public class BoardDaoImpl implements BoardDao{
 	String namespace = "com.dc.board.";
 	
 	@Override
-	public List<BoardVo> boardSelectList(String keyword, int start, int end) {
+	public List<BoardVo> boardSelectList(String keyword, int start, int end, String searchOption) {
 		// TODO Auto-generated method stub
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("keyword", keyword);
+		map.put("searchOption", searchOption);
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -62,9 +63,12 @@ public class BoardDaoImpl implements BoardDao{
 //	}
 
 	@Override
-	public int boardSelectTotalCount(String keyword) {
+	public int boardSelectTotalCount(String keyword, String searchOption) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace +"boardSelectTotalCount", keyword);
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", keyword);
+		map.put("searchOption", searchOption);
+		return sqlSession.selectOne(namespace +"boardSelectTotalCount", map);
 	}
 
 	@Override
@@ -135,6 +139,12 @@ public class BoardDaoImpl implements BoardDao{
 	public Map<String, Object> fileSelectStoredFileName(int no) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", no);
+	}
+
+	@Override
+	public int boardCommentCount(int boardNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "boardCommentCount", boardNo);
 	}
 
 //	@Override

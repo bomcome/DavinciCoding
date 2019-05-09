@@ -54,16 +54,34 @@
 					, B.RECOMMEND_COUNT AS RECOMMEND_COUNT, B.HITS AS HITS
 				      FROM BOARD B, MEMBERS M
 				      WHERE B.MEMBER_NO = M.MEMBER_NO)
-				WHERE TITLE LIKE '%'||#{keyword}||'%'
-				OR CONTENTS LIKE '%'||#{keyword}||'%'
-				OR NICKNAME LIKE '%'||#{keyword}||'%'
+				<choose>
+					<when test="searchOption == 'title'">
+						WHERE TITLE LIKE '%'||#{keyword}||'%'
+					</when>
+					<when test="searchOption == 'contents'">
+						WHERE CONTENTS LIKE '%'||#{keyword}||'%'
+					</when>
+					<when test="searchOption == 'writer'">
+						WHERE NICKNAME LIKE '%'||#{keyword}||'%'
+					</when>
+                    <otherwise>
+                    	WHERE TITLE LIKE '%'||#{keyword}||'%'
+						OR CONTENTS LIKE '%'||#{keyword}||'%'
+						OR NICKNAME LIKE '%'||#{keyword}||'%'
+                    </otherwise>
+                </choose>
+				
 				ORDER BY RECOMMEND_COUNT DESC, BOARD_NO DESC
 		    )
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
 	
-	
+	<select id="boardCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM COMMENTS
+		WHERE BOARD_NO = #{boardNo}
+	</select>
 	
 	
 	
@@ -125,16 +143,25 @@
 <!-- 	</select> -->
 	
 	
-	<select id="boardSelectTotalCount" parameterType="String"
+	<select id="boardSelectTotalCount" parameterType="map"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM (SELECT B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME
 	        FROM BOARD B, MEMBERS M
 	        WHERE B.MEMBER_NO = M.MEMBER_NO
-	        ORDER BY B.BOARD_NO)
-			WHERE title LIKE '%'||#{keyword}||'%'
-			or contents LIKE '%'||#{keyword}||'%'
-			or nickname LIKE '%'||#{keyword}||'%'
+	        )
+			<choose>
+					<when test="searchOption == 'title'">
+						WHERE TITLE LIKE '%'||#{keyword}||'%'
+					</when>
+					<when test="searchOption == 'writer'">
+						WHERE NICKNAME LIKE '%'||#{keyword}||'%'
+					</when>
+                    <otherwise>
+                    	WHERE TITLE LIKE '%'||#{keyword}||'%'
+						OR CONTENTS LIKE '%'||#{keyword}||'%'
+                    </otherwise>
+               </choose>
 	</select>
 	
 	<update id="boardUpdateRecommendUp" parameterType="int">
