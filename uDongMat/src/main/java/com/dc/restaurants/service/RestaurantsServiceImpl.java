@@ -50,21 +50,21 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 	}
 
 	@Override
-	public List<RestaurantsFileVo> restaurantsSelectListOrder(String category) {
+	public List<RestaurantsFileVo> restaurantsSelectListCategory(String category) {
 		// TODO Auto-generated method stub
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("category", category);
 		
-		return restaurantsDao.restaurantsSelectListOrder(map);
+		return restaurantsDao.restaurantsSelectListCategory(map);
 	}
 
 	@Override
-	public List<RestaurantsFileVo> restaurantsSelectListSelect(String orderSelect) {
+	public List<RestaurantsFileVo> restaurantsSelectListOrder(String order) {
 		// TODO Auto-generated method stub
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("orderSelect", orderSelect);
+		map.put("order", order);
 		
 		return restaurantsDao.restaurantsSelectListOrder(map);
 	}
@@ -85,7 +85,8 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 
 	@Transactional
 	@Override
-	public void restaurantsInsertOne(RestaurantsVo restaurantsVo, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
+	public void restaurantsInsertOne(RestaurantsVo restaurantsVo
+			, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
 		// TODO Auto-generated method stub
 		restaurantsDao.restaurantsInsertOne(restaurantsVo);
 		
@@ -102,7 +103,8 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public int restaurantsUpdate(RestaurantsVo restaurantsVo, List<MenusVo> menusVoList, MultipartHttpServletRequest multipartHttpServletRequest, int fileIdx) throws Exception {
+	public int restaurantsUpdate(RestaurantsVo restaurantsVo, List<MenusVo> menusVoList
+			, MultipartHttpServletRequest multipartHttpServletRequest, int fileIdx) throws Exception {
 		// TODO Auto-generated method stub
 		
 		int resultNum = 0;

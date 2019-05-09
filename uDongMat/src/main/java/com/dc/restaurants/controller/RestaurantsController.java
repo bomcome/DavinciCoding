@@ -42,12 +42,12 @@ public class RestaurantsController {
 		return "restaurants/restaurantListView";
 	}
 	
-	@RequestMapping(value = "/restaurants/listOrder.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String restaurantsListOrder(@RequestParam(defaultValue = "") String category, Model model) {
+	@RequestMapping(value = "/restaurants/listCategory.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String restaurantsListCategory(@RequestParam(defaultValue = "") String category, Model model) {
 
 		log.debug("Welcome RestaurantsController memberList! : {}", category);
 
-		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectList(category);
+		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectListCategory(category);
 
 		model.addAttribute("restaurantsList", restaurantsList);
 		model.addAttribute("category", category);
@@ -55,15 +55,15 @@ public class RestaurantsController {
 		return "restaurants/restaurantListView";
 	}
 	
-	@RequestMapping(value = "/restaurants/orderSelect.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String restaurantsListSelect(@RequestParam(defaultValue = "") String orderSelect, Model model) {
+	@RequestMapping(value = "/restaurants/listOrder.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String restaurantsListOrder(@RequestParam(defaultValue = "") String order, Model model) {
 		
-		log.debug("Welcome RestaurantsController memberList! : {}", orderSelect);
+		log.debug("Welcome RestaurantsController memberList! : {}", order);
 		
-		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectList(orderSelect);
+		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectListOrder(order);
 		
 		model.addAttribute("restaurantsList", restaurantsList);
-		model.addAttribute("orderSelect", orderSelect);
+		model.addAttribute("order", order);
 		
 		return "restaurants/restaurantListView";
 	}
@@ -113,7 +113,8 @@ public class RestaurantsController {
 //	}
 	
 	@RequestMapping(value = "/restaurants/addCtr.do", method = RequestMethod.POST)
-	public String restaurantAddCtr(RestaurantsVo restaurantsVo, String[] menuName, int[] price, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest req, Model model) {
+	public String restaurantAddCtr(RestaurantsVo restaurantsVo, String[] menuName, int[] price,
+			MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest req, Model model) {
 		log.trace("Welcome RestaurantsController restaurantAddCtr 신규등록 처리! " + restaurantsVo + "\n");
 
 		List<MenusVo> menusVoList = new ArrayList<MenusVo>();
@@ -158,7 +159,8 @@ public class RestaurantsController {
 	}
 	
 	@RequestMapping(value = "/restaurants/updateCtr.do", method = RequestMethod.POST)
-	public String restaurantsUpdateCtr(RestaurantsVo restaurantsVo, String[] menuName, int[] price, @RequestParam(value="fileIdx", defaultValue="-1") int fileIdx
+	public String restaurantsUpdateCtr(RestaurantsVo restaurantsVo, String[] menuName, int[] price
+			, @RequestParam(value="fileIdx", defaultValue="-1") int fileIdx
 			, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest req, Model model) {
 		log.debug("Welcome  RestaurantsController restaurantsUpdateCtr {} :: {}", restaurantsVo, fileIdx);
 

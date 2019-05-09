@@ -37,24 +37,46 @@
 }
 </style>
 <title>Insert title here</title>
+
+<script type="text/javascript" 
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
+
 <script type="text/javascript">
+
+	$(document).ready(function() {
+		var orderInputObj = document.getElementById('orderVal');
+
+		var orderVal = orderInputObj.value;
+
+		var orderObj = document.getElementById('order');
+
+		var optionsArr = orderObj.options;
+
+		for (var i = 0; i < optionsArr.length; i++) {
+			//        alert(optionsArr[0].value);
+			if (optionsArr[i].value == orderVal) {
+				optionsArr[i].selected = 'selected';
+				break;
+			}
+		}
+	});
+
 	function moveToAddFnc() {
 		location.href = "add.do";
 	}
-	
-	function orderFunction() {
-		var x = document.getElementById("orderSelect").value;
-		document.getElementByClass("list").innerHTML = "You selected: " + x;
+
+	function orderFnc(value) {
+		var orderForm = document.getElementById("orderForm");
+		orderForm.submit();
 	}
-	
+
 	function listAllFnc() {
 		var categoryFormObj = document.getElementById("categoryForm")
 		var listAllVal = document.getElementById("listAll").value;
 		listAllVal.innerHTML = "";
 		categoryFormObj.submit();
-		
+
 	}
-	
 </script>
 </head>
 <body>
@@ -75,15 +97,16 @@
 				</div>
 				
 			<div>
-				<form action="./orderSelect.do" method="get">
-					<select id="orderSelect" onchange="orderFunction()">
+				<form id="orderForm" action="./listOrder.do" method="get">
+					<select id="order" name="order" onchange="orderFnc(this.value);">
 						<option value="restaurantNo">최신순</option>
 						<option value="restaurantName">이름순</option>
 					</select>
+						<input type="hidden" id="orderVal" value="${order}">
 				</form>
 			</div>	
 				
-			<form id="categoryForm" action="./listOrder.do" method="get">
+			<form id="categoryForm" action="./listCategory.do" method="get">
 				<div>
 					<input id="listAll" type="button" name="category" value="전체" onclick="listAllFnc();">
 				</div>
@@ -126,5 +149,6 @@
 	</div>
 </div>
 </div>
+
 </body>
 </html>

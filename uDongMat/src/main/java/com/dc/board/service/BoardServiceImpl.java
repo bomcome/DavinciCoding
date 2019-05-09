@@ -70,10 +70,10 @@ public class BoardServiceImpl implements BoardService{
 	public Map<String, Object> boardSelectOneOther(int boardNo) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("boardNo", boardNo);
+//		map.put("boardNo", boardNo);
 //		map.put("memberNo", null);
 		
-		boardDao.hitsInsertOneOther(map);
+//		boardDao.hitsInsertOneOther(map);
 		
 		boardDao.boardUpdateHitsUp(boardNo);
 		

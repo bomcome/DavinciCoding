@@ -18,8 +18,8 @@
 	
 	#boardOne #contents{
 		font-size: 16px;
-		width: 1105px;
-		resize: none;
+		width: 1105px; 
+		
 	}
 	
 	#boardOne #inputForm {
@@ -76,10 +76,18 @@
 /* 	margin-right: 430px; */
 /* 	} */
 	
-	#boardOne .recommendUpdateButton {
+	#boardOne #recommendButtonsDiv .recommendUpdateButton {
 		margin-right: 430px;
 	}
+	
+	#boardOne textarea{
+		resize: none;
+	}
+	
 </style>
+<script type="text/javascript" 
+	src="/springHome/resources/js/jquery-3.3.1.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -90,25 +98,23 @@
 	
 	<form id="inputForm" action="./update.do" method="get" >
 		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
-		<div id="titleLeft">제목</div><div id="right"><span><span>작성자:</span> ${boardVo.nickname}</span><span><span>작성일:</span> ${boardVo.createDate}</span></div>
+		<div id="titleLeft">제목</div><div id="right"><span><span>작성자:</span> ${boardVo.nickname}</span>
+		<span><span>작성일:</span><fmt:formatDate value="${boardVo.createDate}" pattern="yyyy/MM/dd HH:mm"/></span></div>
 		<input name='title' id='title' type="text" value='${boardVo.title}' readOnly="readonly">
 		<div>내용</div>
-		첨부파일: 
-		<c:choose>
-			<c:when test="${empty fileList}">
-				첨부파일이 없습니다.<br>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="row" items="${fileList}">
+		 
+
+		
+		
+		<c:forEach var="row" items="${fileList}">
 <%-- 				<input type="hidden" class="files" value="${row.IDX}"> --%>
-				${row.ORIGINAL_FILE_NAME} (${row.FILE_SIZE}kb)<br>
-				<img alt="image not found" style="width: 1000px; height: auto;"
+<%-- 				${row.ORIGINAL_FILE_NAME} (${row.FILE_SIZE}kb)<br> --%>
+				<img alt="image not found" style="width: 600px; height: auto;"
 					 src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
 				</c:forEach>
-			</c:otherwise>
-		</c:choose>
-		<textarea name='contents' id='contents' rows="30" cols="155" readOnly="readonly">${boardVo.contents}</textarea>
 		
+
+		<textarea name='contents' id='contents' rows="30" cols="155" readOnly="readonly">${boardVo.contents}</textarea>
 		
 		
 		<div id='buttons'>		
@@ -123,27 +129,27 @@
 	
 	<div id="recommendButtonsDiv">
 	<span id="recommendButtonsSpan">
-	<c:if test="${_memberVo_ != null}">
-		
-		<form action="../recommend/addBoardCtr.do" method="post">
-			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
-			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
+		<c:if test="${_memberVo_ != null}">
 			
-			
-			<c:if test="${recommendVo == null}">
-				<button type="submit" id="recommendAddButton" class= "recommendUpdateButton">추천${boardVo.recommendCount}</button>
-			</c:if>
-			<c:if test="${recommendVo != null}">
+			<form action="../recommend/addBoardCtr.do" method="post">
+				<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
+				<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
 				
-				<input type="button" id="recommendDeleteButton" class= "recommendUpdateButton" onclick="location.href='../recommend/deleteBoard.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${boardVo.recommendCount}">
-			</c:if>
+				
+				<c:if test="${recommendVo == null}">
+					<button type="submit" id="recommendAddButton" class= "recommendUpdateButton">추천${boardVo.recommendCount}</button>
+				</c:if>
+				<c:if test="${recommendVo != null}">
+					
+					<input type="button" id="recommendDeleteButton" class= "recommendUpdateButton" onclick="location.href='../recommend/deleteBoard.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천취소${boardVo.recommendCount}">
+				</c:if>
+				
+			</form>
 			
-		</form>
-		
-	</c:if>
-	<c:if test="${_memberVo_ == null}">
-		<button type="button" class= "recommendUpdateButton" onclick="location.href='../auth/login.do'">추천${boardVo.recommendCount}</button>
-	</c:if>
+		</c:if>
+		<c:if test="${_memberVo_ == null}">
+			<button type="button" class= "recommendUpdateButton" onclick="location.href='../auth/login.do'">추천${boardVo.recommendCount}</button>
+		</c:if>
 	</span>	
 	</div>
 
@@ -159,4 +165,6 @@
 	<jsp:include page="../Tail.jsp"/>
 	</div>
 </body>
+
+
 </html>

@@ -10,9 +10,9 @@ public interface RestaurantsDao {
 	
 	public List<RestaurantsFileVo> restaurantsSelectList(Map<String, Object> map);
 	
-	public List<RestaurantsFileVo> restaurantsSelectListOrder(Map<String, Object> map);
+	public List<RestaurantsFileVo> restaurantsSelectListCategory(Map<String, Object> map);
 
-	public List<RestaurantsFileVo> restaurantsSelectListSelect(Map<String, Object> map);
+	public List<RestaurantsFileVo> restaurantsSelectListOrder(Map<String, Object> map);
 
 	public RestaurantsVo restaurantsSelectOne(int restaurantNo);
 	
