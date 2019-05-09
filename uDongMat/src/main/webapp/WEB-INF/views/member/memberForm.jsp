@@ -23,7 +23,9 @@
 		       var successMsg = "비밀번호가 일치하지 않습니다.";
 		       var failMsg = "";
 		          
-		       if (passwordObj != passwordChkObj) {
+		       if (passwordChkObj == null) {
+		    	   
+		       } else if (passwordObj != passwordChkObj) {
 		          $('#passwordChkMsg').css('color', 'red');
 		          $('#passwordChkMsg').css('font-size','12px');
 		          $('#passwordChkMsg').html(successMsg);
@@ -133,8 +135,8 @@
 
 			return;			
 		}
-		else if(${overlapEmail} == 0 && ${overlapNickName} == 0) {
-			alert('별명 중복 확인을 해주세요');
+		else if(${overlapEmail} == 0 && ${overlapNickName} == 1) {
+			alert('닉네임 중복 확인을 해주세요');
 			
 			return;	
 		}
@@ -178,7 +180,8 @@
 		else{
 			var htmlStr = "<input type='hidden' name='email' value=" + emailChkVal.value + ">";
 			htmlStr = htmlStr + "<input type='hidden' name='nickName' value=" + nickNameChkVal.value + ">";
-	
+			htmlStr = htmlStr + "<input type='hidden' name='overlapEmail' value=" + ${overlapEmail} + ">";
+			htmlStr = htmlStr + "<input type='hidden' name='overlapNickName' value=" + ${overlapNickName} + ">";
 			
 			addEmailChkFormObj.innerHTML = htmlStr;
 			addEmailChkFormObj.submit();	
@@ -189,43 +192,38 @@
 	//별명 중복체크
 	function nickNameChkMoveFnc(){
 		
- 		var addNickNameChkFormObj = document.getElementById("addNickNameChkForm");
+ 		var nickNameChkFormObj = document.getElementById("nickNameChkForm");
 		var emailChkVal = document.getElementById('email');
 		var nickNameChkVal = document.getElementById('nickName');
 		
 		
 		if (nickNameChkVal.value == '') {
-			alert("별명을 입력하세요!");
+			alert("닉네임을 입력하세요!");
 			nickNameChkVal.focus();
 			return;
-		}else{
+		}
+		else{
 			
 			var htmlStr = "<input type='hidden' name='email' value=" + emailChkVal.value + ">";
 			htmlStr = htmlStr + "<input type='hidden' name='nickName' value=" + nickNameChkVal.value + ">";
-	
-			addNickNameChkFormObj.innerHTML = htmlStr;
-			addNickNameChkFormObj.submit();
+			htmlStr = htmlStr + "<input type='hidden' name='overlapEmail' value=" + ${overlapEmail} + ">";
+			htmlStr = htmlStr + "<input type='hidden' name='overlapNickName' value=" + ${overlapNickName} + ">";
+
+			nickNameChkFormObj.innerHTML = htmlStr;
+			nickNameChkFormObj.submit();
 		}
 		
 	}
 </script>
-<style type="text/css">
-	
-	#emailChk, #nickNameChk{
-	 	width:65px; 
-	 	height:22px; 
-	 	margin-left: -6.5px; 
-	 	padding-bottom: 18px; 
-	 	font-size: 0.8em
-    }
-</style>
+
 </head>
 <body>
+<div style="width: 1920px;">
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
-<div>
-</div>
+
+
 	<div id="member">
 		<form action="./addCtr.do" id="addForm"method="post" style="font-weight: bold;"
 			enctype="multipart/form-data">
@@ -274,8 +272,9 @@
 	<form action="./addEmailChkCtr.do" id="addEmailChkForm" method="post">	
 	</form>
 	
-	<form action="./addNickNameChkCtr.do" id="addNickNameChkForm" method="post">	
+	<form action="./nickNameChkCtr.do" id="nickNameChkForm" method="post">	
 	</form>
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
+</div>	
 </body>
 </html>

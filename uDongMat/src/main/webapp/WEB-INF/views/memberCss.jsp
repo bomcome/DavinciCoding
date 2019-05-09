@@ -7,7 +7,7 @@
 	#member{
 		width:310px;
 		text-align: center;
-		margin:auto;
+		margin-left: 790px;
 		font-weight: bold;
 	}
 	.memberInput {
@@ -16,8 +16,7 @@
 		
 	}
 	
-	.memberInput:hover{
-		width: 173px;
+	.memberInput:hover,button:hover,input[type=button]:hover{
 		color: #FFD9EC;
 		background-color: #5D5D5D;
 	}
@@ -26,5 +25,13 @@
 	   list-style:none;
 	   padding-left:0px;
    }
+   
+   #emailChk, #nickNameChk{
+	 	width:65px; 
+	 	height:22px; 
+	 	margin-left: -6.5px; 
+	 	padding-bottom: 18px; 
+	 	font-size: 0.8em
+    }
 
 </style>

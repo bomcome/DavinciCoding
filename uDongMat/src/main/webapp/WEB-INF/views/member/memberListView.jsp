@@ -44,7 +44,7 @@
 
 </head>
 <body>
-
+<div style="width: 1920px;">
 
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
@@ -84,6 +84,6 @@
 </c:if>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
-
+</div>
 </body>
 </html>

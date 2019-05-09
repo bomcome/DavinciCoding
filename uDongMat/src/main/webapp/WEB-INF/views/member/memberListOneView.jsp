@@ -40,10 +40,18 @@
 	}
 		
 </script>
-
+<style type="text/css">
+	.dateBox{
+		width: 171px;
+		height: 19px;
+	    border: 1px solid black;
+	    -webkit-appearance: textfield;
+	    font: 400 13.3333px Arial;
+	}
+</style>
 </head>
 <body>
-
+<div style="width: 1920px;">
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
@@ -53,7 +61,7 @@
 	<div id="member">
 		<form action="./update.do" method="get" >
 			<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
-			
+							
 			<div style="text-align: left; padding-left: 70px;">
 				<div>
 					<ul>
@@ -69,20 +77,20 @@
 						<li>닉네임
 						<li><input type="text" name='nickName' id='nickName' 
 								value='${memberVo.nickName}' readonly="readonly">
-					</ul>
+					</ul>		
 				</div>
-						
-			<c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">	
-				<div>		
+				<%-- <div>		
 					<ul>
 						<li>가입일
-						<li><input type="text" name='createDate' id='createDate'  
-							value='<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd"/>'
-							readonly="readonly">
+						<li>
+							<span class="dateBox">
+								<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd"/>
+							</span>
 					</ul>
-				</div>	
-			
-			</c:if>	
+				</div>		 --%>
+		
+		
+
 			</div>
 		
 			<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
@@ -95,7 +103,7 @@
 		
 			<div>
 				<ul>
-					<li><input type="button" class="memberInput" value="이전화면"  onclick="pageMoveListFnc();">
+					<li><input type="button" class="memberInput" value="메인화면"  onclick="pageMoveListFnc();">
 				</ul>
 			</div>
 
@@ -115,6 +123,6 @@
 	</form> --%>
 
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
-
+</div>
 </body>
 </html>

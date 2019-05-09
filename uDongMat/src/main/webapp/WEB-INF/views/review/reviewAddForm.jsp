@@ -39,8 +39,8 @@
 
 	<div id="commentAddContainer">
 		<div id="commentAddLetter">댓글쓰기</div>
-		<form id="commentAddForm" action="../comment/addCtr.do" method="post">
-			<input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${boardVo.boardNo}">
+		<form id="commentAddForm" action="../review/addCtr.do" method="post">
+			<input type="hidden" id="boardNo" class="boardNo" name="restaurantNo" value="${restaurantVo.restaurantNo}">
 			<input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
 			<textarea id="commentContents" class="contents" name="contents"  rows="5"></textarea>
 			<div>

@@ -11,6 +11,7 @@
 		<result column="CATEGORY" property="category" />
 		<result column="PHONE" property="phone" />
 		<result column="OPERATING_TIME" property="operatingTime" />
+		<result column="CLOSING_TIME" property="closingTime" />
 		<result column="ADDRESS" property="address" />
 		<result column="CONTENTS" property="contents" />
 		<result column="STORED_FILE_NAME" property="storedFileName" />
@@ -27,7 +28,7 @@
 		ORDER BY RESTAURANT_NO DESC
 	</select>
 	
-	<select id="restaurantsSelectListOrder" parameterType="map"
+	<select id="restaurantsSelectListCategory" parameterType="map"
 		resultMap="restaurantsResultMap">
 		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
 		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
@@ -36,17 +37,24 @@
 		ORDER BY RESTAURANT_NO DESC
 	</select>
 	
-	<select id="restaurantsSelectListSelect" parameterType="map"
+	<select id="restaurantsSelectListOrder" parameterType="map"
 		resultMap="restaurantsResultMap">
 		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
 		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
 		ON R.RESTAURANT_NO = F.PARENT_SEQ
-		ORDER BY '%'||#{orderSelect}||'%' DESC
+		<choose>
+			<when test= "order == 'restaurantNo'">
+			ORDER BY R.RESTAURANT_NO DESC	
+			</when>
+			<otherwise>
+			ORDER BY R.RESTAURANT_NAME ASC
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="restaurantsSelectOne" parameterType="int"
 		resultMap="restaurantsResultMap">
-		SELECT RESTAURANT_NO, RESTAURANT_NAME, CATEGORY, PHONE, OPERATING_TIME, ADDRESS, CONTENTS
+		SELECT RESTAURANT_NO, RESTAURANT_NAME, CATEGORY, PHONE, OPERATING_TIME, CLOSING_TIME, ADDRESS, CONTENTS
 		FROM RESTAURANTS
 		WHERE RESTAURANT_NO = #{restaurantNo}
 	</select>
@@ -58,8 +66,10 @@
 			SELECT RESTAURANT_NO_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		
-		INSERT INTO RESTAURANTS(RESTAURANT_NO, RESTAURANT_NAME, CATEGORY, PHONE, OPERATING_TIME, ADDRESS, CONTENTS, MOD_DATE)
-		VALUES(#{restaurantNo}, #{restaurantName}, #{category}, #{phone}, #{operatingTime}, #{address}, #{contents}, SYSDATE)
+		INSERT INTO RESTAURANTS(RESTAURANT_NO, RESTAURANT_NAME, CATEGORY, PHONE
+		, OPERATING_TIME, CLOSING_TIME, ADDRESS, CONTENTS, MOD_DATE)
+		VALUES(#{restaurantNo}, #{restaurantName}, #{category}, #{phone}
+		, #{operatingTime}, #{closingTime}, #{address}, #{contents}, SYSDATE)
 	</insert>
 	
 	<update id="restaurantsUpdate" parameterType="restaurantsVo">
@@ -69,6 +79,7 @@
 			<if test="category != ''">CATEGORY = #{category},</if>
 			<if test="phone != ''">PHONE = #{phone},</if>
 			<if test="operatingTime != ''">OPERATING_TIME = #{operatingTime},</if>
+			<if test="closingTime != ''">CLOSING_TIME = #{closingTime},</if>
 			<if test="address != ''">ADDRESS = #{address},</if>
 			<if test="contents != ''">CONTENTS = #{contents},</if>
 			MOD_DATE = SYSDATE

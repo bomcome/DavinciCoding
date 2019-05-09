@@ -77,6 +77,11 @@
 		
 			return;
 		}
+        else if(${overlapNickName} == 1) {
+			alert('닉네임 중복 확인을 해주세요');
+			
+			return;	
+		}
         else if (passwordVal.value == '') {
 			alert('비밀번호를 입력하세요!');
 			passwordVal.focus();
@@ -107,62 +112,130 @@
 		}//first if문 end
 	}
 	
-</script>
+	//별명 중복체크
+	function nickNameChkMoveFnc(){
+		
+ 		var addNickNameChkFormObj = document.getElementById("nickNameChkForm");
+ 		var memberNoVal = document.getElementById('memberNo');
+ 		var emailChkVal = document.getElementById('email');
+		var nickNameChkVal = document.getElementById('nickName');
 
+		
+		if (nickNameChkVal.value == '') {
+			alert("닉네임을 입력하세요!");
+			nickNameChkVal.focus();
+			
+			return;
+		}
+		else{
+			
+			var htmlStr = "<input type='hidden' name='email' value=" + emailChkVal.value + ">";
+			htmlStr = htmlStr + "<input type='hidden' name='memberNo' value=" + ${memberVo.memberNo} + ">";
+			htmlStr = htmlStr + "<input type='hidden' name='nickName' value=" + nickNameChkVal.value + ">";
+			htmlStr = htmlStr + "<input type='hidden' name='overlapNickName' value=" + ${overlapNickName} + ">";
+
+			addNickNameChkFormObj.innerHTML = htmlStr;
+			addNickNameChkFormObj.submit();
+		}
+		
+	}
+	
+</script>
+<style type="text/css">
+	.dateBox{
+		width: 171px;
+		height: 19px;
+	    border: 1px solid black;
+	    -webkit-appearance: textfield;
+	    font: 400 13.3333px Arial;
+	}
+</style>
 </head>
 <body>
-
+<div style="width: 1920px;">
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
 	
-	<br/>
 	<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
+	
 	<div id="member">
 		<form action="./updateCtr.do" id="updateForm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
 			<input type="hidden" name='memberGrade' value='${memberVo.memberGrade}'>
-			
+	
+				
 			<div style="text-align: left; padding-left: 70px;">
 			
-				이메일<br/>
-				<input type="text" name="email" value='${memberVo.email}' readonly="readonly" tabindex="-1"
-				style="color:#808080; background-color: #ffff;" onfocus="this.blur();"><br/>
-				<br/>	
-				
-				닉네임 <br/>
-				<input type="text" name='nickName' id='nickName' 
-					value='${memberVo.nickName}'><br/>
-				<br/>	
-				
-				비밀번호<br/>
-				 <input type="password" name="password" id="password"
-					value='' required="required"><br/>
-				<br/>
-					
-				비밀번호 확인<br/>
-				 <input type="password" name="passwordChk" id="passwordChk"
-					value='' required="required"><br/>
-				 <a id="passwordChkMsg"></a>
-				<br/>
-				
+				<div>
+					<ul>
+						<li>이메일
+						<li><input type="text" name="email" id="email" value='${memberVo.email}' readonly="readonly" tabindex="-1"
+							style="color:#808080; background-color: #ffff;" onfocus="this.blur();">
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>닉네임
+						<li>
+							<input type="text" name='nickName' id='nickName' 
+							value="${memberVo.nickName}">
+							<input type="button" id="nickNameChk" value="증복확인" onclick="nickNameChkMoveFnc();">					
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>비밀번호
+						<li> <input type="password" name="password" id="password"
+								value='' required="required">
+						
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>비밀번호 확인
+						<li><input type="password" name="passwordChk" id="passwordChk"
+							value='' required="required">
+						<li><a id="passwordChkMsg"></a>
+					</ul>
+				</div>	
+				<%-- <div>		
+					<ul>
+						<li>가입일
+						<li>
+							<span class="dateBox">
+								<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd"/>
+							</span>
+					</ul>
+				</div>	 --%>			
 			</div>
+			
+			<div>
+				<ul>
+					<li><input type="button" class="memberInput" onclick="memberUpdateFnc();" value="수정하기">
 				
-			<input type="button" class="memberInput" onclick="memberUpdateFnc();" value="수정하기"><br/>
-			
-			<br/>
-			
-			<input type="button" class="memberInput" value="수정취소" 
-				onclick="pageMoveBeforeFnc(${memberVo.memberNo});"><br/>
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li><input type="button" class="memberInput" value="수정취소" 
+						onclick="pageMoveBeforeFnc(${memberVo.memberNo});">
+				</ul>
+			</div>
+
 		</form>
 	</div>
 	
-	<br/>
 	</c:if>
+	
 	<c:if test="${sessionScope._memberVo_.memberNo != memberVo.memberNo}">
 		해커는 꺼져라
 	</c:if>
+	
+	<form action="./nickNameChkCtr.do" id="nickNameChkForm" method="post">	
+	</form>
+	
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
-
+</div>
 </body>
 </html>

@@ -343,8 +343,22 @@ function boardRecommendSubmitFnc(){
 			document.getElementById("curPage").value = Number(document.getElementById("curPage").value) + 1;
 			document.getElementById("pagingForm").submit();
 		}
-		 
+// 		preScrollYVal = window.scrollY;
 	}
+	
+	$(function(){
+	    //get
+	    if($.cookie('scroll_loc')){
+	        $(window).scrollTop($.cookie('scroll_loc'));
+	    }
+	    //set
+	    $(window).scroll(function(){
+	        $.cookie('scroll_loc',$(this).scrollTop());
+	    });
+	});
+
+	
+	
 	
 </script>
 

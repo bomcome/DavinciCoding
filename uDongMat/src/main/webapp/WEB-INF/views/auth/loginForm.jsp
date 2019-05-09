@@ -56,7 +56,7 @@
 				<div>
 					<ul>	
 						<li><input type="button" class="memberInput" style="margin-left: 0px;" 
-								value="이전화면"  onclick="pageMoveListFnc();">
+								value="메인화면"  onclick="pageMoveListFnc();">
 					</ul>
 				</div>
 			</div>
