@@ -42,13 +42,13 @@ public class MemberController {
 	
 	//회원한명 보기
 	@RequestMapping(value = "/member/listOne.do", method=RequestMethod.GET)
-	public String memberListOne(int memberNo, Model model) {
+	public String memberListOne(MemberVo memberVo, Model model) {
 		
-		log.debug("Welcome memberListOne enter! - {}", memberNo);
+		log.debug("Welcome memberListOne enter! - {}", memberVo);
 		
-		MemberVo memberVo = memberService.memberSelectOne(memberNo);
+		MemberVo memberVoChk = memberService.memberSelectOne(memberVo.getMemberNo());
 		
-		model.addAttribute("memberVo", memberVo);
+		model.addAttribute("memberVo", memberVoChk);
 		
 	
 	return "member/memberListOneView";
@@ -57,15 +57,20 @@ public class MemberController {
 	
 	//회원 수정 페이지로 이동
 	@RequestMapping(value = "/member/update.do",method = RequestMethod.GET)
-	public String memberUpdate(int memberNo, Model model) {
-		log.debug("Welcome memberUpdate enter! - {}", memberNo);
+	public String memberUpdate(	MemberVo memberVo, Model model,
+			@RequestParam(defaultValue ="1") int overlapNickName,int memberNo) {
+		log.debug("Welcome memberUpdate enter! - {}", memberVo);
 
-		MemberVo memberVo = memberService.memberSelectOne(memberNo);
-
-		model.addAttribute("memberVo", memberVo);
+		MemberVo memberVoChk = memberService.memberSelectOne(memberNo);
+		
+		model.addAttribute("memberVo", memberVoChk);
+//		model.addAttribute("memberVo", memberVo);
+		
+		model.addAttribute("overlapNickName", overlapNickName);
 
 		return "member/memberUpdateForm";
 	}
+	
 	//회원 수정 완료
 	@RequestMapping(value = "/member/updateCtr.do",method = RequestMethod.POST)
 	public String memberUpdateOne(HttpSession session, MemberVo memberVo,Model model) {
@@ -103,15 +108,25 @@ public class MemberController {
 			}
 			return "redirect:/restaurants/list.do";
 		}
+	
+	// 회원 수정 별명 증복 체크
+	@RequestMapping(value = "/member/nickNamechkMove.do", method = RequestMethod.GET)
+	public String chk(MemberVo memberVo, Model model,
+			@RequestParam(defaultValue ="1") int overlapNickName) {
+		log.debug("Welcome MemberController logout 페이지 이동! :{}",memberVo);
+		
+		model.addAttribute("memberVo", memberVo);
+		model.addAttribute("overlapNickName", overlapNickName);
+		return "/member/memberUpdateForm";
+	}
 		
 
 	
 	//회원가입 페이지로 이동
 	@RequestMapping(value = "/member/add.do", method = {RequestMethod.GET})
-	public String memberAdd(
+	public String memberAdd(MemberVo memberVo,  Model model,
 			@RequestParam(defaultValue ="1") int overlapEmail,
-			@RequestParam(defaultValue ="1") int overlapNickName,
-			Model model,MemberVo memberVo) {
+			@RequestParam(defaultValue ="1") int overlapNickName) {
 		log.debug("Welcome MemberController memberAdd 페이지 이동!" + memberVo);
 		
 		//중복체크를 인한 값 넘기기
@@ -136,9 +151,11 @@ public class MemberController {
 
 		return "redirect:/auth/login.do";
 	}
-//	이메일 증복 체크
+	//회원가입 이메일 증복 체크
 	@RequestMapping(value = "/member/addEmailChkCtr.do", method = RequestMethod.POST)
-	public String memberAddEmailChk(MemberVo memberVo,  Model model) {
+	public String memberAddEmailChk(MemberVo memberVo,  Model model,
+			@RequestParam(defaultValue ="1") int overlapEmail,
+			@RequestParam(defaultValue ="1") int overlapNickName) {
 		log.trace("Welcome MemberController memberAdd 증복체크 처리! " + memberVo);
 		
 
@@ -149,40 +166,44 @@ public class MemberController {
 			
 	    	model.addAttribute("memberVo", memberVo);
 	    	model.addAttribute("overlapEmail", 1);
+	    	model.addAttribute("overlapNickName", overlapNickName);
 	    	
 		}else {
 			 
 			model.addAttribute("memberVo", memberVo);
 			model.addAttribute("overlapEmail", 0);
+			model.addAttribute("overlapNickName", overlapNickName);
 		}
 
 		return "member/memberEmailChk";
 	}
 	
-//	별명 증복 체크
-	@RequestMapping(value = "/member/addNickNameChkCtr.do", method = RequestMethod.POST)
-	public String memberAddNickNameChk(MemberVo memberVo,  Model model) {
+	//별명 증복 체크
+	@RequestMapping(value = "/member/nickNameChkCtr.do", method = RequestMethod.POST)
+	public String memberAddNickNameChk(MemberVo memberVo,  Model model,
+			@RequestParam(defaultValue ="1") int overlapEmail,
+			@RequestParam(defaultValue ="1") int overlapNickName) {
 		log.trace("Welcome MemberController memberAdd 증복체크 처리! " + memberVo);
 		
 
 	    MemberVo memberVoNickNameChk = memberService.memberNickNameChk(memberVo.getNickName());
-
+	    
+	   
 
 	    if (memberVoNickNameChk != null) {
 			 
 	    	model.addAttribute("memberVo", memberVo);
 	    	model.addAttribute("overlapNickName", 1);
+	    	model.addAttribute("overlapEmail",overlapEmail);
 	    	
 		}else {
 			 
 			model.addAttribute("memberVo", memberVo);
-			model.addAttribute("overlapEmail", 0);
 			model.addAttribute("overlapNickName", 0);
+			model.addAttribute("overlapEmail",overlapEmail);
 		}
-
 		return "member/memberNickNameChk";
 	}
-	
 	
 	//회원 삭제
 	@RequestMapping(value = "/member/deleteCtr.do", method = RequestMethod.GET)
@@ -207,13 +228,13 @@ public class MemberController {
 
 			}
 		}
-		return "redirect:/restaurants/list.do";
-		
+		return "redirect:/restaurants/list.do";	
 	}
 	
 	//로그인 페이지로 이동
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
-	public String login(HttpSession session, Model model) {
+	public String login(HttpSession session, Model model,
+			@RequestParam(defaultValue ="1") int overlapNickName) {
 		log.debug("Welcome MemberController login 페이지 이동! -{}" + session);
 
 		return "auth/loginForm";
@@ -227,12 +248,8 @@ public class MemberController {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("email", email);
 		paramMap.put("password", password);
-
-		
-
 		
 	    MemberVo memberVo = memberService.memberExist(paramMap);
-	
 		
 		String viewUrl = "";
 		if (memberVo != null) {
@@ -258,5 +275,6 @@ public class MemberController {
 
 		return "redirect:/auth/login.do";
 	}
+	
 
 }

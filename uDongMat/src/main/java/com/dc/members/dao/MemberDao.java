@@ -17,7 +17,7 @@ public interface MemberDao {
 	
 	public int memberInsertOne(MemberVo memberVo);				//회원 추가
 	
-	public MemberVo memberEmailChk(String email);					//이메일 증복체크
+	public MemberVo memberEmailChk(String email);				//이메일 증복체크
 	public MemberVo memberNickNameChk(String nickName);			//닉네임 증복체크
 	
 	public int memberDelete(int memberNo);						//회원삭제

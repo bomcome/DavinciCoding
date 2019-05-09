@@ -142,7 +142,7 @@
 			</div>
 		</form>
 	</div>
-
+	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 </div>
 </body>
 </html>

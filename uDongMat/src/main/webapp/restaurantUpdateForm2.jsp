@@ -123,28 +123,7 @@
 	
    	<div style="width:1050px; height:500px; padding: 20px; border: 1px solid black">
 	   		<div style="width:600px; height:480px; border: 1px solid black; float: left;" >
-			<div id="fileContent">
-			<div>
-				<c:choose>
-					<c:when test="${empty fileList}">
-						<input type="hidden" id="fileIdx" name="fileIdx" value="">
-						<input type="file" id="file0" name="file0">
-						<a href="#this" id="delete0" onclick="addFileFnc();">삭제</a><br>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="row" items="${fileList}" varStatus="obj">
-							<input type="hidden" id="fileIdx_${obj.index}" name="fileIdx"
-							value="${row.IDX}">
-							<img alt="image not found" style="width: 600px; height: 420px;"
-							src="<c:url value='/img/${row.STORED_FILE_NAME}'/>" />
-							<br>
-							${row.ORIGINAL_FILE_NAME}
-							<input type="file" id="file_${obj.index}" name="file_${obj.index}">(${row.FILE_SIZE}kb)
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-				</div>
-				</div>
+	
 			</div>
 			
 			<div style="width:400px; height:440px; padding: 20px; margin-bottom: 4px; 
@@ -172,6 +151,28 @@
 				</ul>
 			</div>
 			
+			<div id="fileContent">
+				<div>
+				<c:choose>
+					<c:when test="${empty fileList}">
+						<input type="hidden" id="fileIdx" name="fileIdx" value="">
+						<input type="file" id="file0" name="file0">
+						<a href="#this" id="delete0" onclick="addFileFnc();">삭제</a><br>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="row" items="${fileList}" varStatus="obj">
+							<input type="hidden" id="fileIdx_${obj.index}" name="fileIdx"
+								value="${row.IDX}">
+							<img alt="image not found" style="width: 130px; height: 130px;"
+								src="<c:url value='/img/${row.STORED_FILE_NAME}'/>" />
+							<br>
+							${row.ORIGINAL_FILE_NAME} <input type="file" id="file_${obj.index}" name="file_${obj.index}">
+							(${row.FILE_SIZE}kb) <br>
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
 		
 	</div>
 	<div style="width:1050px;  padding: 20px; border: 1px solid black; margin-top:20px;">
@@ -201,7 +202,6 @@
 	</form>
    
 	</div>
-	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 </div>
 </body>
 </html>

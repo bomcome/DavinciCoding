@@ -7,11 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-	.restaurantTopInput{
-		width: 400px; 
-		height: 60px;
-		font-size: 25px;
-	}
 
 	.restaurantInput{
 		width: 300px; 
@@ -24,7 +19,7 @@
 	}
 	#field input {
 		height: 40px;
-		font-size:1.3em;
+		font-size:0.8em;
 		outline:none;
 		display:inline;
 	}
@@ -32,7 +27,6 @@
 	#field input[type="text"]{
       box-sizing: border-box;
       color:black;
-      
 
 	}
 	#field  input[type=button]{
@@ -40,7 +34,7 @@
       margin-left: -2px;
     }
     
-	#field  div:nth-child(2n+1) {
+	#field div:nth-child(2n+1) {
 	   clear: left;
 	}
 
@@ -48,11 +42,6 @@
 	   list-style:none;
 	   padding-left:0px;
    }
-    input[type=button]:hover, input[type=submit]:hover, button:hover{
-		color: #FFD9EC;
-		background-color: #5D5D5D;
-	}
-   
 
 </style>
 <title>Insert title here</title>
@@ -83,56 +72,56 @@
 		
 	<div style="margin-left: 450px;">
 		<form action="./update.do" method="get">
-		<div style="width:1050px; height:480px; padding: 20px; border: 1px solid black">
-			<div style="width:600px; height:480px; border: 1px solid black; float: left;" >
+		<div style="width:1050px; height:430px; padding: 20px; border: 1px solid black">
+			<div style="width:650px; height:360px; padding: 20px; border: 1px solid black; float: left; margin-right: 15px;" >
 				<div id="fileContent">
 					<div>
 						<c:forEach var="row" items="${fileList}" varStatus="obj">
-							<input type="hidden" id="fileIdx_${obj.index}" name="fileIdx" value="${row.IDX}">
-							<img alt="image not found" style="width: 600px; height: 480px;"
-								 src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/>
+							<ul>
+								<li><input type="hidden" id="fileIdx_${obj.index}" name="fileIdx" value="${row.IDX}">
+								<li><img alt="image not found" style="width: 130px; height: 130px;"
+									 src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/>
+							</ul>
 						</c:forEach>
 					</div>
 				</div>
 			</div>
 			
-			<input type="hidden" name='restaurantNo' value='${restaurantsVo.restaurantNo}'>
-			
-			<div style="width:400px; height:440px; padding: 20px;  border: 1px solid black; float: left;">
-				<ul>
-					<li><input type="text" name='restaurantName' class="restaurantTopInput" value='${restaurantsVo.restaurantName}' readonly="readonly">
-				</ul>
-				<ul>
-					<li><input type="text" name='category' class="restaurantTopInput" value='${restaurantsVo.category}' readonly="readonly">
-				</ul>
-				<ul>
-					<li><input type="text" name='phone' class="restaurantTopInput" value='${restaurantsVo.phone}' readonly="readonly">
-				</ul>
-				<ul>
-					<li><input type="text" name='operatingTime' class="restaurantTopInput"  value='${restaurantsVo.operatingTime}' readonly="readonly">
-				</ul>
-				<ul>
-					<li><textarea style="width: 400px; height: 100px; resize: none;" 
-						readonly="readonly" name="address">${restaurantsVo.address}</textarea>
-				</ul>
+			<div>
+				<div style="width:300px; height:360px; padding: 20px;  border: 1px solid black; float: left;">
+					<ul>
+						<li><input type="hidden" name='restaurantNo' value='${restaurantsVo.restaurantNo}'>
+						<li><input type="text" name='restaurantName' class="restaurantInput" value='${restaurantsVo.restaurantName}' readonly="readonly">
+					</ul>
+					<ul>
+						<li><input type="text" name='category' class="restaurantInput" value='${restaurantsVo.category}' readonly="readonly">
+					</ul>
+					<ul>
+						<li><input type="text" name='phone' class="restaurantInput" value='${restaurantsVo.phone}' readonly="readonly">
+					</ul>
+					<ul>
+						<li><input type="text" name='operatingTime' class="restaurantInput"  value='${restaurantsVo.operatingTime}' readonly="readonly">
+					</ul>
+					<ul>
+						<li><textarea style="width: 300px; height: 80px; resize: none;" 
+							readonly="readonly" name="address">${restaurantsVo.address}</textarea>
+					</ul>
+				</div>
 			</div>
-		
 		</div>
 		
 		 <div style="width:1050px;  padding: 20px; border: 1px solid black; margin-top:20px;">
 			<span style="font-size: 30px; font-weight: bold;">메뉴</span>
+			
 			<div id="field">
 				<c:forEach var="menusVo" items="${menusList}">
-					<div>
-						<input type="text" name='"menuName"' style="width: 280px;" value='${menusVo.menuName}' readonly="readonly">
-						<input type="text" name='price' style="width: 180px; padding-top: 5px; 
-							margin-left: -6px;" value='${menusVo.price}' readonly="readonly">
-					</div>
+					<input type="text" name='"menuName"' style="width: 300px;" value='${menusVo.menuName}' readonly="readonly">
+					<input type="text" name='price' style="width: 150px;" value='${menusVo.price}' readonly="readonly">
 				</c:forEach>
 			</div>	
 				
 			<h2 style="clear: left;">맛집소개</h2>
-			<textarea style="width: 1040px; height: 200px; resize: none;" 
+			<textarea style="width: 1030px; height: 150px; resize: none;" 
 				name="contents" readonly="readonly">${restaurantsVo.contents}</textarea>
 		</div>
 			<div style="width:1095px; text-align: center; margin-top:20px;"> 
@@ -142,7 +131,7 @@
 			</div>
 		</form>
 	</div>
-
+	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 </div>
 </body>
 </html>
