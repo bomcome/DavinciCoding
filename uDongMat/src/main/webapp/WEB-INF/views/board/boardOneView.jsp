@@ -343,7 +343,7 @@ function boardRecommendSubmitFnc(){
 			document.getElementById("curPage").value = Number(document.getElementById("curPage").value) + 1;
 			document.getElementById("pagingForm").submit();
 		}
-		
+		 
 	}
 	
 </script>
