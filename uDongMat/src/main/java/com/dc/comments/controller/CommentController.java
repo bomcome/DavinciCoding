@@ -1,6 +1,8 @@
 package com.dc.comments.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,12 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dc.board.vo.BoardVo;
 import com.dc.comments.service.CommentService;
 import com.dc.comments.vo.CommentVo;
-import com.dc.recommend.service.RecommendService;
-import com.dc.recommend.vo.RecommendVo;
+import com.dc.util.Paging;
+import com.dc.util.Paging2;
 
 @Controller
 public class CommentController {
@@ -29,15 +32,22 @@ public class CommentController {
 		BoardVo boardVo = (BoardVo)req.getAttribute("boardVo");
 		
 		int totalCount = commentService.commentSelectTotalCount(boardVo.getBoardNo());
+		int curPage = (int)req.getAttribute("curPage");
+		Paging2 commentPaging = new Paging2(totalCount, curPage);
+		int end = commentPaging.getPageEnd();
 		
 		List<CommentVo> commentList = 
-				commentService.commentSelectList(boardVo.getBoardNo());
+				commentService.commentSelectList(end, boardVo.getBoardNo());
+		
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("totalCount", totalCount);
+		pagingMap.put("commentPaging", commentPaging);
 		
 //		RecommendVo recommendVo = recommendService.commentRecommendSelectOne(recommendVo);
 		
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("totalCount", totalCount);		
-		
+		model.addAttribute("pagingMap", pagingMap);
 		return "board/boardOneView";
 	}
 	

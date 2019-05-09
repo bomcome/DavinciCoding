@@ -73,7 +73,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/one.do", method= {RequestMethod.GET})
-	public String boardOne(Model model, int boardNo, HttpServletRequest req, HttpSession session, Map<String, Object> map) {
+	public String boardOne(@RequestParam(defaultValue ="1") int curPage, 
+			Model model, int boardNo, HttpServletRequest req, HttpSession session, Map<String, Object> map) {
 
 		MemberVo memberVo = (MemberVo)session.getAttribute("_memberVo_");
 		
@@ -88,6 +89,8 @@ public class BoardController {
 			
 			req.setAttribute("boardVo", (BoardVo)map.get("boardVo"));
 		}
+		
+		req.setAttribute("curPage", curPage);
 		
 //		BoardVo boardVo = boardService.boardSelectOne(boardNo, memberVo.getMemberNo());
 //		

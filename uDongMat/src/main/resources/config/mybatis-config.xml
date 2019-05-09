@@ -12,6 +12,7 @@
   	<typeAlias type="com.dc.comments.vo.CommentVo" alias="commentVo"/>
   	<typeAlias type="com.dc.recommend.vo.RecommendVo" alias="recommendVo"/>
   	<typeAlias type="com.dc.board.vo.HitsVo" alias="hitsVo"/>
+  	<typeAlias type="com.dc.review.vo.ReviewVo" alias="reviewVo"/>
   </typeAliases> 
 
 </configuration>

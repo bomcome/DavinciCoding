@@ -19,10 +19,10 @@ public class CommentDaoImpl implements CommentDao{
 	String namespace = "com.dc.comments.";
 
 	@Override
-	public List<CommentVo> commentSelectList(int boardNo) {
+	public List<CommentVo> commentSelectList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		
-		return sqlSession.selectList(namespace +"commentSelectList", boardNo);
+		return sqlSession.selectList(namespace +"commentSelectList", map);
 	}
 
 	@Override

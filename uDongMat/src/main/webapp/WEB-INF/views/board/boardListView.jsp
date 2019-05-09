@@ -191,6 +191,17 @@
 		</c:forEach>
 	</table>
 	
+	<div id="writeButtonsDiv">
+		<span>
+		<c:if test="${_memberVo_ != null}">
+			<button class="write" onclick="location.href='add.do'">글쓰기</button>
+		</c:if>
+		<c:if test="${_memberVo_ == null}">
+			<button class="write" type="button" onclick="location.href='../auth/login.do'">글쓰기</button>
+		</c:if>
+		</span>
+	</div>
+		
 	
 	<jsp:include page="/WEB-INF/views/common/paging.jsp">
 		<jsp:param value="${pagingMap}" name="pagingMap"/>
@@ -203,21 +214,13 @@
 				value="${keyword}">
 		</form>
 	</div>
-	<div id="writeButtonsDiv">
-		<span>
-		<c:if test="${_memberVo_ != null}">
-			<button class="write" onclick="location.href='add.do'">글쓰기</button>
-		</c:if>
-		<c:if test="${_memberVo_ == null}">
-			<button class="write" type="button" onclick="location.href='../auth/login.do'">글쓰기</button>
-		</c:if>
-		</span>
-	</div>
-		
+	
 	<jsp:include page="../Tail.jsp"/>
 		
 		
 	</div>
+	
+	
 	
 </body>
 </html>

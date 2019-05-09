@@ -22,9 +22,10 @@
 	}
 	#tail {
 		width: 1920px;
-		margin-bottom: 20px;
+		margin-bottom: 0px;
 		text-align: center;
 	} 
+	
 </style>
 <div id="tail">
 	<hr>
