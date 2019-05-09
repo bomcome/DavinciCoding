@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.dc.review">
+	<resultMap type="com.dc.review.vo.ReviewVo"
+		id="reviewResultMap">
+		<id column="REVIEW_NO" property="reviewNo" />
+		<result column="RESTAURANT_NO" property="restaurantNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="PARENT_REVIEW_NO" property="parentReviewNo" />
+		<result column="CONTENTS" property="contents" />
+		<result column="PAR_NICKNAME" property="parentNickname" />
+		<result column="PAR_CONTENTS" property="parentContents" />
+		<result column="CRE_DATE" property="createDate"
+			javaType="java.util.Date" />
+		<result column="MOD_DATE" property="modifiedDate"
+			javaType="java.util.Date" /> 
+	</resultMap>
+
+	<select id="reviewSelectList" parameterType="int"
+		resultMap="reviewResultMap">
+		SELECT ROWNUM, REVIEW_NO, RESTAURANT_NO, MEMBER_NO, PARENT_REVIEW_NO, NICKNAME, CONTENTS, 
+		    PAR_REVIEW_NO, PAR_NICKNAME, PAR_CONTENTS, CRE_DATE, MOD_DATE
+		FROM
+		    (SELECT C2.REVIEW_NO, C2.RESTAURANT_NO, C2.MEMBER_NO, C2.PARENT_REVIEW_NO, M2.NICKNAME, C2.CONTENTS,  
+		    	R.REVIEW_NO AS PAR_REVIEW_NO, R.NICKNAME AS PAR_NICKNAME, R.CONTENTS AS PAR_CONTENTS, 
+		    	C2.CRE_DATE, C2.MOD_DATE
+		        FROM
+		        (
+		            SELECT C.REVIEW_NO AS REVIEW_NO, M.NICKNAME AS NICKNAME, C.RESTAURANT_NO AS RESTAURANT_NO
+		            	, C.CONTENTS AS CONTENTS 
+		            FROM REVIEW 
+                    C, RESTAURANTS B, MEMBERS M
+		            WHERE C.RESTAURANT_NO = B.RESTAURANT_NO
+		            AND M.MEMBER_NO = C.MEMBER_NO
+		            ORDER BY C.REVIEW_NO DESC
+		        )R RIGHT JOIN REVIEW C2 
+		      ON R.REVIEW_NO = C2.PARENT_REVIEW_NO
+		       JOIN MEMBERS M2
+		     ON C2.MEMBER_NO = M2.MEMBER_NO
+		     WHERE C2.RESTAURANT_NO = #{restaurantNo}
+		     ORDER BY REVIEW_NO DESC);
+	</select>	
+
+		<insert id="reviewInsertOne" 
+		parameterType= "reviewVo"
+		useGeneratedKeys="true" keyProperty="commentNo">
+		<selectKey keyProperty="reviewVo" resultType="int" order="BEFORE">
+			SELECT REVIEW_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO REVIEW
+		(REVIEW_NO, RESTAURANT_NO, MEMBER_NO, PARENT_REVIEW_NO, CONTENTS, CRE_DATE, MOD_DATE)
+		VALUES(#{reviewNo}, #{restaurantNo}, #{memberNo}, #{parentReviewNo}, #{contents}, SYSDATE, SYSDATE)
+	</insert>
+	
+	<select id="reviewDetailOne" parameterType="int"
+		resultMap="reviewResultMap">
+		SELECT C.REVIEW_NO, C.RESTAURANT_NO, C.CONTENTS, C.MEMBER_NO, M.NICKNAME, C.CRE_DATE, C.MOD_DATE
+		FROM REVIEW C, RESTAURANTS B, MEMBERS M
+		WHERE C.RESTAURANT_NO = B.RESTAURANT_NO
+		AND C.MEMBER_NO = M.MEMBER_NO
+		AND C.REVIEW_NO = #{reviewNo};
+	</select>
+	
+	<update id="reviewUpdateOne" parameterType="commentVo">
+		UPDATE REVIEW
+		<set>
+			<if test="contents != ''">CONTENTS = #{contents},</if>
+			MOD_DATE = SYSDATE			
+		</set>
+		WHERE REVIEW_NO = #{reviewNo}
+	</update>
+
+
+	<delete id="reviewDelete" parameterType="int"> 
+		DELETE FROM REVIEW
+		WHERE REVIEW_NO = #{reviewNo}
+	</delete>
+	
+	<delete id="reviewDeleteWithRestaurant" parameterType="int"> 
+		DELETE FROM REVIEW
+		WHERE RESTAURANT_NO = #{restaurantNo}
+	</delete>
+	
+	
+	<select id="reviewSelectTotalCount" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE RESTAURANT_NO = #{restaurantNo}
+	</select>
+
+<!-- 	<select id="reviewSelectOne" parameterType="int" -->
+<!-- 		resultMap="reviewResultMap"> -->
+<!-- 		SELECT B.RESTAURANT_NO, B.TITLE, B.CONTENTS, B.MEMBER_NO, M.NICKNAME, B.CRE_DATE, B.MOD_DATE -->
+<!-- 		FROM RESTAURANT B, MEMBERS M -->
+<!-- 		WHERE B.MEMBER_NO = M.MEMBER_NO -->
+<!-- 		AND B.RESTAURANT_NO = #{restaurantNo} -->
+<!-- 	</select> -->
+	
+	
+<!-- 	<select id="reviewDetailOne" parameterType="int" -->
+<!-- 		resultMap="reviewResultMap"> -->
+<!-- 		SELECT C.REVIEW_NO, C.RESTAURANT_NO, C.CONTENTS, C.MEMBER_NO, M.NICKNAME, C.CRE_DATE, C.MOD_DATE -->
+<!-- 		FROM REVIEW C, RESTAURANT B, MEMBERS M -->
+<!-- 		WHERE C.BOARD_NO = B.RESTAURANT_NO -->
+<!-- 		AND C.MEMBER_NO = M.MEMBER_NO -->
+<!-- 		AND C.REVIEW_NO = #{reviewNo} -->
+<!-- 	</select> -->
+	
+	 
+
+<!-- 	<update id="commentUpdateRecommendUp" parameterType="int"> -->
+<!-- 		UPDATE COMMENTS -->
+<!-- 		<set> -->
+<!-- 			RECOMMEND_COUNT = RECOMMEND_COUNT + 1,			 -->
+<!-- 		</set> -->
+<!-- 		WHERE COMMENT_NO = #{commentNo} -->
+<!-- 	</update> -->
+	
+<!-- 	<update id="commentUpdateRecommendDown" parameterType="int"> -->
+<!-- 		UPDATE COMMENTS -->
+<!-- 		<set> -->
+<!-- 			RECOMMEND_COUNT = RECOMMEND_COUNT - 1,			 -->
+<!-- 		</set> -->
+<!-- 		WHERE COMMENT_NO = #{commentNo} -->
+<!-- 	</update> -->
+	
+	
+</mapper>

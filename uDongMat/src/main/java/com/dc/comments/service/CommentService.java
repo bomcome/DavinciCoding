@@ -7,7 +7,7 @@ import com.dc.comments.vo.CommentVo;
 
 public interface CommentService {
 	
-	public List<CommentVo> commentSelectList(int boardNo);
+	public List<CommentVo> commentSelectList(int end, int boardNo);
 	public int commentSelectTotalCount(int boardNo);
 	public void commentInsertOne(CommentVo commentVo);
 	public void commentUpdateOne(CommentVo commentVo);

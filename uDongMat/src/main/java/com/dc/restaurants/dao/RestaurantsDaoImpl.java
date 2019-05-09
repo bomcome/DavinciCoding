@@ -25,15 +25,15 @@ public class RestaurantsDaoImpl implements RestaurantsDao {
 	}
 
 	@Override
-	public List<RestaurantsFileVo> restaurantsSelectListOrder(Map<String, Object> map) {
+	public List<RestaurantsFileVo> restaurantsSelectListCategory(Map<String, Object> map) {
 		
-		return sqlSession.selectList(namespace + "restaurantsSelectListOrder", map);
+		return sqlSession.selectList(namespace + "restaurantsSelectListCategory", map);
 	}
 
 	@Override
-	public List<RestaurantsFileVo> restaurantsSelectListSelect(Map<String, Object> map) {
+	public List<RestaurantsFileVo> restaurantsSelectListOrder(Map<String, Object> map) {
 		
-		return sqlSession.selectList(namespace + "restaurantsSelectListSelect", map);
+		return sqlSession.selectList(namespace + "restaurantsSelectListOrder", map);
 	}
 
 	@Override

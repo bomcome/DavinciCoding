@@ -53,18 +53,35 @@
 					, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE
 					, B.RECOMMEND_COUNT AS RECOMMEND_COUNT, B.HITS AS HITS
 				      FROM BOARD B, MEMBERS M
-				      WHERE B.MEMBER_NO = M.MEMBER_NO
-				      ORDER BY B.BOARD_NO DESC)
-				WHERE TITLE LIKE '%'||#{keyword}||'%'
-				OR CONTENTS LIKE '%'||#{keyword}||'%'
-				OR NICKNAME LIKE '%'||#{keyword}||'%'
-				ORDER BY RECOMMEND_COUNT DESC, BOARD_NO ASC
+				      WHERE B.MEMBER_NO = M.MEMBER_NO)
+				<choose>
+					<when test="searchOption == 'title'">
+						WHERE TITLE LIKE '%'||#{keyword}||'%'
+					</when>
+					<when test="searchOption == 'contents'">
+						WHERE CONTENTS LIKE '%'||#{keyword}||'%'
+					</when>
+					<when test="searchOption == 'writer'">
+						WHERE NICKNAME LIKE '%'||#{keyword}||'%'
+					</when>
+                    <otherwise>
+                    	WHERE TITLE LIKE '%'||#{keyword}||'%'
+						OR CONTENTS LIKE '%'||#{keyword}||'%'
+						OR NICKNAME LIKE '%'||#{keyword}||'%'
+                    </otherwise>
+                </choose>
+				
+				ORDER BY RECOMMEND_COUNT DESC, BOARD_NO DESC
 		    )
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
 	
-	
+	<select id="boardCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM COMMENTS
+		WHERE BOARD_NO = #{boardNo}
+	</select>
 	
 	
 	
@@ -126,16 +143,25 @@
 <!-- 	</select> -->
 	
 	
-	<select id="boardSelectTotalCount" parameterType="String"
+	<select id="boardSelectTotalCount" parameterType="map"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM (SELECT B.CONTENTS AS CONTENTS, B.TITLE AS TITLE, M.NICKNAME AS NICKNAME
 	        FROM BOARD B, MEMBERS M
 	        WHERE B.MEMBER_NO = M.MEMBER_NO
-	        ORDER BY B.BOARD_NO)
-			WHERE title LIKE '%'||#{keyword}||'%'
-			or contents LIKE '%'||#{keyword}||'%'
-			or nickname LIKE '%'||#{keyword}||'%'
+	        )
+			<choose>
+					<when test="searchOption == 'title'">
+						WHERE TITLE LIKE '%'||#{keyword}||'%'
+					</when>
+					<when test="searchOption == 'writer'">
+						WHERE NICKNAME LIKE '%'||#{keyword}||'%'
+					</when>
+                    <otherwise>
+                    	WHERE TITLE LIKE '%'||#{keyword}||'%'
+						OR CONTENTS LIKE '%'||#{keyword}||'%'
+                    </otherwise>
+               </choose>
 	</select>
 	
 	<update id="boardUpdateRecommendUp" parameterType="int">
@@ -188,17 +214,17 @@
 	</insert>
 	
 	
-	<insert id="hitsInsertOneOther" 
-		parameterType= "map" 
-		useGeneratedKeys="true" keyProperty="hitsNo">
-		<selectKey keyProperty="hitsNo" resultType="int" order="BEFORE">
-			SELECT HITS_NO_SEQ.NEXTVAL FROM DUAL
-		</selectKey>
+<!-- 	<insert id="hitsInsertOneOther"  -->
+<!-- 		parameterType= "map"  -->
+<!-- 		useGeneratedKeys="true" keyProperty="hitsNo"> -->
+<!-- 		<selectKey keyProperty="hitsNo" resultType="int" order="BEFORE"> -->
+<!-- 			SELECT HITS_NO_SEQ.NEXTVAL FROM DUAL -->
+<!-- 		</selectKey> -->
 		
-		INSERT INTO HITS
-		(HITS_NO, BOARD_NO, CRE_DATE)
-		VALUES(#{hitsNo}, #{boardNo}, SYSDATE)
-	</insert>
+<!-- 		INSERT INTO HITS -->
+<!-- 		(HITS_NO, BOARD_NO, CRE_DATE) -->
+<!-- 		VALUES(#{hitsNo}, #{boardNo}, SYSDATE) -->
+<!-- 	</insert> -->
 	
 	
 	
@@ -209,7 +235,6 @@
 		</set>
 		WHERE HITS_NO = #{hitsNo}
 	</update>
-	
 	
 	<delete id="hitsDelete" parameterType="int"> 
 		DELETE FROM HITS

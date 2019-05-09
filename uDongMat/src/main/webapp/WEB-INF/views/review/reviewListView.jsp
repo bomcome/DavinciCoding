@@ -233,53 +233,38 @@
          
          <div id="commentLetter">댓글(${totalCount})</div>
          
-         <c:forEach var="commentVo" items="${commentList}">
-            <table class="commentTable">
+         <c:forEach var="reviewVo" items="${reviewList}">
+            <table>
             
                 <tr>
                   <td class="commentFirstTd">
-                     <input type="hidden" name="commentNo" value="${commentVo.commentNo}">
-                     <input type="hidden" name="boardNo" value="${commentVo.boardNo}">
-                     <span class="commentInfo">${commentVo.nickname}
+                     <input type="hidden" name="reviewNo" value="${reviewVo.reviewNo}">
+                     <input type="hidden" name="boardNo" value="${reviewVo.restaurantNo}">
+                     <span class="commentInfo">${reviewVo.nickname}
                      <span class="commentCreDate"><fmt:formatDate value="${commentVo.createDate}" pattern="yyyy/MM/dd HH:mm:ss"/></span>
                      <span class="commentSpan">
                      </span>
-	                     <c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">
-	                        <input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${commentVo.rowNum});">
-	                        <button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
+	                     <c:if test="${_memberVo_.memberNo eq reviewVo.memberNo}">
+	                        <input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${reviewVo.rowNum});">
+	                        <button type="button" onclick="location.href='../review/delete.do?reviewNo=${reviewVo.reviewNo}&restaurantNo=${reviewVo.restaurantNo}'">삭제</button>
 	                     </c:if>
 	                     <c:if test="${_memberVo_ != null}">
-	                        <input class="cocommentButton" type="button" value="답글" onclick="cocommentAddFnc(${commentVo.rowNum});">
+	                        <input class="cocommentButton" type="button" value="답글" onclick="cocommentAddFnc(${reviewVo.rowNum});">
 	                     </c:if>
 	                     <c:if test="${_memberVo_ == null}">
 	                        <button type="button" onclick="location.href='../auth/login.do'">답글</button>
 	                     </c:if>
                      </span>
-                     <span class="commentRecommendButtonsSpan">
-                        <c:if test="${_memberVo_ != null}">
-                           
-                           <form action="../recommend/addCommentCtr.do" method="post">
-                           		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
-                           		<input type="hidden" name='commentNo' value='${commentVo.commentNo}'>
-                              	<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
-                              	<button type="submit" id="recommendAddButton" 
-                                 class= "commentRecommendUpdateButton">추천${commentVo.recommendCount}</button>   
-                           </form>
-                           
-                        </c:if>
-                        <c:if test="${_memberVo_ == null}">
-                           <button type="button" class= "commentRecommendUpdateButton" onclick="location.href='../auth/login.do'">추천${commentVo.recommendCount}</button>
-                        </c:if>
-                     </span>
+                     
                   </td>
                </tr>   
                <tr>
                   <td class="commentsContents">
                      <span class="commentReceiver">
-                     <c:if test="${commentVo.parentCommentNo != 0 && commentVo.parentCommentNo != null}">
-                        TO. <button type="button" onclick="showParentContentsFnc(${commentVo.rowNum})" style="border: none;">${commentVo.parentNickname}</button>
+                     <c:if test="${reviewVo.parentReviewNo != 0 && reviewVo.parentReviewNo != null}">
+                        TO. <button type="button" onclick="showParentContentsFnc(${reviewVo.rowNum})" style="border: none;">${reviewVo.parentNickname}</button>
                         <div class="parentCommentContentsDiv" style="display: none;">
-                           ${commentVo.parentContents}
+                           ${reviewVo.parentContents}
                         </div>
                      </c:if>
                      
@@ -290,20 +275,20 @@
                      <div>
                      	<span class="commentContentsSpan">
                         	<textarea class="commentContentsTextarea" id="commentContentsTextarea" 
-                        		style="border: none;" cols="130" name="contents" readonly="readonly"><c:out value="${commentVo.contents}" /></textarea>
+                        		style="border: none;" cols="130" name="contents" readonly="readonly"><c:out value="${reviewVo.contents}" /></textarea>
                         </span>
                      
                      </div>
                      
                      <div class="commentUpdateContainer" style="display: none;">
-                        <form class="commentUpdateForm" action="../comment/updateCtr.do" method="post">
-                           <input type="hidden" id="commentNo" class="commentNo" name="commentNo" value="${commentVo.commentNo}">
-                           <input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${commentVo.boardNo}">
+                        <form class="commentUpdateForm" action="../review/updateCtr.do" method="post">
+                           <input type="hidden" id="commentNo" class="commentNo" name="reviewNo" value="${reviewVo.reviewNo}">
+                           <input type="hidden" id="boardNo" class="boardNo" name="restaurantNo" value="${reviewVo.restaurantNo}">
                             <input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
-                           <textarea id="commentContentsUpdate" class="commentContentsUpdate" name="contents"  rows="3">${commentVo.contents}</textarea>
+                           <textarea id="commentContentsUpdate" class="commentContentsUpdate" name="contents"  rows="3">${reviewVo.contents}</textarea>
                            <div>
-                              <input type="button" onclick="commentUpdateRegisterFnc(${commentVo.rowNum})" value="등록">
-                              <input type="button" onclick="commentCancelFnc(${commentVo.rowNum});" value="취소">
+                              <input type="button" onclick="commentUpdateRegisterFnc(${reviewVo.rowNum})" value="등록">
+                              <input type="button" onclick="commentCancelFnc(${reviewVo.rowNum});" value="취소">
                            </div>
                         </form>
                      </div>
@@ -312,15 +297,15 @@
                      
                      <div class="cocommentAddContainer" style="display: none;">
                         <div class="cocommentAddLetter">답글쓰기</div>
-                        <form class="cocommentAddForm" action="../comment/addCtr.do" method="post">
-                           <input type="hidden" id="boardNo" class="boardNo" name="boardNo" value="${boardVo.boardNo}">
+                        <form class="cocommentAddForm" action="../review/addCtr.do" method="post">
+                           <input type="hidden" id="boardNo" class="boardNo" name="restaurantNo" value="${restaurantVo.restaurantNo}">
                            <input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
                            <input type="hidden" id="parentCommentNo" class="parentCommentNo" 
-                              name="parentCommentNo" value="${commentVo.commentNo}">
+                              name="parentReviewNo" value="${reviewVo.reviewNo}">
                            <textarea id="cocommentContents" class="cocommentContents" name="contents"></textarea>
                            <div>
-                              <input  type="button" onclick="cocommentRegisterFnc(${commentVo.rowNum});" value="등록">
-                              <input type="button" onclick="cocommentAddCancelFnc(${commentVo.rowNum});" value="취소">
+                              <input  type="button" onclick="cocommentRegisterFnc(${reviewVo.rowNum});" value="등록">
+                              <input type="button" onclick="cocommentAddCancelFnc(${reviewVo.rowNum});" value="취소">
                               
                            </div>
                         </form>

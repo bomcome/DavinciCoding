@@ -9,7 +9,7 @@ import com.dc.board.vo.BoardVo;
 
 public interface BoardService {
 	
-	public List<BoardVo> boardSelectList(String keyword, int start, int end);
+	public List<BoardVo> boardSelectList(String keyword, int start, int end, String searchOption);
 	public Map<String, Object> boardSelectOne(int boardNo, int memberNo);
 	public void boardInsertOne(BoardVo boardVo, MultipartHttpServletRequest multipartHttpServletRequest)
 			throws Exception;
@@ -19,7 +19,9 @@ public interface BoardService {
 	
 //	public int boardTotalCount();
 	
-	public int boardSelectTotalCount(String keyword);
+	public int boardCommentCount(int boardNo);
+	
+	public int boardSelectTotalCount(String keyword, String searchOption);
 	public void boardUpdateRecommendUp(int boardNo);
 	public void boardUpdateRecommendDown(int boardNo);
 	public Map<String, Object> boardSelectOneOther(int boardNo);

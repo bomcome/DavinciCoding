@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <style type="text/css">
  	#boardListContainer tr, td {
- 		border-bottom: 1px solid #8C8C8C;
+ 		border-bottom: 1px solid #C6C6C6;
  		height: 35px; 
  	}
  	
@@ -20,10 +20,10 @@
 		
 	}
 	#boardListContainer #writer{
-		width: 170px;
+		width: 175px;
 	}
 	#boardListContainer #createDate{
-		width: 200px;
+		width: 170px;
 	}
 	
 	#boardListContainer #hitsTd{
@@ -65,6 +65,11 @@
 		color: #8C8C8C;
 	}
 	
+	#boardListContainer #freeBoard a{
+		text-decoration:none;
+		color: #8C8C8C;
+	}
+	
 	#boardListContainer #boardInput #formTag{
 		text-align: left;
 	}
@@ -95,16 +100,45 @@
 	}
 	
 	#pagingForm {
-		margin-bottom: 50px;
+/* 		margin-bottom: 50px; */
 	}
 	#center{
 		text-align: center;
+	}
+	
+	#boardListContainer #writeButtonsDiv{
+		text-align: right;
+	}
+	
+	#boardListContainer #writeButtonsDiv span{
+		margin-right: 435px;
+	}
+	#boardListContainer .boardTitle a{
+		text-decoration: none;
 	}
 </style>
 
 <script type="text/javascript" 
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script> 
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		var searchOptionInputObj = document.getElementById('searchOptionVal');
+		
+		var searchOptionVal = searchOptionInputObj.value; 
+		
+		var selectObj = document.getElementById('searchOption');
+		
+		var optionsArr = selectObj.options;
+		
+		for (var i = 0; i < optionsArr.length; i++) {
+// 			alert(optionsArr[0].value);
+			if(optionsArr[i].value == searchOptionVal){
+				optionsArr[i].selected = 'selected';
+				break;
+			}
+		}
+	});
+</script>
 <title>Insert title here</title>
 
 </head>
@@ -117,11 +151,18 @@
 	<table id="board">
 		<tr>
 			<td id="boardInput" colspan="6">
-				<span id="freeBoard">우동맛게시판(${totalCount})</span>
+				<span id="freeBoard"><a href="./list.do">우동맛게시판(${totalCount})</a></span>
 					<form action="./list.do" method="get" id="formTag">	
 						<div>
+							<select name="searchOption" id="searchOption">
+								<option value="all">제목+내용</option>
+								<option value="title">제목</option>  
+								<option value="writer">작성자</option>
+							</select>
 							<input type="text" name="keyword" value="${keyword}">
 							<input type="submit" value="검색" style="display: none;">
+							
+							<input type="hidden" id="searchOptionVal" value="${searchOption}">
 						</div>
 					</form>
 			</td>
@@ -138,17 +179,29 @@
 		<c:forEach var="boardVo" items="${boardList}">
 			<tr>
 				<td>${boardVo.rownum}</td>
-				<td class="title">
-					<a href='./one.do?boardNo=${boardVo.boardNo}'>${boardVo.title}</a>
+				<td class="boardTitle">
+					<a href='./one.do?boardNo=${boardVo.boardNo}'>${boardVo.title} [${boardVo.commentCount}]</a>
 				</td>
 				<td>${boardVo.nickname}</td>
-				<td>${boardVo.createDate}</td>
+				<td><fmt:formatDate value="${boardVo.createDate}" 
+				pattern="yyyy/MM/dd HH:mm"/></td>
 				<td>${boardVo.hits}</td>
 				<td>${boardVo.recommendCount}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	
+	<div id="writeButtonsDiv">
+		<span>
+		<c:if test="${_memberVo_ != null}">
+			<button class="write" onclick="location.href='add.do'">글쓰기</button>
+		</c:if>
+		<c:if test="${_memberVo_ == null}">
+			<button class="write" type="button" onclick="location.href='../auth/login.do'">글쓰기</button>
+		</c:if>
+		</span>
+	</div>
+		
 	
 	<jsp:include page="/WEB-INF/views/common/paging.jsp">
 		<jsp:param value="${pagingMap}" name="pagingMap"/>
@@ -160,18 +213,14 @@
 			<input type="hidden" id="keyword" name="keyword" 
 				value="${keyword}">
 		</form>
+	</div>
 	
-		<c:if test="${_memberVo_ != null}">
-			<button class="write" onclick="location.href='add.do'">글쓰기</button>
-		</c:if>
-		<c:if test="${_memberVo_ == null}">
-			<button class="write" type="button" onclick="location.href='../auth/login.do'">글쓰기</button>
-		</c:if>
-		
 	<jsp:include page="../Tail.jsp"/>
 		
-	</div>	
+		
 	</div>
+	
+	
 	
 </body>
 </html>

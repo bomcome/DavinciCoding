@@ -13,9 +13,9 @@ public interface RestaurantsService {
 	
 	public List<RestaurantsFileVo> restaurantsSelectList(String keyword);
 
-	public List<RestaurantsFileVo> restaurantsSelectListOrder(String category);
+	public List<RestaurantsFileVo> restaurantsSelectListCategory(String category);
 	
-	public List<RestaurantsFileVo> restaurantsSelectListSelect(String orderSelect);
+	public List<RestaurantsFileVo> restaurantsSelectListOrder(String order);
 	
 	public Map<String, Object> restaurantsSelectOne(int restaurantNo);
 	
