@@ -124,6 +124,21 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
       location.href = url;
    }
    
+	function commentRegisterFnc() {
+		
+		var commentContentsObj = document.getElementById('commentContents');
+		var commentContentsVal = commentContentsObj.value;
+		
+		var commentAddFormObj = document.getElementById('commentAddForm');
+		
+		if(commentContentsVal == ''){
+			commentContentsObj.focus();
+		}else{
+			commentAddFormObj.submit();
+		}
+	
+	}
+   
 </script>
 </head>
 <body>
@@ -201,6 +216,8 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
             </div>
          </form>
       </div>
+		<jsp:include page="/WEB-INF/views/review/reviewAddForm.jsp" />
+		<jsp:include page="/WEB-INF/views/review/reviewListView.jsp" />
       <jsp:include page="/WEB-INF/views/Tail.jsp" />
    </div>
 </body>

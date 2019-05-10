@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dc.members.service.MemberService;
 import com.dc.members.vo.MemberVo;
@@ -233,17 +235,23 @@ public class MemberController {
 	
 	//로그인 페이지로 이동
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
-	public String login(HttpSession session, Model model,
+	public String login(HttpServletRequest request, HttpSession session, Model model,
 			@RequestParam(defaultValue ="1") int overlapNickName) {
 		log.debug("Welcome MemberController login 페이지 이동! -{}" + session);
 
+		String referer = request.getHeader("Referer");
+		request.getSession().setAttribute("redirectURI", referer);
 		return "auth/loginForm";
 	}
 	
 	//로그인  완료
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(String email, String password, HttpSession session, Model model) {
+	public String loginCtr(HttpServletRequest request, String email, String password, HttpSession session, Model model) {
 		log.debug("Welcome MemberController loginCtr! - {} , {}" + email ,password);
+
+		String strURI = (String)request.getSession().getAttribute("redirectURI");
+		String redirectURI = strURI.substring(strURI.lastIndexOf("uDongMat")+8);
+		System.out.println(redirectURI);
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("email", email);
@@ -257,7 +265,7 @@ public class MemberController {
 			// 회원 전체 조회 페이지로 이동
 			session.setAttribute("_memberVo_", memberVo);
 
-			viewUrl = "redirect:/restaurants/list.do";
+			viewUrl = "redirect:"+ redirectURI;
 		} else {
 			viewUrl = "/auth/loginFail";
 		}

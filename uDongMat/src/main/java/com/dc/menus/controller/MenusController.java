@@ -35,9 +35,11 @@ public class MenusController {
 		
 		List<MenusVo> menusList = menusService.menusSelectList(restaurantKey);
 
-		model.addAttribute("menusList", menusList);
+//		model.addAttribute("menusList", menusList);
+		
+		req.setAttribute("menusList", menusList);
 
-		return "restaurants/restaurantOneView";
+		return "forward:/review/list.do";
 	}
 	
 	@RequestMapping(value = "/menus/addCtr.do", method = RequestMethod.POST)

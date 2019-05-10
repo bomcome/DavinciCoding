@@ -19,7 +19,6 @@
 </style>
 <script type="text/javascript">
 
-	
 	function commentRegisterFnc() {
 		
 		var commentContentsObj = document.getElementById('commentContents');
@@ -37,20 +36,23 @@
 </script>
 
 
-	<div id="commentAddContainer">
-		<div id="commentAddLetter">댓글쓰기</div>
-		<form id="commentAddForm" action="../review/addCtr.do" method="post">
-			<input type="hidden" id="boardNo" class="boardNo" name="restaurantNo" value="${restaurantVo.restaurantNo}">
-			<input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
-			<textarea id="commentContents" class="contents" name="contents"  rows="5"></textarea>
-			<div>
-				<c:if test="${_memberVo_ != null}">
-					<input  type="button" onclick="commentRegisterFnc();" value="등록">
-				</c:if>
-				<c:if test="${_memberVo_ == null}">
-					<button type="button" onclick="location.href='../auth/login.do'">등록</button>
-				</c:if>
-			</div>
-		</form>
-	</div>
+		<div id="commentAddContainer">
+			<div id="commentAddLetter">댓글쓰기</div>
+			<form id="commentAddForm" action="../review/addCtr.do" method="post">
+				<input type="hidden" id="boardNo" class="boardNo"
+					name="restaurantNo" value="${restaurantsVo.restaurantNo}"> <input
+					type="hidden" id="memberNo" class="memberNo" name="memberNo"
+					value="${_memberVo_.memberNo}">
+				<textarea id="commentContents" class="contents" name="contents"
+					rows="5"></textarea>
+				<div>
+					<c:if test="${_memberVo_ != null}">
+						<input type="button" onclick="commentRegisterFnc();" value="등록">
+					</c:if>
+					<c:if test="${_memberVo_ == null}">
+						<button type="button" onclick="location.href='../auth/login.do'">등록</button>
+					</c:if>
+				</div>
+			</form>
+		</div>
  
