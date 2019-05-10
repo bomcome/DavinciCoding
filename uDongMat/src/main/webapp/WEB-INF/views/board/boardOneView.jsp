@@ -133,9 +133,20 @@
 <script type="text/javascript" 
    src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 
+
 <script type="text/javascript">
+var globalCnt = 1;
+
+
 window.onload = function(){
-    
+	
+	
+	var currentScrollVal = document.getElementById("currentScroll").value;
+// 	alert(currentScrollVal);
+//		window.scrollY = currentScrollVal;
+// 	window.scrollTop = (0, currentScrollVal);
+	window.scrollTo(0, currentScrollVal);
+	
     var divObj = document.getElementById('commentUpdateContainer');
     var divObj2 = document.getElementById('cocommentAddContainer');
     
@@ -192,7 +203,7 @@ function boardRecommendSubmitFnc(){
    <div id="boardOne">
    <jsp:include page="../headerTitle.jsp"/> 
    <jsp:include page="../headerButtons.jsp"/>
-   
+
    <div>
    <form id="inputForm" action="./update.do" method="get" >
       <table>
@@ -266,7 +277,6 @@ function boardRecommendSubmitFnc(){
       
 <!--    </span>    -->
 <!--    </div> -->
-	${pagingMap.commentPaging.curPage}
    <div id='buttons'>      
          <input type="button" onclick='location.href="list.do"' value="목록보기">
          <c:if test="${_memberVo_.memberNo eq boardVo.memberNo}">
@@ -276,9 +286,10 @@ function boardRecommendSubmitFnc(){
    <!--       <button type="button" onclick="">답글쓰기</button> -->
       </div>
    
-   
-   <jsp:include page="../comments/commentListView.jsp"/>
    <jsp:include page="../comments/commentAddForm.jsp"/>
+   <jsp:include page="../comments/commentListView.jsp"/>
+  
+	<input type="button" value="더보기" onclick=myFunction(); id="moreViewButton">
    
   
 		<form action="../board/one.do" id="pagingForm" method="get">
@@ -287,31 +298,36 @@ function boardRecommendSubmitFnc(){
 				value="${pagingMap.commentPaging.curPage}">
 			<input type="hidden" id="totalCount" name="totalCount" 
 				value="${pagingMap.totalCount}">
-	
-<!-- 			<input type="hidden" id="PAGE_SCALE" name="PAGE_SCALE"  -->
-<%-- 				value="${pagingMap.commentPaging.PAGE_SCALE}"> --%>
+			<input type="hidden" id="currentScroll" name="currentScroll" 
+				value="${currentScroll}">
+			<input type="hidden" id="pageScale" name="pageScale"
+				value="${pageScale}">
 		</form>
 		
-<%-- 	${pagingMap.commentPaging.PAGE_SCALE} --%>
 
    <jsp:include page="../Tail.jsp"/>
    </div>
    
-   <button onclick="myFunction();">일단 테스트</button>
 </body>
 <script>
 
-	window.onscroll = function() {
-		var curPageVal = document.getElementById("curPage").value;
-		var commentTableArr = document.getElementsByClassName('commentTable');
-		var commentArrLength = commentTableArr.length;
-		var totalCountVal = document.getElementById('totalCount').value;
-// 		var PAGE_SCALE_Val = document.getElementById('PAGE_SCALE').value;
-		if(20 * curPageVal < totalCountVal){
-			myFunction()	
-		}
+// 	window.onscroll = function() {
 		
-	};
+// 		globalCnt++;
+		
+// 		var curPageVal = document.getElementById("curPage").value;
+// 		var commentTableArr = document.getElementsByClassName('commentTable');
+// 		var commentArrLength = commentTableArr.length;
+// 		var totalCountVal = document.getElementById('totalCount').value;
+// 		var PAGE_SCALE_Val = document.getElementById('pageScale').value;
+// 		if(PAGE_SCALE_Val * curPageVal < totalCountVal){
+// // 			alert(PAGE_SCALE_Val);
+			
+// 			myFunction();
+			
+// 		}
+		
+// 	};
 	
 	/* function myFunction() {
 		
@@ -337,27 +353,28 @@ function boardRecommendSubmitFnc(){
 // 		var scrolledVal = window.scrollY;
 // 		var viewportHeight = window.innerHeight;
 // 		var documentHeight = document.body.clientHeight;
-		var currentScroll = (window.scrollY + window.innerHeight) / document.body.clientHeight * 100;
+		var curPageVal = document.getElementById("curPage").value;
+		var commentTableArr = document.getElementsByClassName('commentTable');
+		var commentArrLength = commentTableArr.length;
+		var totalCountVal = document.getElementById('totalCount').value;
+		var PAGE_SCALE_Val = document.getElementById('pageScale').value;
 		
-		if(currentScroll >= 90){
+		var offset = $("#moreViewButton").offset();
+		
+		var currentScroll = (window.pageYOffset + window.innerHeight) / document.body.clientHeight * 100;
+// 		alert(currentScroll);
+		
+		if(PAGE_SCALE_Val * curPageVal < totalCountVal){
+// 			alert("수행된다");
+// 			alert(globalCnt);
+			document.getElementById("currentScroll").value = document.body.clientHeight * (90 / 100);
+			
 			document.getElementById("curPage").value = Number(document.getElementById("curPage").value) + 1;
 			document.getElementById("pagingForm").submit();
 		}
 // 		preScrollYVal = window.scrollY;
+		
 	}
-	
-	$(function(){
-	    //get
-	    if($.cookie('scroll_loc')){
-	        $(window).scrollTop($.cookie('scroll_loc'));
-	    }
-	    //set
-	    $(window).scroll(function(){
-	        $.cookie('scroll_loc',$(this).scrollTop());
-	    });
-	});
-
-	
 	
 	
 </script>

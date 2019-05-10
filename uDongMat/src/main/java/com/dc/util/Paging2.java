@@ -64,6 +64,19 @@ public class Paging2 implements Serializable{
 		}
 	}
 	
+	
+    
+
+	
+
+	public static final int getPageScale() {
+		return PAGE_SCALE;
+	}
+
+	public static final int getBlockScale() {
+		return BLOCK_SCALE;
+	}
+
 	public int getCurPage() {
 		return curPage;
 	}

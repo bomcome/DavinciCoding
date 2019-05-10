@@ -35,7 +35,7 @@ public class CommentController {
 		int curPage = (int)req.getAttribute("curPage");
 		Paging2 commentPaging = new Paging2(totalCount, curPage);
 		int end = commentPaging.getPageEnd();
-		
+		double currentScroll = (double)req.getAttribute("currentScroll");
 		List<CommentVo> commentList = 
 				commentService.commentSelectList(end, boardVo.getBoardNo());
 		
@@ -43,11 +43,14 @@ public class CommentController {
 		pagingMap.put("totalCount", totalCount);
 		pagingMap.put("commentPaging", commentPaging);
 		
+		int pageScale = commentPaging.getPageScale();
+		System.out.println("curPage" + curPage);
 //		RecommendVo recommendVo = recommendService.commentRecommendSelectOne(recommendVo);
-		
+		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("totalCount", totalCount);		
 		model.addAttribute("pagingMap", pagingMap);
+		model.addAttribute("currentScroll", currentScroll);
 		return "board/boardOneView";
 	}
 	
