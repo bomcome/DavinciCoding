@@ -359,7 +359,7 @@ function boardRecommendSubmitFnc(){
 		var totalCountVal = document.getElementById('totalCount').value;
 		var PAGE_SCALE_Val = document.getElementById('pageScale').value;
 		
-		var offset = $(#moreViewButton).offset();
+		var offset = $("#moreViewButton").offset();
 		
 		var currentScroll = (window.pageYOffset + window.innerHeight) / document.body.clientHeight * 100;
 // 		alert(currentScroll);
