@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dc.members.service.MemberService;
 import com.dc.members.vo.MemberVo;
+import com.dc.util.Paging;
 
 @Controller
 public class MemberController {
@@ -29,14 +30,48 @@ public class MemberController {
 	private MemberService memberService;
 	
 	//회원 전체보기
-	@RequestMapping(value="/member/list.do", method=RequestMethod.GET)
-	public String memberList(Model model) {
+//	@RequestMapping(value="/member/list.do", method=RequestMethod.GET)
+//	public String memberList(Model model) {
+//		
+//		log.debug("Welcome MemberController enter! ");
+//		
+//		List<MemberVo> memberList = memberService.memberSelectList();
+//		
+//		model.addAttribute("memberList", memberList);
+//		
+//		return "member/memberListView";
+//	}
+
+	@RequestMapping(value="/member/list.do"
+			, method= {RequestMethod.GET, RequestMethod.POST})
+	public String memberList(
+			@RequestParam(defaultValue ="1") int curPage,
+			@RequestParam(defaultValue ="title") String searchOption,
+			@RequestParam(defaultValue ="") String keyword,
+			Model model) {
 		
-		log.debug("Welcome MemberController enter! ");
+		log.debug("Welcome MemberController memberList! : {}", curPage);
+		log.debug(": {}", searchOption);
+		log.debug(": {}", keyword);
 		
-		List<MemberVo> memberList = memberService.memberSelectList();
+		int totalCount = 
+				memberService.memberSelectTotalCount(searchOption, keyword);
 		
+		Paging memberPaging = new Paging(totalCount, curPage);
+		int start = memberPaging.getPageBegin();
+		int end = memberPaging.getPageEnd();
+
+		List<MemberVo> memberList = 
+				memberService.memberSelectList(keyword, start, end, searchOption);
+		
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("totalCount", totalCount);
+		pagingMap.put("memberPaging", memberPaging);
+
 		model.addAttribute("memberList", memberList);
+		model.addAttribute("pagingMap", pagingMap);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("searchOption", searchOption);
 		
 		return "member/memberListView";
 	}

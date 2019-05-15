@@ -146,6 +146,8 @@
 		}
 	}
 	
+	var referrer = document.referrer;
+	
 	//로그인 페이지 이동
 	function pageLoginFormFnc(){
 		location.href = "../auth/login.do"

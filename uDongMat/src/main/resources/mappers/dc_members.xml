@@ -18,14 +18,51 @@
 			javaType="java.util.Date" />
 	</resultMap>
 	
-	<!-- 회원 전체보기  -->
+	<!-- 
 	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
 		SELECT ROWNUM, MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
 		FROM MEMBERS
 		WHERE MEMBER_GRADE = 'member'
 		ORDER BY ROWNUM DESC
+	</select> 
+	-->
+	<!-- 회원 전체보기  -->
+	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
+		SELECT ROWNUM,MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
+			FROM (
+			SELECT ROWNUM RNUM, MEMBER_NO, M.EMAIL, M.NICKNAME, M.CRE_DATE
+				FROM (
+					SELECT MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
+					FROM MEMBERS
+					<choose>
+						<when test="searchOption == 'title'">
+							WHERE EMAIL LIKE '%'||#{keyword}||'%'
+						</when>
+                    	<otherwise>
+                    		WHERE NICKNAME LIKE '%'||#{keyword}||'%'
+                    	</otherwise>
+                    </choose>
+                    AND MEMBER_GRADE = 'member'
+					ORDER BY ROWNUM ASC) M
+		) MEMBER
+		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
+	<select id="memberSelectTotalCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBERS
+		<choose>
+			<when test="searchOption == 'title'">
+				WHERE EMAIL LIKE '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				WHERE NICKNAME LIKE '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+		AND MEMBER_GRADE = 'member'
+	</select>
+		
 	<!-- 이메일 중복 -->
 	<select id="memberEmailChk" parameterType="string" resultMap="memberResultMap">
 		SELECT EMAIL

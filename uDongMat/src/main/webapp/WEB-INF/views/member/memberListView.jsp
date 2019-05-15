@@ -41,6 +41,28 @@
 
 <script type="text/javascript" 
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
+	
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		var searchOptionInputObj = document.getElementById('searchOptionVal');
+		
+		var searchOptionVal = searchOptionInputObj.value; 
+		
+		var selectObj = document.getElementById('searchOption');
+		
+		var optionsArr = selectObj.options;
+		
+		for (var i = 0; i < optionsArr.length; i++) {
+// 			alert(optionsArr[0].value);
+			if(optionsArr[i].value == searchOptionVal){
+				optionsArr[i].selected = 'selected';
+				break;
+			}
+		}
+	});
+</script>
 
 </head>
 <body>
@@ -54,6 +76,16 @@
 
 
 <!--  var=변수명  items=목록데이터 begin=시작인덱스 end=종료인덱스 -->
+	<div style="margin-left: 1170px;">
+		<form action="./list.do" method="get">
+			<select name="searchOption" id="searchOption">
+				<option value="title">이메일</option>  <!-- 이메일 -->
+				<option value="content">닉네임</option>  <!-- 닉네임 -->
+			</select>
+			<input type="text" name="keyword" value="${keyword}">
+			<input type="submit" value="검색">
+		</form>
+	</div>
 
 	<table>
 		<tr>
@@ -78,12 +110,20 @@
 		</tr>
 	</c:forEach>
 	</table>
+	
+	<jsp:include page="/WEB-INF/views/common/memberPaging.jsp">
+		<jsp:param value="${pagingMap}" name="pagingMap"/>
+	</jsp:include>
+	
+	<input type="hidden" id="searchOptionVal" value="${searchOption}">
+	
 </c:if>
 <c:if test="${sessionScope._memberVo_.memberGrade != 'admin'}">
 	해커는꺼져라
 </c:if>
 	
-	<jsp:include page="/WEB-INF/views/Tail.jsp" />
+	
 </div>
+	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>

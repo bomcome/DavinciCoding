@@ -70,6 +70,8 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("searchOption", searchOption);
 		return sqlSession.selectOne(namespace +"boardSelectTotalCount", map);
 	}
+	
+	
 
 	@Override
 	public void boardUpdateRecommendUp(int boardNo) {
