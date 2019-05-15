@@ -22,43 +22,43 @@ public class ReviewDaoImpl implements ReviewDao{
 	@Override
 	public List<ReviewVo> reviewSelectList(int restaurantNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace +"commentSelectList", restaurantNo);
+		return sqlSession.selectList(namespace +"reviewSelectList", restaurantNo);
 	}
 
 	@Override
 	public int reviewSelectTotalCount(int restaurantNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace +"commentSelectTotalCount", restaurantNo);
+		return sqlSession.selectOne(namespace +"reviewSelectTotalCount", restaurantNo);
 	}
 
 	@Override
 	public void reviewInsertOne(ReviewVo reviewVo) {
 		// TODO Auto-generated method stub
-		sqlSession.insert(namespace +"commentInsertOne", reviewVo);
+		sqlSession.insert(namespace +"reviewInsertOne", reviewVo);
 	}
 
 	@Override
 	public void reviewUpdateOne(ReviewVo reviewVo) {
 		// TODO Auto-generated method stub
-		sqlSession.update(namespace +"commentUpdateOne", reviewVo);
+		sqlSession.update(namespace +"reviewUpdateOne", reviewVo);
 	}
 
 	@Override
 	public ReviewVo reviewDetailOne(int reviewNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace +"commentDetailOne", reviewNo);
+		return sqlSession.selectOne(namespace +"reviewDetailOne", reviewNo);
 	}
 
 	@Override
 	public void reviewDelete(int reviewNo) {
 		// TODO Auto-generated method stub
-		sqlSession.delete(namespace +"commentDelete", reviewNo);
+		sqlSession.delete(namespace +"reviewDelete", reviewNo);
 	}
 
 	@Override
 	public void reviewDeleteWithRestaurant(int restaurantNo) {
 		// TODO Auto-generated method stub
-		sqlSession.delete(namespace +"commentDeleteWithBoard", restaurantNo);
+		sqlSession.delete(namespace +"reviewDeleteWithRestaurant", restaurantNo);
 	}
 
 	

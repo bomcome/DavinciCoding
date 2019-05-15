@@ -40,13 +40,13 @@
 		       JOIN MEMBERS M2
 		     ON C2.MEMBER_NO = M2.MEMBER_NO
 		     WHERE C2.RESTAURANT_NO = #{restaurantNo}
-		     ORDER BY REVIEW_NO DESC);
+		     ORDER BY REVIEW_NO DESC)
 	</select>	
 
 		<insert id="reviewInsertOne" 
 		parameterType= "reviewVo"
-		useGeneratedKeys="true" keyProperty="commentNo">
-		<selectKey keyProperty="reviewVo" resultType="int" order="BEFORE">
+		useGeneratedKeys="true" keyProperty="reviewNo">
+		<selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
 			SELECT REVIEW_NO_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		
@@ -64,7 +64,7 @@
 		AND C.REVIEW_NO = #{reviewNo};
 	</select>
 	
-	<update id="reviewUpdateOne" parameterType="commentVo">
+	<update id="reviewUpdateOne" parameterType="reviewVo">
 		UPDATE REVIEW
 		<set>
 			<if test="contents != ''">CONTENTS = #{contents},</if>

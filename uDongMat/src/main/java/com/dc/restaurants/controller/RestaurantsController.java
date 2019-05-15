@@ -1,6 +1,7 @@
 package com.dc.restaurants.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.dc.menus.vo.MenusVo;
 import com.dc.restaurants.service.RestaurantsService;
 import com.dc.restaurants.vo.RestaurantsFileVo;
 import com.dc.restaurants.vo.RestaurantsVo;
+import com.dc.util.Paging2;
 
 @Controller
 public class RestaurantsController {
@@ -30,37 +32,108 @@ public class RestaurantsController {
 	private RestaurantsService restaurantsService;
 	
 	@RequestMapping(value = "/restaurants/list.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String restaurantsList(@RequestParam(defaultValue = "") String keyword, Model model) {
+	public String restaurantsList(@RequestParam(defaultValue ="1") int curPage, 
+            @RequestParam(defaultValue ="0") double currentScroll, @RequestParam(defaultValue = "") String keyword, Model model) {
 
 		log.debug("Welcome RestaurantsController memberList! : {}", keyword);
 
-		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectList(keyword);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		resultMap.put("keyword", keyword);
+		
+		int totalCount = restaurantsService.restaurantsTotalCount(resultMap);
+		
+	    Paging2 restaurantPaging = new Paging2(totalCount, curPage);
+	    
+	    int end = restaurantPaging.getPageEnd();
+
+		
+		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectList(keyword, end);
+		
+		Map<String, Object> pagingMap = new HashMap<>();
+	    pagingMap.put("totalCount", totalCount);
+	    pagingMap.put("restaurantPaging", restaurantPaging);
+
+	    int pageScale = restaurantPaging.getPageScale();
+		
+		model.addAttribute("pageScale", pageScale);
+//	    model.addAttribute("totalCount", totalCount);      
+	    model.addAttribute("pagingMap", pagingMap);
 
 		model.addAttribute("restaurantsList", restaurantsList);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("currentScroll", currentScroll);
 
 		return "restaurants/restaurantListView";
 	}
 	
 	@RequestMapping(value = "/restaurants/listCategory.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String restaurantsListCategory(@RequestParam(defaultValue = "") String category, Model model) {
+	public String restaurantsListCategory(@RequestParam(defaultValue ="1") int curPage, 
+            @RequestParam(defaultValue ="0") double currentScroll, @RequestParam(defaultValue = "") String category, Model model) {
 
 		log.debug("Welcome RestaurantsController memberList! : {}", category);
 
-		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectListCategory(category);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 
+		resultMap.put("category", category);
+		
+		int totalCount = restaurantsService.restaurantsTotalCountCategory(resultMap);
+		
+	    Paging2 restaurantPaging = new Paging2(totalCount, curPage);
+	    
+	    int end = restaurantPaging.getPageEnd();
+		
+		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectListCategory(category, end);
+
+		Map<String, Object> pagingMap = new HashMap<>();
+	    pagingMap.put("totalCount", totalCount);
+	    pagingMap.put("restaurantPaging", restaurantPaging);
+
+	    int pageScale = restaurantPaging.getPageScale();
+		
 		model.addAttribute("restaurantsList", restaurantsList);
 		model.addAttribute("category", category);
-
+;
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("currentScroll", currentScroll);
+		model.addAttribute("pageScale", pageScale);
+//	    model.addAttribute("totalCount", totalCount);      
+	    model.addAttribute("pagingMap", pagingMap);
 		return "restaurants/restaurantListView";
 	}
 	
 	@RequestMapping(value = "/restaurants/listOrder.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String restaurantsListOrder(@RequestParam(defaultValue = "") String order, Model model) {
+	public String restaurantsListOrder(@RequestParam(defaultValue ="1") int curPage, 
+            @RequestParam(defaultValue ="0") double currentScroll, @RequestParam(defaultValue = "") String order, Model model) {
 		
 		log.debug("Welcome RestaurantsController memberList! : {}", order);
 		
-		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectListOrder(order);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		resultMap.put("order", order);
+		
+		int totalCount = restaurantsService.restaurantsTotalCountOrder(resultMap);
+		
+	    Paging2 restaurantPaging = new Paging2(totalCount, curPage);
+	    
+	    int end = restaurantPaging.getPageEnd();
+		
+		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectListOrder(order, end);
+		
+		
+		
+		Map<String, Object> pagingMap = new HashMap<>();
+	    pagingMap.put("totalCount", totalCount);
+	    pagingMap.put("restaurantPaging", restaurantPaging);
+
+	    int pageScale = restaurantPaging.getPageScale();
+		
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("currentScroll", currentScroll);
+		model.addAttribute("pageScale", pageScale);
+//	    model.addAttribute("totalCount", totalCount);      
+	    model.addAttribute("pagingMap", pagingMap);
 		
 		model.addAttribute("restaurantsList", restaurantsList);
 		model.addAttribute("order", order);

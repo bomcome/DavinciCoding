@@ -13,7 +13,7 @@ public interface RestaurantsDao {
 	public List<RestaurantsFileVo> restaurantsSelectListCategory(Map<String, Object> map);
 
 	public List<RestaurantsFileVo> restaurantsSelectListOrder(Map<String, Object> map);
-
+	
 	public RestaurantsVo restaurantsSelectOne(int restaurantNo);
 	
 	public int restaurantsInsertOne(RestaurantsVo restaurantsVo);
@@ -21,6 +21,12 @@ public interface RestaurantsDao {
 	public int restaurantsUpdate(RestaurantsVo restaurantsVo);
 	
 	public int restaurantsDelete(int restaurantNo);
+	
+	public int restaurantsTotalCount(Map<String, Object> map);
+	
+	public int restaurantsTotalCountCategory(Map<String, Object> map);
+	
+	public int restaurantsTotalCountOrder(Map<String, Object> map);
 	
 	// 파일첨부
 	public void insertFile(Map<String, Object> map);

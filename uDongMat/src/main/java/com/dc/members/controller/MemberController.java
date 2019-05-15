@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -233,17 +234,23 @@ public class MemberController {
 	
 	//로그인 페이지로 이동
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
-	public String login(HttpSession session, Model model,
+	public String login(HttpServletRequest req, HttpSession session, Model model,
 			@RequestParam(defaultValue ="1") int overlapNickName) {
 		log.debug("Welcome MemberController login 페이지 이동! -{}" + session);
 
+		String referer = req.getHeader("Referer");
+		req.getSession().setAttribute("redirectURI", referer);
 		return "auth/loginForm";
 	}
 	
 	//로그인  완료
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(String email, String password, HttpSession session, Model model) {
+	public String loginCtr(HttpServletRequest req, String email, String password, HttpSession session, Model model) {
 		log.debug("Welcome MemberController loginCtr! - {} , {}" + email ,password);
+
+		String strURI = (String)req.getSession().getAttribute("redirectURI");
+		String redirectURI = strURI.substring(strURI.lastIndexOf("uDongMat")+8);
+		System.out.println(redirectURI);
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("email", email);
@@ -257,9 +264,10 @@ public class MemberController {
 			// 회원 전체 조회 페이지로 이동
 			session.setAttribute("_memberVo_", memberVo);
 
-			viewUrl = "redirect:/restaurants/list.do";
+			viewUrl = "redirect:"+ redirectURI;
 		} else {
-			viewUrl = "/auth/loginFail";
+	
+			viewUrl = "redirect:"+ redirectURI;
 		}
 
 		return viewUrl;
@@ -267,13 +275,29 @@ public class MemberController {
 	
 	//로그아웃하기
 	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)
-	public String logout(HttpSession session, Model model) {
+	public String logout(HttpServletRequest req, HttpSession session, Model model) {
 		log.debug("Welcome MemberController logout 페이지 이동! ");
+		
+		try {
+			session.invalidate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		// 세션의 객체들 파기
-		session.invalidate();
+		String referer = (String)req.getHeader("Referer");
+		String redirectURI = referer.substring(referer.lastIndexOf("uDongMat")+8);
+		String viewUrl = "redirect:"+ redirectURI;
+		System.out.println(referer);
+		System.out.println(redirectURI);
+		if (redirectURI.toString().indexOf("/restaurants/update.do") != -1 || redirectURI.toString().indexOf("/restaurants/add.do") != -1) {
+			viewUrl = "redirect:/restaurants/list.do";
+		}else if(redirectURI.toString().indexOf("/board/update.do") != -1 || redirectURI.toString().indexOf("/board/add.do") != -1) {
+			viewUrl = "redirect:/board/list.do";
+		}
+		System.out.println(viewUrl);
 
-		return "redirect:/auth/login.do";
+		return viewUrl;
 	}
 	
 

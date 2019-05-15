@@ -120,9 +120,30 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
    }
    
    function moveTodeleteCtrFnc(restaurantNo) {
-      var url = 'deleteCtr.do?restaurantNo=' + restaurantNo;
-      location.href = url;
+	   if(confirm("정말로 삭제하시겠습니까?") == true){
+	        alert("삭제되었습니다.");
+	        var url = 'deleteCtr.do?restaurantNo=' + restaurantNo;
+	        location.href = url;
+	    }
+	    else{
+	        return ;
+	    }
    }
+   
+	function commentRegisterFnc() {
+		
+		var commentContentsObj = document.getElementById('commentContents');
+		var commentContentsVal = commentContentsObj.value;
+		
+		var commentAddFormObj = document.getElementById('commentAddForm');
+		
+		if(commentContentsVal == ''){
+			commentContentsObj.focus();
+		}else{
+			commentAddFormObj.submit();
+		}
+	
+	}
    
 </script>
 </head>
@@ -134,6 +155,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 
       <div style="margin-left: 450px;">
          <form action="./update.do" method="get">
+         	<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
             <div style="width: 1050px; height: 480px; padding: 20px; border: 1px solid black">
                <div style="width: 600px; height: 480px; border: 1px solid black; float: left;">
                   <div id="fileContent">
@@ -167,8 +189,12 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
                         value='${restaurantsVo.operatingTime}~${restaurantsVo.closingTime}' readonly="readonly">
                   </ul>
                   <ul>
-                     <li><textarea style="width: 400px; height: 100px; resize: none;" readonly="readonly" name="address">
-                     ${restaurantsVo.address}</textarea>
+                  	<li><input type="text" name='closedDates' class="restaurantTopInput" value='${restaurantsVo.closedDates}'
+                  	 readonly="readonly">
+                  </ul>
+                  <ul>
+                     <li><textarea style="width: 400px; height: 100px; resize: none;" readonly="readonly" 
+                     	name="address">${restaurantsVo.address}</textarea>
                   </ul>
                </div>
             
@@ -191,16 +217,20 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
                </div>
                
                <div style="clear: left;"></div>
-
             </div>
             <div style="width: 1095px; text-align: center; margin-top: 20px;">
-               <input type="button" value="이전화면" class="restaurantInput" onclick="moveToListFnc(${restaurantsVo.restaurantNo});">
-               <input type="button" value="수정" style="margin-left: 91px; margin-right: 91px;" class="restaurantInput"
-                  onclick="moveToUpdateFnc(${restaurantsVo.restaurantNo});">
-               <input type="button" value="삭제" class="restaurantInput" onclick="moveTodeleteCtrFnc(${restaurantsVo.restaurantNo});">
+				<input type="button" value="이전화면" class="restaurantInput" onclick="moveToListFnc(${restaurantsVo.restaurantNo});">
+				
+				<c:if test="${_memberVo_.memberGrade == 'admin' || _memberVo_.memberNo == restaurantsVo.memberNo}">
+					<input type="button" value="수정" style="margin-left: 91px; margin-right: 91px;" class="restaurantInput" 
+					onclick="moveToUpdateFnc(${restaurantsVo.restaurantNo});">
+					<input type="button" value="삭제" id="#delete_btn"class="restaurantInput" onclick="moveTodeleteCtrFnc(${restaurantsVo.restaurantNo});">
+				</c:if>
             </div>
          </form>
       </div>
+		<jsp:include page="/WEB-INF/views/review/reviewAddForm.jsp" />
+		<jsp:include page="/WEB-INF/views/review/reviewListView.jsp" />
       <jsp:include page="/WEB-INF/views/Tail.jsp" />
    </div>
 </body>
