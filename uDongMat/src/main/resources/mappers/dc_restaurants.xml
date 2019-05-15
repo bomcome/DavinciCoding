@@ -12,6 +12,7 @@
 		<result column="PHONE" property="phone" />
 		<result column="OPERATING_TIME" property="operatingTime" />
 		<result column="CLOSING_TIME" property="closingTime" />
+		<result column="CLOSED_DATES" property="closedDates" />
 		<result column="ADDRESS" property="address" />
 		<result column="CONTENTS" property="contents" />
 		<result column="STORED_FILE_NAME" property="storedFileName" />
@@ -19,18 +20,48 @@
 		<result column="MOD_DATE" property="modifiedDate" javaType="java.util.Date" />
 	</resultMap>
 
+<!-- 	<select id="restaurantsSelectList" parameterType="map" -->
+<!-- 		resultMap="restaurantsResultMap"> -->
+<!-- 		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME -->
+<!-- 		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F -->
+<!-- 		ON R.RESTAURANT_NO = F.PARENT_SEQ -->
+<!-- 		WHERE R.RESTAURANT_NAME LIKE '%'||#{keyword}||'%' OR R.CATEGORY LIKE '%'||#{keyword}||'%' -->
+<!-- 		ORDER BY RESTAURANT_NO DESC -->
+<!-- 	</select> -->
+	
 	<select id="restaurantsSelectList" parameterType="map"
 		resultMap="restaurantsResultMap">
-		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+		SELECT RE.RESTAURANT_NO, RE.RESTAURANT_NAME, RE.CATEGORY, RE.STORED_FILE_NAME
+		FROM
+		(SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+				FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
+				ON R.RESTAURANT_NO = F.PARENT_SEQ
+				WHERE R.RESTAURANT_NAME LIKE '%'||#{keyword}||'%' OR R.CATEGORY LIKE '%'||#{keyword}||'%'
+				ORDER BY RESTAURANT_NO DESC) RE
+		WHERE ROWNUM BETWEEN 1 AND #{end}
+	</select>
+	
+	<select id="restaurantsTotalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
 		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
 		ON R.RESTAURANT_NO = F.PARENT_SEQ
 		WHERE R.RESTAURANT_NAME LIKE '%'||#{keyword}||'%' OR R.CATEGORY LIKE '%'||#{keyword}||'%'
-		ORDER BY RESTAURANT_NO DESC
 	</select>
 	
 	<select id="restaurantsSelectListCategory" parameterType="map"
 		resultMap="restaurantsResultMap">
-		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+		SELECT RE.RESTAURANT_NO, RE.RESTAURANT_NAME, RE.CATEGORY, RE.STORED_FILE_NAME
+		FROM
+		(SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+				FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
+				ON R.RESTAURANT_NO = F.PARENT_SEQ
+				WHERE R.RESTAURANT_NAME LIKE '%'||#{category}||'%' OR R.CATEGORY LIKE '%'||#{category}||'%'
+				ORDER BY RESTAURANT_NO DESC) RE
+		WHERE ROWNUM BETWEEN 1 AND #{end}
+	</select>
+	
+	<select id="restaurantsTotalCountCategory" parameterType="map" resultType="int">
+		SELECT COUNT(*)
 		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
 		ON R.RESTAURANT_NO = F.PARENT_SEQ
 		WHERE R.RESTAURANT_NAME LIKE '%'||#{category}||'%' OR R.CATEGORY LIKE '%'||#{category}||'%'
@@ -39,7 +70,24 @@
 	
 	<select id="restaurantsSelectListOrder" parameterType="map"
 		resultMap="restaurantsResultMap">
-		SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+		SELECT RE.RESTAURANT_NO, RE.RESTAURANT_NAME, RE.CATEGORY, RE.STORED_FILE_NAME
+		FROM
+		(SELECT R.RESTAURANT_NO, R.RESTAURANT_NAME, R.CATEGORY, F.STORED_FILE_NAME
+				FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
+				ON R.RESTAURANT_NO = F.PARENT_SEQ
+				<choose>
+					<when test= "order == 'restaurantNo'">
+					ORDER BY R.RESTAURANT_NO DESC	
+					</when>
+					<otherwise>
+					ORDER BY R.RESTAURANT_NAME ASC
+					</otherwise>
+				</choose>) RE
+		WHERE ROWNUM BETWEEN 1 AND #{end}
+	</select>
+	
+	<select id="restaurantsTotalCountOrder" parameterType="map" resultType="int">
+		SELECT COUNT(*)
 		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
 		ON R.RESTAURANT_NO = F.PARENT_SEQ
 		<choose>
@@ -54,7 +102,7 @@
 	
 	<select id="restaurantsSelectOne" parameterType="int"
 		resultMap="restaurantsResultMap">
-		SELECT RESTAURANT_NO, RESTAURANT_NAME, CATEGORY, PHONE, OPERATING_TIME, CLOSING_TIME, ADDRESS, CONTENTS
+		SELECT RESTAURANT_NO, MEMBER_NO, RESTAURANT_NAME, CATEGORY, PHONE, OPERATING_TIME, CLOSING_TIME, CLOSED_DATES, ADDRESS, CONTENTS
 		FROM RESTAURANTS
 		WHERE RESTAURANT_NO = #{restaurantNo}
 	</select>
@@ -66,10 +114,10 @@
 			SELECT RESTAURANT_NO_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		
-		INSERT INTO RESTAURANTS(RESTAURANT_NO, RESTAURANT_NAME, CATEGORY, PHONE
-		, OPERATING_TIME, CLOSING_TIME, ADDRESS, CONTENTS, MOD_DATE)
-		VALUES(#{restaurantNo}, #{restaurantName}, #{category}, #{phone}
-		, #{operatingTime}, #{closingTime}, #{address}, #{contents}, SYSDATE)
+		INSERT INTO RESTAURANTS(RESTAURANT_NO, MEMBER_NO, RESTAURANT_NAME, CATEGORY, PHONE
+		, OPERATING_TIME, CLOSING_TIME, CLOSED_DATES, ADDRESS, CONTENTS, MOD_DATE)
+		VALUES(#{restaurantNo}, #{memberNo}, #{restaurantName}, #{category}, #{phone}
+		, #{operatingTime}, #{closingTime}, #{closedDates}, #{address}, #{contents}, SYSDATE)
 	</insert>
 	
 	<update id="restaurantsUpdate" parameterType="restaurantsVo">
@@ -80,6 +128,7 @@
 			<if test="phone != ''">PHONE = #{phone},</if>
 			<if test="operatingTime != ''">OPERATING_TIME = #{operatingTime},</if>
 			<if test="closingTime != ''">CLOSING_TIME = #{closingTime},</if>
+			<if test="closedDates != ''">CLOSED_DATES = #{closedDates},</if>
 			<if test="address != ''">ADDRESS = #{address},</if>
 			<if test="contents != ''">CONTENTS = #{contents},</if>
 			MOD_DATE = SYSDATE

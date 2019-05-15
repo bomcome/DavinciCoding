@@ -86,4 +86,22 @@ public class RestaurantsDaoImpl implements RestaurantsDao {
 		return sqlSession.selectOne(namespace + "fileSelectStoredFileName", restaurantNo);
 	}
 
+	@Override
+	public int restaurantsTotalCount(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "restaurantsTotalCount", map);
+	}
+
+	@Override
+	public int restaurantsTotalCountCategory(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "restaurantsTotalCountCategory", map);
+	}
+
+	@Override
+	public int restaurantsTotalCountOrder(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "restaurantsTotalCountOrder", map);
+	}
+
 }

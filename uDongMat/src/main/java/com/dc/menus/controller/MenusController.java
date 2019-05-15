@@ -57,7 +57,8 @@ public class MenusController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/restaurants/list.do";
+//		return "redirect:/restaurants/list.do";
+		return "restaurants/restaurantOneView";
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -98,8 +99,9 @@ public class MenusController {
 			System.out.println("아 오류 처리;");
 			e.printStackTrace();
 		}
-
-		return "redirect:/restaurants/list.do";
+//		return "redirect:/review/list.do";
+		return "redirect:/restaurants/listOne.do?restaurantNo="+restaurantNo;
+//		return "restaurants/restaurantOneView";
 	}
 	
 }

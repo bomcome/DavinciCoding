@@ -110,6 +110,73 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
       }
    });
    
+	//회원가입 버튼
+	function restaurantAddFnc(restaurantNo) {
+		var addFormObj = document.getElementById('addForm');
+		var restaurantNameVal = document.getElementById('restaurantName');
+		var categoryVal = document.getElementById('category');
+		var phoneVal = document.getElementById('phone');
+		var operatingTimeVal = document.getElementById('operatingTime');
+		var closingTimeVal = document.getElementById('closingTime');
+		var closedDatesVal = document.getElementById('closedDates');
+		var addressVal = document.getElementById('address');
+		var contentsVal = document.getElementById('contents');
+		var menuNameVal = document.getElementsByClassName("menuName");
+		
+		if (restaurantNameVal.value == '') {
+			alert("맛집명을 입력하세요!");
+			restaurantNameVal.focus();
+			return;
+		}
+		else if(categoryVal.value == '' ){
+			alert("맛집 분류를 선택하세요!");
+			categoryVal.focus();
+			return;
+		}
+		else if(phoneVal.value == '' ){
+			alert("연락처를 입력하세요!");
+			phoneVal.focus();
+			return;
+		}
+		else if(operatingTimeVal.value == '' ){
+			alert("개점 시간을 선택하세요!");
+			operatingTimeVal.focus();
+			return;
+		}
+		else if(closingTimeVal.value == '' ){
+			alert("폐점 시간을 선택하세요!");
+			closingTimeVal.focus();
+			return;
+		}
+		else if(closingTimeVal.value == operatingTimeVal.value ){
+			alert("개점 시간과  폐점시간은 같을수 없습니다.!");
+			closingTimeVal.focus();
+			return;
+		}
+		else if(closedDatesVal.value == '' ){
+			alert("휴점일을 입력하세요!");
+			closedDatesVal.focus();
+			return;
+		}
+		else if(addressVal.value == '' ){
+			alert("주소를 입력하세요!");
+			addressVal.focus();
+			return;
+		}
+		else if(contentsVal.value == '' ){
+			alert("맛집 소개를 입력하세요!");
+			contentsVal.focus();
+			return;
+		}
+		else{
+			alert('맛집수정이 완료되었습니다. 대박나세요!');
+			addFormObj.submit();
+// 			alert('sdfdsffsdsdf');
+// 		    var url = 'listOne.do?restaurantNo=' + restaurantNo;
+// 		    location.href = url;
+		}
+	}
+   
    function add_menu(){
        // pre_set 에 있는 내용을 읽어와서 처리..
    
@@ -128,8 +195,8 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
       document.getElementById('field').removeChild(obj.parentNode);
     }
 
-   function moveToListFnc(restaurantNo) {
-      var url = 'list.do?restaurantNo=' + restaurantNo;
+   function moveToListOneFnc(restaurantNo) {
+      var url = 'listOne.do?restaurantNo=' + restaurantNo;
       location.href = url;
    }
    
@@ -161,8 +228,8 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 
       <div style="margin-left: 450px;">
 
-         <form action="./updateCtr.do" method="post" enctype="multipart/form-data">
-
+         <form action="./updateCtr.do" id="addForm" method="post" enctype="multipart/form-data">
+			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
             <div style="width: 1050px; height: 500px; padding: 20px; border: 1px solid black">
                <div style="width: 600px; height: 480px; border: 1px solid black; float: left; position: relative;">
                   <div id="fileContent">
@@ -318,17 +385,20 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
                         <input type="hidden" id="closingTimeVal" value="${restaurantsVo.closingTime}">
                   </ul>
                   <ul>
-                     <li><textarea style="width: 400px; height: 100px; resize: none;"
-                           name="address" placeholder="주소를 입력하세요">${restaurantsVo.address}</textarea>
+					<li><input type="text" class="restaurantTopInput" id='closedDates' name='closedDates'
+					 value='${restaurantsVo.closedDates}' placeholder="휴일을 입력하세요">
+                  </ul>
+                  <ul>
+					<li><textarea style="width: 400px; height: 100px; resize: none;" 
+					id="address" name="address" placeholder="주소를 입력하세요">${restaurantsVo.address}</textarea>
                   </ul>
                </div>
-
 
             </div>
             <div style="width: 1050px; padding: 20px; border: 1px solid black; margin-top: 20px;">
                <span style="font-size: 30px; font-weight: bold;">맛집소개</span>
                <textarea style="width: 1030px; height: 200px; resize: none; margin-top: 10px; margin-bottom: 20px;"
-                  name="contents">${restaurantsVo.contents}</textarea>
+                  id="contents" name="contents">${restaurantsVo.contents}</textarea>
                <div>
                   <span style="font-size: 30px; font-weight: bold;">메뉴</span>
                   <input type="button" style="width: 45px; height: 40px; margin-left: -5px; margin-bottom: 7px;
@@ -350,8 +420,8 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 
             </div>
             <div style="width: 1095px; text-align: center; margin-top: 20px;">
-               <input type="button" value="수정취소" class="restaurantInput" onclick="moveToListFnc(${restaurantsVo.restaurantNo});">
-               <input type="submit" value="수정완료" class="restaurantInput">
+               <input type="button" value="수정취소" class="restaurantInput" onclick="moveToListOneFnc(${restaurantsVo.restaurantNo});">
+               <input type="button" value="수정완료" class="restaurantInput" onclick="restaurantAddFnc(${restaurantsVo.restaurantNo});">
             </div>
          </form>
       </div>

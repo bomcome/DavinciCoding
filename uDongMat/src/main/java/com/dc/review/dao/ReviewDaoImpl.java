@@ -58,7 +58,7 @@ public class ReviewDaoImpl implements ReviewDao{
 	@Override
 	public void reviewDeleteWithRestaurant(int restaurantNo) {
 		// TODO Auto-generated method stub
-		sqlSession.delete(namespace +"reviewDeleteWithBoard", restaurantNo);
+		sqlSession.delete(namespace +"reviewDeleteWithRestaurant", restaurantNo);
 	}
 
 	

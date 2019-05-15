@@ -11,11 +11,11 @@ import com.dc.restaurants.vo.RestaurantsVo;
 
 public interface RestaurantsService {
 	
-	public List<RestaurantsFileVo> restaurantsSelectList(String keyword);
+	public List<RestaurantsFileVo> restaurantsSelectList(String keyword, int end);
 
-	public List<RestaurantsFileVo> restaurantsSelectListCategory(String category);
+	public List<RestaurantsFileVo> restaurantsSelectListCategory(String category, int end);
 	
-	public List<RestaurantsFileVo> restaurantsSelectListOrder(String order);
+	public List<RestaurantsFileVo> restaurantsSelectListOrder(String order, int end);
 	
 	public Map<String, Object> restaurantsSelectOne(int restaurantNo);
 	
@@ -24,5 +24,11 @@ public interface RestaurantsService {
 	public int restaurantsUpdate(RestaurantsVo restaurantsVo, List<MenusVo> menusVoList, MultipartHttpServletRequest multipartHttpServletRequest, int fileIdx) throws Exception;
 	
 	public int restaurantsDelete(int restaurantNo) throws Exception;
+	
+	public int restaurantsTotalCount(Map<String, Object> map);
+	
+	public int restaurantsTotalCountCategory(Map<String, Object> map);
+	
+	public int restaurantsTotalCountOrder(Map<String, Object> map);
 
 }

@@ -130,6 +130,10 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 	function moveToAddFnc() {
 		location.href = "add.do";
 	}
+	
+	function moveToLoginFnc() {
+		location.href = "../auth/login.do";
+	}
 
 	function orderFnc(value) {
 		var orderForm = document.getElementById("orderForm");
@@ -143,6 +147,27 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 		categoryFormObj.submit();
 
 	}
+	
+
+	function myFunction() {
+
+		var curPageVal = document.getElementById("curPage").value;
+
+		var totalCountVal = document.getElementById('totalCount').value;
+		var PAGE_SCALE_Val = document.getElementById('pageScale').value;
+		var buttonObj = document.getElementById('moreViewButton');
+		var buttonHeight = buttonObj.offsetTop;
+
+		if (PAGE_SCALE_Val * curPageVal < totalCountVal) {
+
+			//	          alert(buttonHeight);
+			document.getElementById("currentScroll").value = buttonHeight;
+
+			document.getElementById("curPage").value = Number(document
+					.getElementById("curPage").value) + 1;
+			document.getElementById("pagingForm").submit();
+		}
+	}
 </script>
 </head>
 <body>
@@ -153,13 +178,13 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 		<div id="slider">
 			<ul class="bxslider">
 				<li><a href="#"><img
-						src="http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile4.uf.tistory.com%2Fimage%2F99C7143A5BEE75FB3092D4"
+						src="https://www.tourboks.com/ko/greece/index.html?utm_campaign=greece&amp;utm_source=website&amp;utm_medium=billboard"
 						alt="" title="이미지1"></a></li>
 				<li><a href="#"><img
-						src="http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile10.uf.tistory.com%2Fimage%2F99C7223A5BEE75FB303A8E"
+						src="https://www.tourboks.com/ko/france/index.html?utm_campaign=france&utm_source=website&utm_medium=billboard"
 						alt="" title="이미지2"></a></li>
 				<li><a href="#"><img
-						src="http://img1.daumcdn.net/thumb/R1920x0/?fname=http%3A%2F%2Fcfile7.uf.tistory.com%2Fimage%2F9982093A5BEE75FC259992"
+						src="https://www.tourboks.com/ko/greece/index.html?utm_campaign=greece&utm_source=website&utm_medium=billboard"
 						alt="" title="이미지3"></a></li>
 			</ul>
 		</div>
@@ -169,7 +194,12 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 				<div class="board"></div>
 				<div class="category">
 					<div>
+					<c:if test="${_memberVo_ != null}">
 						<input type="button" value="맛집등록" onclick="moveToAddFnc();">
+					</c:if>
+					<c:if test="${_memberVo_ == null}">
+						<input type="button" value="맛집등록" onclick="moveToLoginFnc();">
+					</c:if>
 					</div>
 					<div>
 						<a href="../board/list.do">게시판</a>
@@ -227,8 +257,58 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 				</c:forEach>
 			</div>
 		</div>
+
 		<div style="clear: left;">
-		
+			<c:if test="${pageScale * pagingMap.restaurantPaging.curPage < pagingMap.totalCount}">
+				<input type="button" value="더보기" onclick=myFunction(); id="moreViewButton">
+			</c:if>
+		</div>
+		<c:if test="${category == null && order == null}">
+		<div>
+			<form action="./list.do" id="pagingForm" method="get">
+				<input type="hidden" name='restaurantNo' value='${restaurantsFileVo.restaurantNo}'>
+				<input type="hidden" name='category' value='${category}'>
+				<input type="hidden" id="curPage" name="curPage"
+					value="${pagingMap.restaurantPaging.curPage}"> <input
+					type="hidden" id="totalCount" name="totalCount"
+					value="${pagingMap.totalCount}"> <input type="hidden"
+					id="currentScroll" name="currentScroll" value="${currentScroll}">
+				<input type="hidden" id="pageScale" name="pageScale"
+					value="${pageScale}">
+			</form>
+		</div>
+		</c:if>
+		<c:if test="${category != null}">
+		<div>
+			<form action="./listCategory.do" id="pagingForm" method="get">
+				<input type="hidden" name='restaurantNo' value='${restaurantsFileVo.restaurantNo}'>
+				<input type="hidden" name='category' value='${category}'>
+				<input type="hidden" id="curPage" name="curPage"
+					value="${pagingMap.restaurantPaging.curPage}"> <input
+					type="hidden" id="totalCount" name="totalCount"
+					value="${pagingMap.totalCount}"> <input type="hidden"
+					id="currentScroll" name="currentScroll" value="${currentScroll}">
+				<input type="hidden" id="pageScale" name="pageScale"
+					value="${pageScale}">
+			</form>
+		</div>
+		</c:if>
+		<c:if test="${order != null}">
+		<div>
+			<form action="./listOrder.do" id="pagingForm" method="get">
+				<input type="hidden" name='restaurantNo' value='${restaurantsFileVo.restaurantNo}'>
+				<input type="hidden" name='order' value='${order}'>
+				<input type="hidden" id="curPage" name="curPage"
+					value="${pagingMap.restaurantPaging.curPage}"> <input
+					type="hidden" id="totalCount" name="totalCount"
+					value="${pagingMap.totalCount}"> <input type="hidden"
+					id="currentScroll" name="currentScroll" value="${currentScroll}">
+				<input type="hidden" id="pageScale" name="pageScale"
+					value="${pageScale}">
+			</form>
+		</div>
+		</c:if>
+		<div>		
 			<a id="TopButton" class="ScrollButton"><img src="http://www.sibtower.com/images/top_button.png" width="50px" height="50px"></a>
 <!-- 			<a id="BottomButton" class="ScrollButton"><img src="(BottomButton 이미지 주소)"></a> -->
 			<jsp:include page="/WEB-INF/views/Tail.jsp" />
