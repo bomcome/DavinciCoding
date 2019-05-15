@@ -8,12 +8,6 @@
 <meta charset="UTF-8">
 <style>
 
-* { margin: 0; padding: 0; }
-body { font: 17px 'Nanum Gothic', sans-serif; }
-#slider { width: 1200px; margin: 0 auto; }
-.bxslider li { list-style: none;}
-
-
 .board div {
 	list-style-type: none;
 	float: left;
@@ -28,18 +22,24 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 	text-align: center;
 }
 
+/* .list { */
+/* 	width: 300px; */
+/* 	height: 260px; */
+/* 	text-align: center; */
+/* } */
+
 .list div {
 	margin: 10px;
 	padding: 10px;
 	list-style-type: none;
 	float: left;
-	width: 200px;
-	height: 200px;
+	width: 260px;
+	height: 220px;
 	text-align: center;
-	background: #8c8c8c;
+	background: ;
 }
 
-.list div:nth-child(5n+1) {
+.list div:nth-child(4n+1) {
 	clear: left;
 }
 
@@ -62,27 +62,7 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 </style>
 <title>Insert title here</title>
 
-<!-- <link rel="stylesheet" href="css/style.css"> -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script type="text/javascript" src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('.bxslider').bxSlider({
-			auto : true, // 자동으로 애니메이션 시작
-			speed : 1000, // 애니메이션 속도
-			pause : 2000, // 애니메이션 유지 시간 (1000은 1초)
-			mode : 'fade', // 슬라이드 모드 ('fade', 'horizontal', 'vertical' 이 있음)
-			autoControls : true, // 시작 및 중지버튼 보여짐
-			pager : true, // 페이지 표시 보여짐
-			captions : true, // 이미지 위에 텍스트를 넣을 수 있음
-		});
-	});
-</script>
 
 <script type="text/javascript">
 	$(function() {
@@ -174,26 +154,13 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 	<div style="width: 1920px;">
 		<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 		<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
-
-		<div id="slider">
-			<ul class="bxslider">
-				<li><a href="#"><img
-						src="https://www.tourboks.com/ko/greece/index.html?utm_campaign=greece&amp;utm_source=website&amp;utm_medium=billboard"
-						alt="" title="이미지1"></a></li>
-				<li><a href="#"><img
-						src="https://www.tourboks.com/ko/france/index.html?utm_campaign=france&utm_source=website&utm_medium=billboard"
-						alt="" title="이미지2"></a></li>
-				<li><a href="#"><img
-						src="https://www.tourboks.com/ko/greece/index.html?utm_campaign=greece&utm_source=website&utm_medium=billboard"
-						alt="" title="이미지3"></a></li>
-			</ul>
-		</div>
+		<jsp:include page="/WEB-INF/views/slider.jsp" />
 
 		<div style="margin-left: 330px;">
 			<div>
 				<div class="board"></div>
 				<div class="category">
-					<div>
+<%-- 					<div>
 					<c:if test="${_memberVo_ != null}">
 						<input type="button" value="맛집등록" onclick="moveToAddFnc();">
 					</c:if>
@@ -204,7 +171,7 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 					<div>
 						<a href="../board/list.do">게시판</a>
 					</div>
-
+ --%>
 					<div>
 						<form id="orderForm" action="./listOrder.do" method="get">
 							<select id="order" name="order" onchange="orderFnc(this.value);">
@@ -245,17 +212,17 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 				</form>
 			</div>
 
-			<div class="list">
-				<c:forEach var="restaurantsFileVo" items="${restaurantsList}">
-					<div>
-						<a href='./listOne.do?restaurantNo=${restaurantsFileVo.restaurantNo}'>
-							<img alt="${restaurantsFileVo.restaurantName}" style="width: 200px; height: 130px;"
-							src="<c:url value='/img/${restaurantsFileVo.storedFileName}'/>" />
-							<h2>(${restaurantsFileVo.category})${restaurantsFileVo.restaurantName}</h2>
-						</a>
-					</div>
-				</c:forEach>
+	<div class="list">
+		<c:forEach var="restaurantsFileVo" items="${restaurantsList}">
+			<div>
+				<a href='./listOne.do?restaurantNo=${restaurantsFileVo.restaurantNo}'>
+					<img alt="${restaurantsFileVo.restaurantName}" style="width: 260px; height: 180px;"
+					src="<c:url value='/img/${restaurantsFileVo.storedFileName}'/>" />
+					<h2>(${restaurantsFileVo.category})${restaurantsFileVo.restaurantName}</h2>
+				</a>
 			</div>
+		</c:forEach>
+	</div>
 		</div>
 
 		<div style="clear: left;">
