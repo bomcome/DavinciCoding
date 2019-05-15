@@ -236,11 +236,15 @@
 		WHERE HITS_NO = #{hitsNo}
 	</update>
 	
-	<delete id="hitsDelete" parameterType="int"> 
-		DELETE FROM HITS
-		WHERE HITS_NO = #{hitsNo}
-	</delete>
+<!-- 	<delete id="hitsDelete" parameterType="int">  -->
+<!-- 		DELETE FROM HITS -->
+<!-- 		WHERE HITS_NO = #{hitsNo} -->
+<!-- 	</delete> -->
 	
+	<delete id="hitsDeleteWithBoard" parameterType="int"> 
+		DELETE FROM HITS
+		WHERE BOARD_NO = #{boardNo}
+	</delete>
 	
 <!-- 	<update id="boardUpdateHits" parameterType="int"> -->
 <!-- 		UPDATE BOARD -->
@@ -272,6 +276,7 @@
 		WHERE PARENT_SEQ = #{no}
 	</delete>
 
+	
 	<select id="fileSelectStoredFileName" parameterType="int"
 		resultType="map">
 		SELECT IDX, STORED_FILE_NAME

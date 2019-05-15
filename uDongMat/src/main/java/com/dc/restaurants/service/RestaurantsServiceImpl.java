@@ -15,11 +15,11 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.dc.menus.dao.MenusDao;
-import com.dc.menus.service.MenusService;
 import com.dc.menus.vo.MenusVo;
 import com.dc.restaurants.dao.RestaurantsDao;
 import com.dc.restaurants.vo.RestaurantsFileVo;
 import com.dc.restaurants.vo.RestaurantsVo;
+import com.dc.review.dao.ReviewDao;
 import com.dc.util.FileUtils;
 
 @Service
@@ -31,41 +31,41 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 	public RestaurantsDao restaurantsDao;
 	
 	@Autowired
-	private MenusService menusService;
+	private MenusDao menusDao;
 	
 	@Autowired
-	private MenusDao menusDao;
+	private ReviewDao reviewDao;
 	
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
 
 	@Override
-	public List<RestaurantsFileVo> restaurantsSelectList(String keyword) {
+	public List<RestaurantsFileVo> restaurantsSelectList(String keyword, int end) {
 		// TODO Auto-generated method stub
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("keyword", keyword);
-		
+		map.put("end", end);
 		return restaurantsDao.restaurantsSelectList(map);
 	}
 
 	@Override
-	public List<RestaurantsFileVo> restaurantsSelectListCategory(String category) {
+	public List<RestaurantsFileVo> restaurantsSelectListCategory(String category, int end) {
 		// TODO Auto-generated method stub
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("category", category);
-		
+		map.put("end", end);
 		return restaurantsDao.restaurantsSelectListCategory(map);
 	}
 
 	@Override
-	public List<RestaurantsFileVo> restaurantsSelectListOrder(String order) {
+	public List<RestaurantsFileVo> restaurantsSelectListOrder(String order, int end) {
 		// TODO Auto-generated method stub
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("order", order);
-		
+		map.put("end", end);
 		return restaurantsDao.restaurantsSelectListOrder(map);
 	}
 
@@ -150,11 +150,31 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 	public int restaurantsDelete(int restaurantNo) throws Exception {
 		// TODO Auto-generated method stub
 		
+		reviewDao.reviewDeleteWithRestaurant(restaurantNo);
+		
 		menusDao.menusDelete(restaurantNo);
 		
 		restaurantsDao.fileDelete(restaurantNo);
 		
 		return restaurantsDao.restaurantsDelete(restaurantNo);
+	}
+
+	@Override
+	public int restaurantsTotalCount(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return restaurantsDao.restaurantsTotalCount(map);
+	}
+
+	@Override
+	public int restaurantsTotalCountCategory(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return restaurantsDao.restaurantsTotalCountCategory(map);
+	}
+
+	@Override
+	public int restaurantsTotalCountOrder(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return restaurantsDao.restaurantsTotalCountOrder(map);
 	}
 
 }

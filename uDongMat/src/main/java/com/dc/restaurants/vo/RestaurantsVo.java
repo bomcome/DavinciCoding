@@ -11,6 +11,7 @@ public class RestaurantsVo {
 	private String phone;
 	private String operatingTime;
 	private String closingTime;
+	private String closedDates;
 	private String address;
 	private String contents;
 	private Date createDate;
@@ -22,8 +23,8 @@ public class RestaurantsVo {
 	}
 
 	public RestaurantsVo(int restaurantNo, int memberNo, String restaurantName, String category, String phone,
-			String operatingTime, String closingTime, String address, String contents, Date createDate,
-			Date modifiedDate, String storedFileName) {
+			String operatingTime, String closingTime, String closedDates, String address, String contents,
+			Date createDate, Date modifiedDate, String storedFileName) {
 		super();
 		this.restaurantNo = restaurantNo;
 		this.memberNo = memberNo;
@@ -32,13 +33,13 @@ public class RestaurantsVo {
 		this.phone = phone;
 		this.operatingTime = operatingTime;
 		this.closingTime = closingTime;
+		this.closedDates = closedDates;
 		this.address = address;
 		this.contents = contents;
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
 		this.storedFileName = storedFileName;
 	}
-
 	public int getRestaurantNo() {
 		return restaurantNo;
 	}
@@ -81,6 +82,12 @@ public class RestaurantsVo {
 	public void setClosingTime(String closingTime) {
 		this.closingTime = closingTime;
 	}
+	public String getClosedDates() {
+		return closedDates;
+	}
+	public void setClosedDates(String closedDates) {
+		this.closedDates = closedDates;
+	}
 	public String getAddress() {
 		return address;
 	}
@@ -111,13 +118,13 @@ public class RestaurantsVo {
 	public void setStoredFileName(String storedFileName) {
 		this.storedFileName = storedFileName;
 	}
-
 	@Override
 	public String toString() {
 		return "RestaurantsVo [restaurantNo=" + restaurantNo + ", memberNo=" + memberNo + ", restaurantName="
 				+ restaurantName + ", category=" + category + ", phone=" + phone + ", operatingTime=" + operatingTime
-				+ ", closingTime=" + closingTime + ", address=" + address + ", contents=" + contents + ", createDate="
-				+ createDate + ", modifiedDate=" + modifiedDate + ", storedFileName=" + storedFileName + "]";
+				+ ", closingTime=" + closingTime + ", closedDates=" + closedDates + ", address=" + address
+				+ ", contents=" + contents + ", createDate=" + createDate + ", modifiedDate=" + modifiedDate
+				+ ", storedFileName=" + storedFileName + "]";
 	}
 	
 }

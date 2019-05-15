@@ -8,12 +8,13 @@
 		<result column="BOARD_NO" property="boardNo" />
 		<result column="COMMENT_NO" property="commentNo" />
 		<result column="MEMBER_NO" property="memberNo" />
+		<result column="COMMENT_PARENT_NO" property="commentParentNo" />
 	</resultMap>
 
 
 	<select id="commentRecommendSelectOne" parameterType="map"
 		resultMap="recommendResultMap">
-		SELECT RECOMMEND_NO, COMMENT_NO, BOARD_NO, MEMBER_NO
+		SELECT RECOMMEND_NO, COMMENT_NO, COMMENT_PARENT_NO, BOARD_NO, MEMBER_NO
 		FROM RECOMMEND
 		WHERE COMMENT_NO = #{commentNo} 
 		AND MEMBER_NO = #{memberNo}
@@ -49,8 +50,8 @@
 		</selectKey>
 		
 		INSERT INTO RECOMMEND
-		(RECOMMEND_NO, COMMENT_NO, MEMBER_NO)
-		VALUES(#{recommendNo}, #{commentNo}, #{memberNo})
+		(RECOMMEND_NO, COMMENT_NO, COMMENT_PARENT_NO, MEMBER_NO)
+		VALUES(#{recommendNo}, #{commentNo}, #{commentParentNo}, #{memberNo})
 	</insert>
 	
 	<delete id="recommendDelete" parameterType="int"> 
@@ -58,9 +59,20 @@
 		WHERE RECOMMEND_NO = #{recommendNo}
 	</delete>
 
+	<delete id="recommendDeleteWithBoard" parameterType="int"> 
+		DELETE FROM RECOMMEND
+		WHERE BOARD_NO = #{boardNo}
+	</delete>
 	
+	<delete id="recommendDeleteWithComment" parameterType="int"> 
+		DELETE FROM RECOMMEND
+		WHERE COMMENT_NO = #{commentNo}
+	</delete>
 	
-	
+	<delete id="recommendDeleteWithCommentParent" parameterType="int"> 
+		DELETE FROM RECOMMEND
+		WHERE COMMENT_PARENT_NO = #{commentParentNo}
+	</delete>
 	
 
 	

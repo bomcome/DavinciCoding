@@ -298,7 +298,7 @@
                      <div class="cocommentAddContainer" style="display: none;">
                         <div class="cocommentAddLetter">답글쓰기</div>
                         <form class="cocommentAddForm" action="../review/addCtr.do" method="post">
-                           <input type="hidden" id="boardNo" class="boardNo" name="restaurantNo" value="${restaurantVo.restaurantNo}">
+                           <input type="hidden" id="boardNo" class="boardNo" name="restaurantNo" value="${restaurantsVo.restaurantNo}">
                            <input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
                            <input type="hidden" id="parentCommentNo" class="parentCommentNo" 
                               name="parentReviewNo" value="${reviewVo.reviewNo}">

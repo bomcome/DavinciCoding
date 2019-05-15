@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class Paging2 implements Serializable{
 
 	// 페이지당 게시물수
-	public static final int PAGE_SCALE = 20;
+	public static final int PAGE_SCALE = 3;
 	// 화면당 페이지 수
 	public static final int BLOCK_SCALE = 10;
 	
@@ -64,6 +64,19 @@ public class Paging2 implements Serializable{
 		}
 	}
 	
+	
+    
+
+	
+
+	public static final int getPageScale() {
+		return PAGE_SCALE;
+	}
+
+	public static final int getBlockScale() {
+		return BLOCK_SCALE;
+	}
+
 	public int getCurPage() {
 		return curPage;
 	}

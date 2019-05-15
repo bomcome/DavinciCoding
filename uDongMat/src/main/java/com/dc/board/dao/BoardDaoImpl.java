@@ -116,7 +116,10 @@ public class BoardDaoImpl implements BoardDao{
 		sqlSession.update(namespace +"hitsUpdateDate", hitsNo);
 	}
 	
-	
+	public void hitsDeleteWithBoard(int boardNo) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace +"hitsDeleteWithBoard", boardNo);
+	}
 	
 	@Override
 	public void insertFile(Map<String, Object> map) {

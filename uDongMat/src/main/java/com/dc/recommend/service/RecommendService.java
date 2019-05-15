@@ -11,4 +11,6 @@ public interface RecommendService {
 	public RecommendVo commentRecommendSelectOne(int commentNo, int memberNo);
 	void commentRecommendInsertOne(RecommendVo recommendVo);
 	void commentRecommendDelete(RecommendVo recommendVo);
+	public void recommendDeleteWithCommentParent(int boardNo);
+
 }

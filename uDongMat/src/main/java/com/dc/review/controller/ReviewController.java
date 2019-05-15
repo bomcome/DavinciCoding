@@ -27,54 +27,54 @@ public class ReviewController {
 	public String reviewList(HttpServletRequest req, Model model) {
 		
 		RestaurantsVo restaurantsVo = (RestaurantsVo)req.getAttribute("restaurantsVo");
-		
 		int totalCount = reviewService.reviewSelectTotalCount(restaurantsVo.getRestaurantNo());
 		
+		System.out.println(totalCount);
 		List<ReviewVo> reviewList = 
 				reviewService.reviewSelectList(restaurantsVo.getRestaurantNo());
-		
+		System.out.println(1);
 //		RecommendVo recommendVo = recommendService.commentRecommendSelectOne(recommendVo);
 		
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("totalCount", totalCount);		
-		
-		return "review/reviewListView";
+		System.out.println(2);
+		return "restaurants/restaurantOneView";
 	}
 	
 	
 	@RequestMapping(value="/review/addCtr.do", method= {RequestMethod.POST})
-	public String commentAdd(HttpServletRequest req, Model model, ReviewVo reviewVo) {	
+	public String reviewAdd(HttpServletRequest req, Model model, ReviewVo reviewVo) {	
 		
+		System.out.println(reviewVo);
 		reviewService.reviewInsertOne(reviewVo);
-		
-		return "redirect:/restaurants/one.do?restaurantNo=" + reviewVo.getRestaurantNo();
+		return "redirect:/restaurants/listOne.do?restaurantNo=" + reviewVo.getRestaurantNo();
 	}
 	
-	@RequestMapping(value="/review/update.do", method= {RequestMethod.GET})
-	public String reviewUpdate(int reviewNo, Model model, ReviewVo reviewVo) {	
-		
-		reviewVo = reviewService.reviewDetailOne(reviewNo);
-		
-		model.addAttribute("reviewVo", reviewVo);
-		
-		return "/review/reviewUpdateForm";
-	}
+//	@RequestMapping(value="/review/update.do", method= {RequestMethod.GET})
+//	public String reviewUpdate(int reviewNo, Model model, ReviewVo reviewVo) {	
+//		
+//		reviewVo = reviewService.reviewDetailOne(reviewNo);
+//		
+//		model.addAttribute("reviewVo", reviewVo);
+//		
+//		return "/review/reviewUpdateForm";
+//	}
 	
 	@RequestMapping(value="/review/updateCtr.do", method= {RequestMethod.POST})
-	public String commentUpdate(int reviewNo, ReviewVo reviewVo) {	
+	public String reviewUpdateCtr(int reviewNo, ReviewVo reviewVo) {	
 		
 		reviewService.reviewUpdateOne(reviewVo);
 		
-		return "redirect:/restaurants/one.do?restaurantNo=" + reviewVo.getRestaurantNo();
+		return "redirect:/restaurants/listOne.do?restaurantNo=" + reviewVo.getRestaurantNo();
 	}
 	
 	@RequestMapping(value="/review/delete.do", method= {RequestMethod.GET})
-	public String commentDelete(int reviewNo, int restaurantNo) {
+	public String reviewDelete(int reviewNo, int restaurantNo) {
 		System.out.println(reviewNo);
 		
 		reviewService.reviewDelete(reviewNo);
 		
-		return "redirect:/restaurants/one.do?restaurantNo=" + restaurantNo;
+		return "redirect:/restaurants/listOne.do?restaurantNo=" + restaurantNo;
 	}
 	
 }

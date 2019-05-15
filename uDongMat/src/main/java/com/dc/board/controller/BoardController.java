@@ -65,6 +65,7 @@ public class BoardController {
 		model.addAttribute("pagingMap", pagingMap);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("curPage", curPage);
 		
 		
 		
@@ -74,24 +75,30 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/one.do", method= {RequestMethod.GET})
 	public String boardOne(@RequestParam(defaultValue ="1") int curPage, 
+							@RequestParam(defaultValue ="0") double currentScroll,
+							@RequestParam(defaultValue ="1") int boardListCurPage,
 			Model model, int boardNo, HttpServletRequest req, HttpSession session, Map<String, Object> map) {
 
 		MemberVo memberVo = (MemberVo)session.getAttribute("_memberVo_");
 		
 		if(memberVo != null) {
-			System.out.println(memberVo.getMemberNo());
+//			System.out.println(memberVo.getMemberNo());
 			map = boardService.boardSelectOne(boardNo, memberVo.getMemberNo());
 			
 			req.setAttribute("boardVo", (BoardVo)map.get("boardVo"));
 		}else if(memberVo == null) {
-			System.out.println(boardNo);
+//			System.out.println(boardNo);
 			map = boardService.boardSelectOneOther(boardNo);
 			
 			req.setAttribute("boardVo", (BoardVo)map.get("boardVo"));
 		}
-		
+		Paging paging = new Paging();
+		int boardPageScale = paging.getPageScale();
+//		System.out.println("여기" + currentScroll);
+		req.setAttribute("boardPageScale", boardPageScale);
 		req.setAttribute("curPage", curPage);
-		
+		req.setAttribute("currentScroll", currentScroll);
+		req.setAttribute("boardListCurPage", boardListCurPage);
 //		BoardVo boardVo = boardService.boardSelectOne(boardNo, memberVo.getMemberNo());
 //		
 //		req.setAttribute("boardVo", boardVo);

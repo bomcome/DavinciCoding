@@ -261,6 +261,7 @@
                            <form action="../recommend/addCommentCtr.do" method="post">
                            		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
                            		<input type="hidden" name='commentNo' value='${commentVo.commentNo}'>
+                           		<input type="hidden" name='commentParentNo' value='${commentVo.boardNo}'>
                               	<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
                               	<button type="submit" id="recommendAddButton" 
                                  class= "commentRecommendUpdateButton">추천${commentVo.recommendCount}</button>   
@@ -277,10 +278,15 @@
                   <td class="commentsContents">
                      <span class="commentReceiver">
                      <c:if test="${commentVo.parentCommentNo != 0 && commentVo.parentCommentNo != null}">
-                        TO. <button type="button" onclick="showParentContentsFnc(${commentVo.rowNum})" style="border: none;">${commentVo.parentNickname}</button>
-                        <div class="parentCommentContentsDiv" style="display: none;">
-                           ${commentVo.parentContents}
-                        </div>
+                     	<c:if test="${commentVo.parentNickname != null}">
+                        	TO. <button type="button" onclick="showParentContentsFnc(${commentVo.rowNum})" style="border: none;">${commentVo.parentNickname}</button>
+                        	<div class="parentCommentContentsDiv" style="display: none;">
+                           		${commentVo.parentContents}
+                       	 	</div>
+                       	 </c:if>
+                       	 <c:if test="${commentVo.parentNickname == null}">
+                       	 	TO. (해당 댓글이 삭제되었습니다.)
+                       	 </c:if>
                      </c:if>
                      
                      </span>

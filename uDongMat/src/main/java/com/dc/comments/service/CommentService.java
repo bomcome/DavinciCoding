@@ -15,4 +15,5 @@ public interface CommentService {
 	public void commentDelete(int commentNo);
 	public void commentUpdateRecommendUp(int commentNo);
 	public void commentUpdateRecommendDown(int commentNo);
+	public void commentDeleteWithBoard(int boardNo);
 }
