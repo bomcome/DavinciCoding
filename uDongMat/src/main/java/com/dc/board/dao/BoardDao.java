@@ -25,6 +25,7 @@ public interface BoardDao {
 	public void hitsInsertOne(Map<String, Object> map);
 //	public void hitsInsertOneOther(Map<String, Object> map);
 	
+	public void hitsDeleteWithBoard(int boardNo);
 	
 	public void hitsUpdateDate(int hitsNo);
 	

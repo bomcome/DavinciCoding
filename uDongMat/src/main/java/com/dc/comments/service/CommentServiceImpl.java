@@ -7,15 +7,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dc.board.vo.BoardVo;
 import com.dc.comments.dao.CommentDao;
 import com.dc.comments.vo.CommentVo;
+import com.dc.recommend.dao.RecommendDao;
 @Service
 public class CommentServiceImpl implements CommentService{
 		
 	@Autowired
 	private CommentDao commentDao;
 
+	@Autowired
+	private RecommendDao recommendDao;
+	
 	@Override
 	public List<CommentVo> commentSelectList(int end, int boardNo) {
 		// TODO Auto-generated method stub
@@ -53,6 +56,7 @@ public class CommentServiceImpl implements CommentService{
 	public void commentDelete(int commentNo) {
 		// TODO Auto-generated method stub
 		commentDao.commentDelete(commentNo);
+		recommendDao.recommendDeleteWithComment(commentNo);
 	}
 
 	@Override
@@ -65,5 +69,12 @@ public class CommentServiceImpl implements CommentService{
 	public void commentUpdateRecommendDown(int commentNo) {
 		// TODO Auto-generated method stub
 		commentDao.commentUpdateRecommendDown(commentNo);
+	}
+
+	@Override
+	public void commentDeleteWithBoard(int boardNo) {
+		// TODO Auto-generated method stub
+		commentDao.commentDelete(boardNo);
+		recommendDao.recommendDeleteWithCommentParent(boardNo);
 	}
 }

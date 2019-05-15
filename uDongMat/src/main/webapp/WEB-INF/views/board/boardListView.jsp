@@ -73,7 +73,7 @@
 	#boardListContainer #boardInput #formTag{
 		text-align: left;
 	}
-	#boardListContainer input {
+	#boardListContainer input[type="text"] {
 		margin-top: 8px;
 		width: 250px;
 	}
@@ -116,6 +116,18 @@
 	#boardListContainer .boardTitle a{
 		text-decoration: none;
 	}
+	#boardListContainer #searchDiv input[type="text"]{
+ 		height: 17px;
+ 		margin-bottom: 0px;
+	}
+	
+	#boardListContainer #searchDiv #searchOption{
+		height: 23px;
+		margin-bottom: 0px;
+	}
+	#boardListContainer #searchDiv{
+		height: 23px;
+	}
 </style>
 
 <script type="text/javascript" 
@@ -153,14 +165,14 @@
 			<td id="boardInput" colspan="6">
 				<span id="freeBoard"><a href="./list.do">우동맛게시판(${totalCount})</a></span>
 					<form action="./list.do" method="get" id="formTag">	
-						<div>
+						<div id="searchDiv">
 							<select name="searchOption" id="searchOption">
 								<option value="all">제목+내용</option>
 								<option value="title">제목</option>  
 								<option value="writer">작성자</option>
 							</select>
 							<input type="text" name="keyword" value="${keyword}">
-							<input type="submit" value="검색" style="display: none;">
+							<input type="submit" value="검색">
 							
 							<input type="hidden" id="searchOptionVal" value="${searchOption}">
 						</div>
@@ -180,7 +192,7 @@
 			<tr>
 				<td>${boardVo.rownum}</td>
 				<td class="boardTitle">
-					<a href='./one.do?boardNo=${boardVo.boardNo}'>${boardVo.title} [${boardVo.commentCount}]</a>
+					<a href='./one.do?boardNo=${boardVo.boardNo}&boardListCurPage=${curPage}'>${boardVo.title} [${boardVo.commentCount}]</a>
 				</td>
 				<td>${boardVo.nickname}</td>
 				<td><fmt:formatDate value="${boardVo.createDate}" 

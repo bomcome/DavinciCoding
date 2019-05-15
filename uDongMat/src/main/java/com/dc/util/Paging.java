@@ -27,6 +27,9 @@ public class Paging implements Serializable{
 	private int blockEnd;    // 블록의 끝번호
 	
 	// 생성자
+	
+	
+	
 	public Paging(int count, int curPage) {
 		this.curBlock = 1;
 		this.curPage = curPage;
@@ -36,6 +39,20 @@ public class Paging implements Serializable{
 		setBlockRange();
 	}
 	
+	public Paging() {
+		super();
+	}
+
+	
+	
+	public static final int getPageScale() {
+		return PAGE_SCALE;
+	}
+
+	public static final int getBlockScale() {
+		return BLOCK_SCALE;
+	}
+
 	public void setPageRange(){
 		pageBegin = (curPage - 1) * PAGE_SCALE + 1;
 		pageEnd = pageBegin + PAGE_SCALE - 1;

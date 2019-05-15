@@ -47,7 +47,7 @@
 	}
 </style>
 <script type="text/javascript" 
-	src="/springHome/resources/js/jquery-3.3.1.js"></script>
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(){
@@ -132,7 +132,7 @@
 						<input type="hidden" id="fileIdx_${obj.index}" name="fileIdx" value="${row.IDX}">
 						<img alt="image not found" style="width: 130px; height: auto;"
 							 src="<c:url value='/img/${row.STORED_FILE_NAME}'/>"/><br>
-						${row.ORIGINAL_FILE_NAME} (${row.FILE_SIZE}kb) 
+						${row.ORIGINAL_FILE_NAME} (${row.FILE_SIZE}) 
 						<a href="#this" id="delete_${obj.index}">삭제</a>
 <%-- 						<button onclick="deleteFile(${obj.index})">파일삭제</button> --%>
 

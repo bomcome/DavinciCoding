@@ -15,7 +15,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.dc.board.dao.BoardDao;
 import com.dc.board.vo.BoardVo;
 import com.dc.board.vo.HitsVo;
-import com.dc.comments.dao.CommentDao;
+import com.dc.comments.service.CommentService;
+import com.dc.recommend.dao.RecommendDao;
 import com.dc.util.FileUtils;
 
 @Service
@@ -25,7 +26,8 @@ public class BoardServiceImpl implements BoardService{
 	private BoardDao boardDao;
 	
 	@Autowired
-	private CommentDao commentDao;
+	private CommentService commentService;
+	
 	
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
@@ -139,7 +141,8 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void boardDelete(int boardNo) throws Exception{
 		// TODO Auto-generated method stub
-		commentDao.commentDeleteWithBoard(boardNo);
+		commentService.commentDeleteWithBoard(boardNo);
+		boardDao.hitsDeleteWithBoard(boardNo);
 		
 		Map<String, Object> tempFileMap = null;
 		tempFileMap = boardDao.fileSelectStoredFileName(boardNo);

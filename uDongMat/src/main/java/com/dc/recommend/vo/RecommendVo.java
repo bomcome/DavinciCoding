@@ -5,6 +5,7 @@ public class RecommendVo {
 	
 	private int recommendNo;
 	private int commentNo;
+	private int commentParentNo;
 	private int boardNo;
 	private int memberNo;
 	
@@ -24,6 +25,7 @@ public class RecommendVo {
 		return recommendNo;
 	}
 
+	
 	public void setRecommendNo(int recommendNo) {
 		this.recommendNo = recommendNo;
 	}
@@ -50,6 +52,16 @@ public class RecommendVo {
 
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	
+	
+
+	public final int getCommentParentNo() {
+		return commentParentNo;
+	}
+
+	public final void setCommentParentNo(int commentParentNo) {
+		this.commentParentNo = commentParentNo;
 	}
 
 	@Override

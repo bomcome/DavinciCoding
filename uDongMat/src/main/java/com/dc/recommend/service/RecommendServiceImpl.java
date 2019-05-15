@@ -67,6 +67,8 @@ public class RecommendServiceImpl implements RecommendService{
 		
 		return recommendDao.commentRecommendSelectOne(map);
 	}
-
-	
+	@Override
+	public void recommendDeleteWithCommentParent(int boardNo) {
+		
+	}
 }

@@ -129,6 +129,11 @@
 /*       float: left; */
    }
    
+   #boardOne #moreViewButton{
+   		width: 1105px;
+      	text-align: center;
+      	margin-left: 380px;
+   }
 </style>
 <script type="text/javascript" 
    src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
@@ -239,16 +244,19 @@ function boardRecommendSubmitFnc(){
          
          <!--       <textarea class="commentContentsTextarea" id="commentContentsTextarea"  -->
          <%--       style="border: none;" cols="82" name="contents" readonly="readonly"><c:out value="${commentVo.contents}" /></textarea> --%>
-         
+        
                <div></div><textarea name='contents' id='contents' readOnly="readonly"  cols="115"><c:out value="${boardVo.contents}" /></textarea>
                <div id="recommendButtonsDiv">
                   <span id="recommendButtonsSpan">
-                  <c:if test="${recommendVo == null}">
+                  <c:if test="${_memberVo_ != null && recommendVo == null}">
                      <button type="button"  onclick="boardRecommendSubmitFnc()" id="recommendAddButton" class= "recommendUpdateButton">추천${boardVo.recommendCount}</button>
                   </c:if>
-                  <c:if test="${recommendVo != null}">
+                  <c:if test="${_memberVo_ != null && recommendVo != null}">
                      
                      <input type="button" id="recommendDeleteButton" class= "recommendUpdateButton" onclick="location.href='../recommend/deleteBoard.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천${boardVo.recommendCount}">
+                  </c:if>
+                  <c:if test="${_memberVo_ == null}">
+                     <input type="button" onclick="location.href='../auth/login.do'" class= "recommendUpdateButton" value="추천${boardVo.recommendCount}">
                   </c:if>
                   </span>
                </div>
@@ -268,18 +276,20 @@ function boardRecommendSubmitFnc(){
       
 <%--       <c:if test="${_memberVo_ != null}"> --%>
          
-<!--          <form action="../recommend/addBoardCtr.do"  method="post" id="boardRecommendForm"> -->
-<%--             <input type="hidden" name='boardNo' value='${boardVo.boardNo}'> --%>
-<%--             <input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>             --%>
-<!--          </form> -->
+         <form action="../recommend/addBoardCtr.do"  method="post" id="boardRecommendForm">
+            <input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
+            <input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>            
+         </form>
          
 <%--       </c:if> --%>
       
 <!--    </span>    -->
 <!--    </div> -->
+
    <div id='buttons'>      
-         <input type="button" onclick='location.href="list.do"' value="목록보기">
+         <input type="button" onclick='location.href="list.do?curPage=${boardListCurPage}"' value="목록보기">
          <c:if test="${_memberVo_.memberNo eq boardVo.memberNo}">
+<%--          	<input type="hidden" name='boardListCurPage' value='${curPage}'> --%>
             <input type="button" onclick="boardUpdateSubmitFnc()" value="수정">
             <input type="button" onclick="location.href='delete.do?boardNo=${boardVo.boardNo}'" value="삭제">
          </c:if>   
@@ -288,10 +298,12 @@ function boardRecommendSubmitFnc(){
    
    <jsp:include page="../comments/commentAddForm.jsp"/>
    <jsp:include page="../comments/commentListView.jsp"/>
-  
-	<input type="button" value="더보기" onclick=myFunction(); id="moreViewButton">
-   
-  
+   <div>
+   		<c:if test="${pageScale * pagingMap.commentPaging.curPage < pagingMap.totalCount}">
+			<input type="button" value="더보기" onclick=myFunction(); id="moreViewButton">
+   		</c:if>
+   </div>
+   <div>
 		<form action="../board/one.do" id="pagingForm" method="get">
 			<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
 			<input type="hidden" id="curPage" name="curPage" 
@@ -303,7 +315,7 @@ function boardRecommendSubmitFnc(){
 			<input type="hidden" id="pageScale" name="pageScale"
 				value="${pageScale}">
 		</form>
-		
+	</div>	
 
    <jsp:include page="../Tail.jsp"/>
    </div>
@@ -311,69 +323,26 @@ function boardRecommendSubmitFnc(){
 </body>
 <script>
 
-// 	window.onscroll = function() {
-		
-// 		globalCnt++;
-		
-// 		var curPageVal = document.getElementById("curPage").value;
-// 		var commentTableArr = document.getElementsByClassName('commentTable');
-// 		var commentArrLength = commentTableArr.length;
-// 		var totalCountVal = document.getElementById('totalCount').value;
-// 		var PAGE_SCALE_Val = document.getElementById('pageScale').value;
-// 		if(PAGE_SCALE_Val * curPageVal < totalCountVal){
-// // 			alert(PAGE_SCALE_Val);
-			
-// 			myFunction();
-			
-// 		}
-		
-// 	};
-	
-	/* function myFunction() {
-		
-// 		var commentTableArr = document.getElementsByClassName('commentTable');
-		var commentDivObj = document.getElementById('commentListContainer');
-		var commentArrLength = commentTableArr.length;
-// 		document.getElementById("curPage").value = Math.floor(commentArrLength / 20);
-// 		var curPage = Math.floor(commentArrLength / 20);
-		var lastCommentTableHeight = commentTableArr[commentArrLength-1].offsetTop;
-		var lastCommentTableHeight2 = commentTableArr[commentArrLength-1].height;
-		var scrollTopHeight = document.documentElement.scrollTop;
-// 		alert("이건 문서: " + document.documentElement.scrollTop);
-// 		alert("태그 위치: " + LastCommentTableHeight);
-
-// 	  if (document.body.scrollTop + document.body.scrollHeight  >= LastCommentTableHeight) {
-// 	    document.getElementById("pagingForm").submit();
-// 	  }
-	} */
 
 	function myFunction() {
 	
-// 		var curPageVal = document.getElementById("curPage").value;
-// 		var scrolledVal = window.scrollY;
-// 		var viewportHeight = window.innerHeight;
-// 		var documentHeight = document.body.clientHeight;
+
 		var curPageVal = document.getElementById("curPage").value;
-		var commentTableArr = document.getElementsByClassName('commentTable');
-		var commentArrLength = commentTableArr.length;
+
 		var totalCountVal = document.getElementById('totalCount').value;
 		var PAGE_SCALE_Val = document.getElementById('pageScale').value;
-		
-		var offset = $("#moreViewButton").offset();
-		
-		var currentScroll = (window.pageYOffset + window.innerHeight) / document.body.clientHeight * 100;
-// 		alert(currentScroll);
+		var buttonObj = document.getElementById('moreViewButton');
+		var buttonHeight = buttonObj.offsetTop;
 		
 		if(PAGE_SCALE_Val * curPageVal < totalCountVal){
-// 			alert("수행된다");
-// 			alert(globalCnt);
-			document.getElementById("currentScroll").value = document.body.clientHeight * (90 / 100);
+
+// 			alert(buttonHeight);
+			document.getElementById("currentScroll").value = buttonHeight;
 			
 			document.getElementById("curPage").value = Number(document.getElementById("curPage").value) + 1;
 			document.getElementById("pagingForm").submit();
 		}
-// 		preScrollYVal = window.scrollY;
-		
+
 	}
 	
 	
