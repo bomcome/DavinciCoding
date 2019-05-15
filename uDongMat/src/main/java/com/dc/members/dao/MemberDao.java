@@ -7,7 +7,9 @@ import com.dc.members.vo.MemberVo;
 
 public interface MemberDao {
 
-	public List<MemberVo> memberSelectList();					//회원 전체보기 
+//	public List<MemberVo> memberSelectList();					//회원 전체보기 
+	public List<MemberVo> memberSelectList(String keyword, int start, int end, String searchOption);
+	public int memberSelectTotalCount(String keyword, String searchOption);
 	
 	public MemberVo memberSelectOne(int memberNo);				//회원 상세보기
 	

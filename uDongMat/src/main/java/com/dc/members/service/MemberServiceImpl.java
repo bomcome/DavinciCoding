@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dc.board.vo.BoardVo;
 import com.dc.members.dao.MemberDao;
 import com.dc.members.vo.MemberVo;
 
@@ -15,13 +16,25 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	public MemberDao memberDao;
 	
+//	@Override
+//	public List<MemberVo> memberSelectList() {
+//		// TODO Auto-generated method stub
+//		
+//		return memberDao.memberSelectList();
+//	}
+	
 	@Override
-	public List<MemberVo> memberSelectList() {
+	public List<MemberVo> memberSelectList(String keyword, int start, int end, String searchOption) {
 		// TODO Auto-generated method stub
-		
-		return memberDao.memberSelectList();
+		return memberDao.memberSelectList(keyword, start, end, searchOption);
 	}
-
+	
+	@Override
+	public int memberSelectTotalCount(String keyword, String searchOption) {
+		// TODO Auto-generated method stub
+		return memberDao.memberSelectTotalCount(keyword, searchOption);
+	}
+	
 	@Override
 	public MemberVo memberSelectOne(int memberNo) {
 		// TODO Auto-generated method stub

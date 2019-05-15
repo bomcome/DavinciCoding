@@ -46,6 +46,8 @@
 
 </style>
 
+
+
 <script type="text/javascript">
 
 	function goPage(pageNumber){
@@ -59,14 +61,14 @@
 	}
 	
 	$(document).ready(function(){
+		
 		var curPageDoc = $('#curPage');
 		var id = '#pageButton' + curPageDoc.val();
 		
 		$(id).addClass('active');
 	});
-
-
 	
+
 </script>
 <div id="paging"> 
 	<nav>
@@ -74,13 +76,13 @@
 		<!--ㄷ 한자 적용  -->
 			<li>
 				<a href="#" 
-				onclick="goPage(${pagingMap.boardPaging.prevPage});">
+				onclick="goPage(${pagingMap.memberPaging.prevPage});">
 				<span>이전</span>
 				</a>
 			</li>
 			
-			<c:forEach var="num" begin="${pagingMap.boardPaging.blockBegin}"
-				end="${pagingMap.boardPaging.blockEnd}">
+			<c:forEach var="num" begin="${pagingMap.memberPaging.blockBegin}"
+				end="${pagingMap.memberPaging.blockEnd}">
 				
 				<li id="pageButton${num}">
 					<a href="#" onclick="goPage(${num});">
@@ -91,9 +93,13 @@
 			</c:forEach>
 
 			<li><a href="#" 
-				onclick="goPage(${pagingMap.boardPaging.nextPage});">
+				onclick="goPage(${pagingMap.memberPaging.nextPage});">
 				<span>다음</span></a>
 			</li>
 		</ul>
 	</nav>
-</div>
+</div>	
+	<form action="./list.do" id="pagingForm" method="post">
+		<input type="hidden" id="curPage" name="curPage" 
+			value="${pagingMap.memberPaging.curPage}">
+	</form>
