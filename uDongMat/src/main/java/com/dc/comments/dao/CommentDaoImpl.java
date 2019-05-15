@@ -72,4 +72,10 @@ public class CommentDaoImpl implements CommentDao{
 		// TODO Auto-generated method stub
 		sqlSession.delete(namespace +"commentDeleteWithBoard", boardNo);
 	}
+
+	@Override
+	public void commentDeleteWithMember(int memberNo) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace +"commentDeleteWithMember", memberNo);
+	}
 }

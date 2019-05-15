@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.dc.board.dao.BoardDao;
 import com.dc.board.vo.BoardVo;
 import com.dc.board.vo.HitsVo;
-import com.dc.comments.service.CommentService;
+import com.dc.comments.dao.CommentDao;
 import com.dc.recommend.dao.RecommendDao;
 import com.dc.util.FileUtils;
 
@@ -26,8 +26,10 @@ public class BoardServiceImpl implements BoardService{
 	private BoardDao boardDao;
 	
 	@Autowired
-	private CommentService commentService;
+	private CommentDao commentDao;
 	
+	@Autowired
+	private RecommendDao recommendDao;
 	
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
@@ -141,9 +143,10 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void boardDelete(int boardNo) throws Exception{
 		// TODO Auto-generated method stub
-		commentService.commentDeleteWithBoard(boardNo);
+		recommendDao.recommendDeleteWithCommentParent(boardNo);
+		commentDao.commentDeleteWithBoard(boardNo);
 		boardDao.hitsDeleteWithBoard(boardNo);
-		
+		recommendDao.recommendDeleteWithBoard(boardNo);
 		Map<String, Object> tempFileMap = null;
 		tempFileMap = boardDao.fileSelectStoredFileName(boardNo);
 		
@@ -187,5 +190,14 @@ public class BoardServiceImpl implements BoardService{
 	public int boardCommentCount(int boardNo) {
 		// TODO Auto-generated method stub
 		return boardDao.boardCommentCount(boardNo);
+	}
+
+	@Override
+	public void boardDeleteWithMember(int memberNo) {
+		// TODO Auto-generated method stub
+		recommendDao.recommendDeleteWithMember(memberNo);
+		boardDao.hitsDeleteWithMember(memberNo);
+		commentDao.commentDeleteWithMember(memberNo);
+		boardDao.boardDeleteWithMember(memberNo);
 	}
 }

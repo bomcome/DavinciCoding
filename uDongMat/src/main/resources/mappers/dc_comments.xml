@@ -172,6 +172,11 @@
 		WHERE BOARD_NO = #{boardNo}
 	</delete>
 	
+	<delete id="commentDeleteWithMember" parameterType="int"> 
+		DELETE FROM COMMENTS
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	
 	
 	<select id="commentSelectTotalCount" parameterType="int"
 		resultType="int">

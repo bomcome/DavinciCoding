@@ -123,10 +123,17 @@
 	
 	#boardListContainer #searchDiv #searchOption{
 		height: 23px;
-		margin-bottom: 0px;
+/* 		border-bottom: 2px; */
 	}
 	#boardListContainer #searchDiv{
 		height: 23px;
+	}
+	
+	#boardListContainer #boardListViewDivForHeight{
+		height: 648px;
+	}
+	#boardListContainer #boardTableDiv {
+		height: 500px;
 	}
 </style>
 
@@ -160,6 +167,8 @@
  	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	
+	<div id="boardListViewDivForHeight">
+	<div id="boardTableDiv">
 	<table id="board">
 		<tr>
 			<td id="boardInput" colspan="6">
@@ -202,7 +211,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+	</div>
 	<div id="writeButtonsDiv">
 		<span>
 		<c:if test="${_memberVo_ != null}">
@@ -225,6 +234,7 @@
 			<input type="hidden" id="keyword" name="keyword" 
 				value="${keyword}">
 		</form>
+	</div>
 	</div>
 	
 	<jsp:include page="../Tail.jsp"/>

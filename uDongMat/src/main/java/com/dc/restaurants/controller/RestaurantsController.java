@@ -122,7 +122,7 @@ public class RestaurantsController {
 		List<RestaurantsFileVo> restaurantsList = restaurantsService.restaurantsSelectListOrder(order, end);
 		
 		
-		
+		 
 		Map<String, Object> pagingMap = new HashMap<>();
 	    pagingMap.put("totalCount", totalCount);
 	    pagingMap.put("restaurantPaging", restaurantPaging);

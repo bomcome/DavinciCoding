@@ -213,6 +213,11 @@
 		VALUES(#{hitsNo}, #{boardNo}, #{memberNo}, SYSDATE)
 	</insert>
 	
+	<delete id="boardDeleteWithMember" parameterType="int"> 
+		DELETE FROM BOARD
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	
 	
 <!-- 	<insert id="hitsInsertOneOther"  -->
 <!-- 		parameterType= "map"  -->
@@ -246,6 +251,10 @@
 		WHERE BOARD_NO = #{boardNo}
 	</delete>
 	
+	<delete id="hitsDeleteWithMember" parameterType="int"> 
+		DELETE FROM HITS
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
 <!-- 	<update id="boardUpdateHits" parameterType="int"> -->
 <!-- 		UPDATE BOARD -->
 <!-- 		<set> -->

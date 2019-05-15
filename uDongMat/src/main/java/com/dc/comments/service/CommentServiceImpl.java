@@ -55,8 +55,9 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public void commentDelete(int commentNo) {
 		// TODO Auto-generated method stub
-		commentDao.commentDelete(commentNo);
 		recommendDao.recommendDeleteWithComment(commentNo);
+		commentDao.commentDelete(commentNo);
+		
 	}
 
 	@Override
@@ -74,7 +75,9 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public void commentDeleteWithBoard(int boardNo) {
 		// TODO Auto-generated method stub
-		commentDao.commentDelete(boardNo);
 		recommendDao.recommendDeleteWithCommentParent(boardNo);
+		commentDao.commentDeleteWithBoard(boardNo);
 	}
+
+	
 }

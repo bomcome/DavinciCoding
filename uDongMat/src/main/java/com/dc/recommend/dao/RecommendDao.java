@@ -15,4 +15,5 @@ public interface RecommendDao {
 	public RecommendVo boardRecommendSelectOne(Map<String, Object> map);
 	public RecommendVo commentRecommendSelectOne(Map<String, Object> map);
 	public void recommendDeleteWithCommentParent(int boardNo);
+	public void recommendDeleteWithMember(int memberNo);
 }
