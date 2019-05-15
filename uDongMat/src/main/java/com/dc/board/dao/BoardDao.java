@@ -20,12 +20,15 @@ public interface BoardDao {
 	public void boardUpdateRecommendDown(int boardNo);
 	
 	public void boardUpdateHitsUp(int boardNo);
+	public void boardDeleteWithMember(int memberNo);
+	
 	
 //	public void hitsInsertOne(HitsVo hitsVo);
 	public void hitsInsertOne(Map<String, Object> map);
 //	public void hitsInsertOneOther(Map<String, Object> map);
 	
 	public void hitsDeleteWithBoard(int boardNo);
+	public void hitsDeleteWithMember(int memberNo);
 	
 	public void hitsUpdateDate(int hitsNo);
 	

@@ -16,7 +16,7 @@ public interface BoardService {
 	public void boardUpdateOne(BoardVo boardVo, MultipartHttpServletRequest multipartHttpServletRequest
 			, int fileIdx)throws Exception;
 	public void boardDelete(int boardNo) throws Exception;
-	
+	public void boardDeleteWithMember(int memberNo);
 //	public int boardTotalCount();
 	
 	public int boardCommentCount(int boardNo);

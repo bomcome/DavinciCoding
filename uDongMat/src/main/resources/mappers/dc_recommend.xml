@@ -28,6 +28,10 @@
 		AND MEMBER_NO = #{memberNo}
 	</select>
 	
+	<delete id="recommendDeleteWithMember" parameterType="int"> 
+		DELETE FROM RECOMMEND
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
 	
 	
 	<insert id="recommendInsertOne" 

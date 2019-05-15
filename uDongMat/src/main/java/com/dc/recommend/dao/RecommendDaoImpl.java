@@ -63,5 +63,11 @@ public class RecommendDaoImpl implements RecommendDao{
 		// TODO Auto-generated method stub
 		sqlSession.delete(namespace +"recommendDeleteWithCommentParent", boardNo);
 	}
+
+	@Override
+	public void recommendDeleteWithMember(int memberNo) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace +"recommendDeleteWithMember", memberNo);
+	}
 	
 }

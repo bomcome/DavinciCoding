@@ -16,4 +16,5 @@ public interface CommentDao{
 	public void commentUpdateRecommendUp(int commentNo);
 	public void commentUpdateRecommendDown(int commentNo);
 	public void commentDeleteWithBoard(int boardNo);
+	public void commentDeleteWithMember(int memberNo);
 }

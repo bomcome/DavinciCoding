@@ -150,6 +150,18 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne(namespace + "boardCommentCount", boardNo);
 	}
 
+	@Override
+	public void boardDeleteWithMember(int memberNo) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace +"boardDeleteWithMember", memberNo);
+	}
+
+	@Override
+	public void hitsDeleteWithMember(int memberNo) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace +"hitsDeleteWithMember", memberNo);
+	}
+
 //	@Override
 //	public void hitsInsertOneOther(Map<String, Object> map) {
 //		// TODO Auto-generated method stub
