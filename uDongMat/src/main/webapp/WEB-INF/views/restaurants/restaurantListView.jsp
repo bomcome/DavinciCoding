@@ -160,7 +160,7 @@
 			<div>
 				<div class="board"></div>
 				<div class="category">
-<%-- 					<div>
+					<div>
 					<c:if test="${_memberVo_ != null}">
 						<input type="button" value="맛집등록" onclick="moveToAddFnc();">
 					</c:if>
@@ -171,7 +171,7 @@
 					<div>
 						<a href="../board/list.do">게시판</a>
 					</div>
- --%>
+
 					<div>
 						<form id="orderForm" action="./listOrder.do" method="get">
 							<select id="order" name="order" onchange="orderFnc(this.value);">

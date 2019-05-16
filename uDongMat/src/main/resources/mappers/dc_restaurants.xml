@@ -115,9 +115,9 @@
 		</selectKey>
 		
 		INSERT INTO RESTAURANTS(RESTAURANT_NO, MEMBER_NO, RESTAURANT_NAME, CATEGORY, PHONE
-		, OPERATING_TIME, CLOSING_TIME, CLOSED_DATES, ADDRESS, CONTENTS, MOD_DATE)
+		, OPERATING_TIME, CLOSING_TIME, CLOSED_DATES, ADDRESS, CONTENTS, CRE_DATE, MOD_DATE)
 		VALUES(#{restaurantNo}, #{memberNo}, #{restaurantName}, #{category}, #{phone}
-		, #{operatingTime}, #{closingTime}, #{closedDates}, #{address}, #{contents}, SYSDATE)
+		, #{operatingTime}, #{closingTime}, #{closedDates}, #{address}, #{contents}, SYSDATE, SYSDATE)
 	</insert>
 	
 	<update id="restaurantsUpdate" parameterType="restaurantsVo">
@@ -166,4 +166,8 @@
 		WHERE PARENT_SEQ = #{restaurantNo}
 	</select>
 
+	<delete id="restaurantDeleteWithMember" parameterType="int"> 
+		DELETE FROM RESTAURANTS
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
 </mapper>

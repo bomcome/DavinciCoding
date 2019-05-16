@@ -15,4 +15,6 @@ public interface MenusService {
 	
 	public int menusDelete(int restaurantNo) throws Exception;
 
+	public int menusDeleteMemberNo(int memberNo) throws Exception;
+
 }

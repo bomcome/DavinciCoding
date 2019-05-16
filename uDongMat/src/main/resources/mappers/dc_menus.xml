@@ -6,6 +6,7 @@
 	<resultMap type="com.dc.menus.vo.MenusVo" id="menusResultMap">
 		<id column="MENU_NO" property="menuNo" />
 		<result column="RESTAURANT_NO" property="restaurantNo" />
+		<result column="MEMBER_NO" property="memberNo" />
 		<result column="MENU_NAME" property="menuName" />
 		<result column="PRICE" property="price" />
 		<result column="CRE_DATE" property="createDate" javaType="java.util.Date" />
@@ -22,18 +23,23 @@
 	</select>
 
 	<insert id="menusInsert" parameterType="com.dc.menus.vo.MenusVo">
-		INSERT INTO MENUS(MENU_NO, RESTAURANT_NO, MENU_NAME, PRICE, CRE_DATE)
-		VALUES(MENU_NO_SEQ.NEXTVAL, #{restaurantNo}, #{menuName}, #{price}, SYSDATE)
+		INSERT INTO MENUS(MENU_NO, RESTAURANT_NO, MEMBER_NO, MENU_NAME, PRICE, CRE_DATE, MOD_DATE)
+		VALUES(MENU_NO_SEQ.NEXTVAL, #{restaurantNo}, #{memberNo}, #{menuName}, #{price}, SYSDATE, SYSDATE)
 	</insert>
 	
 	<insert id="menusUpdate" parameterType="com.dc.menus.vo.MenusVo">
-		INSERT INTO MENUS(MENU_NO, RESTAURANT_NO, MENU_NAME, PRICE, CRE_DATE)
-		VALUES(MENU_NO_SEQ.NEXTVAL, #{restaurantNo}, #{menuName}, #{price}, SYSDATE)
+		INSERT INTO MENUS(MENU_NO, RESTAURANT_NO, MEMBER_NO, MENU_NAME, PRICE, CRE_DATE, MOD_DATE)
+		VALUES(MENU_NO_SEQ.NEXTVAL, #{restaurantNo}, #{memberNo}, #{menuName}, #{price}, SYSDATE, SYSDATE)
 	</insert>
 	
 	<delete id="menusDelete" parameterType="int">
 		DELETE FROM MENUS
 		WHERE RESTAURANT_NO = #{restaurantNo}
+	</delete>
+
+	<delete id="menusDeleteMemberNo" parameterType="int">
+		DELETE FROM MENUS
+		WHERE RESTAURANT_NO = #{memberNo}
 	</delete>
 
 </mapper>

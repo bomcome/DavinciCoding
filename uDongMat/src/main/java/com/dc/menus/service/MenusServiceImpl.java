@@ -55,4 +55,11 @@ public class MenusServiceImpl implements MenusService {
 		return menusDao.menusDelete(restaurantNo);
 	}
 
+	@Override
+	public int menusDeleteMemberNo(int memberNo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return menusDao.menusDelete(memberNo);
+	}
+
 }

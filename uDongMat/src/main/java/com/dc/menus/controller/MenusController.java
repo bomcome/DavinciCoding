@@ -45,7 +45,11 @@ public class MenusController {
 	@RequestMapping(value = "/menus/addCtr.do", method = RequestMethod.POST)
 	public String menusAddCtr(HttpServletRequest req, Model model) {
 		log.trace("Welcome MenusController menusAddCtr 신규등록 처리! ");
-
+		
+		RestaurantsVo restaurantsVo = (RestaurantsVo)req.getAttribute("restaurantsVo");
+		
+		int restaurantNo = restaurantsVo.getRestaurantNo(); 
+		
 		try {
 			List<MenusVo> menusVoList = (List<MenusVo>)req.getAttribute("menusVoList");
 			
@@ -57,8 +61,8 @@ public class MenusController {
 			e.printStackTrace();
 		}
 
-//		return "redirect:/restaurants/list.do";
-		return "restaurants/restaurantOneView";
+		return "redirect:/restaurants/listOne.do?restaurantNo="+restaurantNo;
+//		return "restaurants/listOne.do";
 	}
 	
 	@SuppressWarnings("unchecked")

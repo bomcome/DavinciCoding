@@ -197,7 +197,7 @@ public class RestaurantsController {
 			MenusVo menusVo = null;
 
 			for (int i = 0; i < menuName.length; i++) {
-				menusVo = new MenusVo(restaurantsVo.getRestaurantNo(), menuName[i], price[i]);
+				menusVo = new MenusVo(restaurantsVo.getRestaurantNo(), restaurantsVo.getMemberNo(), menuName[i], price[i]);
 				menusVoList.add(menusVo);
 			}
 			
@@ -247,7 +247,7 @@ public class RestaurantsController {
 			MenusVo menusVo = null;
 
 			for (int i = 0; i < menuName.length; i++) {
-				menusVo = new MenusVo(restaurantsVo.getRestaurantNo(), menuName[i], price[i]);
+				menusVo = new MenusVo(restaurantsVo.getRestaurantNo(), restaurantsVo.getMemberNo(), menuName[i], price[i]);
 				menusVoList.add(menusVo);
 			}
 			

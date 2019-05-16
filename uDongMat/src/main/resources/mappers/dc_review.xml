@@ -84,6 +84,10 @@
 		WHERE RESTAURANT_NO = #{restaurantNo}
 	</delete>
 	
+	<delete id="reviewDeleteWithMember" parameterType="int"> 
+		DELETE FROM REVIEW
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
 	
 	<select id="reviewSelectTotalCount" parameterType="int"
 		resultType="int">
