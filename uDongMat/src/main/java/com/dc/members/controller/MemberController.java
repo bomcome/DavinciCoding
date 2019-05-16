@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dc.board.service.BoardService;
+import com.dc.comments.service.CommentService;
 import com.dc.members.service.MemberService;
 import com.dc.members.vo.MemberVo;
+import com.dc.menus.service.MenusService;
+import com.dc.recommend.service.RecommendService;
+import com.dc.restaurants.service.RestaurantsService;
+import com.dc.review.service.ReviewService;
 import com.dc.util.Paging;
 
 @Controller
@@ -246,7 +252,7 @@ public class MemberController {
 	public String memberDelete(int memberNo, Model model,HttpSession session) {
 		log.debug("Welcome MemberController memberDelete" + " 회원삭제 처리! - {}", memberNo);
 
-		try {
+		try {			
 			memberService.memberDelete(memberNo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
