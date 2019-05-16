@@ -13,25 +13,25 @@
  	}
  	
 	#boardListContainer #no {
-		width: 100px;
+		width: 110px;
 	}
 	#boardListContainer .boardTitle{
-		width: 470px;
+		width: 500px;
 		
 	}
 	#boardListContainer #writer{
-		width: 175px;
+		width: 200px;
 	}
 	#boardListContainer #createDate{
-		width: 170px;
+		width: 180px;
 	}
 	
 	#boardListContainer #hitsTd{
-		width: 90px;
+		width: 110px;
 	}
 	
 	#boardListContainer #resommendCountTd{
-		width: 90px;
+		width: 100px;
 	}
 	
 	#boardListContainer td {
@@ -52,8 +52,8 @@
 	}
 	
 	#boardListContainer #board {
-		margin-left: 380px;
-		margin-right: 380px;
+		margin-left: 352px;
+		margin-right: 352px;
 		border-collapse: collapse;
  		
 	}
@@ -111,7 +111,7 @@
 	}
 	
 	#boardListContainer #writeButtonsDiv span{
-		margin-right: 435px;
+		margin-right: 358px;
 	}
 	#boardListContainer .boardTitle a{
 		text-decoration: none;
@@ -130,7 +130,7 @@
 	}
 	
 	#boardListContainer #boardListViewDivForHeight{
-		height: 648px;
+		height: 638px;
 	}
 	#boardListContainer #boardTableDiv {
 		height: 500px;
@@ -163,7 +163,7 @@
 </head>
 <body>
 	<div id=boardListContainer>
-	
+	<jsp:include page="../headerLeftButtons.jsp"/>
  	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	

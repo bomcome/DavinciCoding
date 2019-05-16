@@ -9,7 +9,7 @@
       font-size: 19px;
       font-weight: bold;
       border-bottom: 1px solid #8C8C8C;
-      width: 1105px;
+      width: 1200px;
    }
    
    #commentListContainer table tr td {
@@ -18,7 +18,7 @@
    }
    #commentListContainer table{
       border-bottom: 1px solid #8C8C8C;
-      width: 1105px;
+      width: 1200px;
    }
    #commentListContainer table{
       border-bottom: 1px solid #8C8C8C;
@@ -31,7 +31,7 @@
    }
    #commentListContainer{
       margin-top: 20px;
-      margin-left: 380px;
+      margin-left: 352px;
    }
    #commentListContainer #commentTable{
       
@@ -42,7 +42,7 @@
    
    
    #commentListContainer .commentUpdateContainer .commentUpdateForm #commentContentsUpdate {
-      width: 1020px;
+      width: 1200px;
       resize: none;
    }
    #commentListContainer .commentUpdateContainer {

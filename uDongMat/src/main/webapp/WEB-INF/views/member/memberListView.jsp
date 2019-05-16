@@ -34,6 +34,9 @@
 		border-collapse: collapse;
 	}
 	
+	#memberListViewDiv{
+			height: 622px;
+	}
 	
 
 </style>
@@ -66,11 +69,12 @@
 
 </head>
 <body>
-<div style="width: 1920px;">
 
+<div style="width: 1920px;">
+	<jsp:include page="../headerLeftButtons.jsp"/>
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
-
+<div style="width: 1920px;" id="memberListViewDiv">
 
 <c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">
 
@@ -125,5 +129,6 @@
 	
 </div>
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
+</div>
 </body>
 </html>

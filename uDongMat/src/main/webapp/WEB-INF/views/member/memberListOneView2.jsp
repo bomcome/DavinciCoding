@@ -25,15 +25,20 @@
 		
 </script>
 
+<style type="text/css">
+	#memberListDiv{
+			height: 622px;
+	}
+</style>
+
 </head>
 <body>
-
+	<jsp:include page="../headerLeftButtons.jsp"/>
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 
-	
+	<div id ="memberListDiv">
 	<h1>회원정보</h1>
-
 	<form action="./update.do" method="get">
 		<input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
 		닉네임: <input type="text" name='nickName' id='nickName' value='${memberVo.nickName}' 
@@ -47,7 +52,7 @@
 		<input type="button" value="이전페이지" 
 				onclick="pageMoveListFnc();">
 	</form>
-
+	</div>
 	<%-- <form action="../common/fileDownload.do" method="post">
 		<input type="hidden" id='filePno' name='filePno' value='${fileList[0].PNO}'>
 	</form> --%>

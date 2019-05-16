@@ -166,7 +166,7 @@
 		WHERE PARENT_SEQ = #{restaurantNo}
 	</select>
 
-	<delete id="restaurantDeleteWithMember" parameterType="int"> 
+	<delete id="restaurantDeleteMemberNo" parameterType="int"> 
 		DELETE FROM RESTAURANTS
 		WHERE MEMBER_NO = #{memberNo}
 	</delete>

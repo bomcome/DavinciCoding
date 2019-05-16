@@ -5,7 +5,7 @@
 <style type="text/css">
 	
 	#header2 {
-		width: 800px;
+		width: 850px;
 		margin-bottom: 40px;
 /*  		padding-right: 350px;  */
 		padding-top:30px;
@@ -14,7 +14,7 @@
 	} 
 	
 	#header2 #right{
-		margin-right: 380px;	
+		margin-right: 352px;	
 		padding-top: 35px;
 	}
 	

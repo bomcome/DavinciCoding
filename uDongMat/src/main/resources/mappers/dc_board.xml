@@ -53,7 +53,8 @@
 					, M.NICKNAME AS NICKNAME, B.CRE_DATE AS CRE_DATE
 					, B.RECOMMEND_COUNT AS RECOMMEND_COUNT, B.HITS AS HITS
 				      FROM BOARD B, MEMBERS M
-				      WHERE B.MEMBER_NO = M.MEMBER_NO)
+				      WHERE B.MEMBER_NO = M.MEMBER_NO
+				      ORDER BY RECOMMEND_COUNT DESC, BOARD_NO DESC)
 				<choose>
 					<when test="searchOption == 'title'">
 						WHERE TITLE LIKE '%'||#{keyword}||'%'
@@ -70,8 +71,6 @@
 						OR NICKNAME LIKE '%'||#{keyword}||'%'
                     </otherwise>
                 </choose>
-				
-				ORDER BY RECOMMEND_COUNT DESC, BOARD_NO DESC
 		    )
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>

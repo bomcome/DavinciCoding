@@ -48,10 +48,17 @@
 	    -webkit-appearance: textfield;
 	    font: 400 13.3333px Arial;
 	}
+	
+	#member{
+		height: 622px;
+	}
+	
+	
 </style>
 </head>
 <body>
 <div style="width: 1920px;">
+	<jsp:include page="../headerLeftButtons.jsp"/>
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />

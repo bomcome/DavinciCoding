@@ -28,6 +28,8 @@ public interface RestaurantsDao {
 	
 	public int restaurantsTotalCountOrder(Map<String, Object> map);
 	
+	public void restaurantDeleteMemberNo(int memberNo);
+	
 	// 파일첨부
 	public void insertFile(Map<String, Object> map);
 

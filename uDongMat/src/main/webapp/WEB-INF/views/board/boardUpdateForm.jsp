@@ -108,7 +108,7 @@
 <body>
 	
 	<div id="boardUpdate">
-	
+	<jsp:include page="../headerLeftButtons.jsp"/>
 	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	

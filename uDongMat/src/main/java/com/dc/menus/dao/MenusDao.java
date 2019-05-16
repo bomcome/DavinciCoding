@@ -14,6 +14,6 @@ public interface MenusDao {
 	
 	public int menusDelete(int restaurantNo) throws Exception;
 
-	public int menusDeleteMemberNo(int memberNo) throws Exception;
+	public void menusDeleteMemberNo(int memberNo);
 
 }

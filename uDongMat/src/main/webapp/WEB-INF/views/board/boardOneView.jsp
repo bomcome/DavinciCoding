@@ -25,7 +25,7 @@
    }
    
    #boardOne #inputForm {
-      margin-left: 380px;
+      margin-left: 352px;
       width: 1920px;
    }
    
@@ -34,7 +34,7 @@
       font-weight: bold;
       font-size: 25px;
 /*        height: 33px;  */
-       width: 1109px;
+       width: 1200px;
        
    }
    
@@ -49,9 +49,9 @@
    }
    
    #boardOne #buttons {
-      width: 1105px;
+      width: 1200px;
       text-align: center;
-      margin-left: 380px;
+      margin-left: 352px;
    }
    
    #boardOne{
@@ -70,7 +70,7 @@
    }
    #boardOne #inputForm #right{
    clear: both;
-   width: 1109px;
+   width: 1200px;
    border-bottom: 1px solid #8C8C8C;
    margin-bottom: 10px;
 /*    margin-bottom: 15px; */
@@ -113,7 +113,7 @@
    
    #boardOne #inputForm > table{
        border-bottom: 1px solid #8C8C8C;
-      width: 1109px;
+      width: 1200px;
       margin-bottom: 10px;
    }
    
@@ -130,9 +130,9 @@
    }
    
    #boardOne #moreViewButton{
-   		width: 1105px;
+   		width: 1200px;
       	text-align: center;
-      	margin-left: 380px;
+      	margin-left: 352px;
    }
 </style>
 <script type="text/javascript" 
@@ -206,6 +206,7 @@ function boardRecommendSubmitFnc(){
 </head>
 <body>
    <div id="boardOne">
+   <jsp:include page="../headerLeftButtons.jsp"/>
    <jsp:include page="../headerTitle.jsp"/> 
    <jsp:include page="../headerButtons.jsp"/>
 
@@ -290,9 +291,14 @@ function boardRecommendSubmitFnc(){
          <input type="button" onclick='location.href="list.do?curPage=${boardListCurPage}"' value="목록보기">
          <c:if test="${_memberVo_.memberNo eq boardVo.memberNo}">
 <%--          	<input type="hidden" name='boardListCurPage' value='${curPage}'> --%>
-            <input type="button" onclick="boardUpdateSubmitFnc()" value="수정">
-            <input type="button" onclick="location.href='delete.do?boardNo=${boardVo.boardNo}'" value="삭제">
-         </c:if>   
+			<input type="button" onclick="boardUpdateSubmitFnc()" value="수정">	
+         </c:if>
+         <c:if test="${_memberVo_.memberNo eq boardVo.memberNo || _memberVo_.memberGrade == 'admin'}">
+         	<input type="button" onclick="location.href='delete.do?boardNo=${boardVo.boardNo}'" value="삭제">
+         </c:if>
+            
+       
+            
    <!--       <button type="button" onclick="">답글쓰기</button> -->
       </div>
    

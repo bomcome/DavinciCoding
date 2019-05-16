@@ -8,6 +8,15 @@
 <meta charset="UTF-8">
 <title>회원 등록</title>
 
+<style type="text/css">
+	#member{
+			height: 622px;
+		}
+	#loginHeaderDiv {
+			width:1000px;
+			margin-left: 465px;
+		}
+</style>
 <script type="text/javascript" 
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 
@@ -221,10 +230,11 @@
 </head>
 <body>
 <div style="width: 1920px;">
-	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
-	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+	<div id="loginHeaderDiv">
+		<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	</div>
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
-
+	<div style="clear:both;"></div>
 
 	<div id="member">
 		<form action="./addCtr.do" id="addForm"method="post" style="font-weight: bold;"
