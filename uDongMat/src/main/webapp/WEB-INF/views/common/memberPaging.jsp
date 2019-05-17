@@ -99,7 +99,7 @@
       </ul>
    </nav>
 </div>   
-   <form action="./list.do" id="pagingForm" method="post">
-      <input type="hidden" id="curPage" name="curPage" 
-         value="${pagingMap.memberPaging.curPage}">
-   </form>
+<!--    <form action="./list.do" id="pagingForm" method="post"> -->
+<!--       <input type="hidden" id="curPage" name="curPage"  -->
+<%--          value="${pagingMap.memberPaging.curPage}"> --%>
+<!--    </form> -->

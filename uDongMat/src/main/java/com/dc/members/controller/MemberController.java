@@ -52,7 +52,7 @@ public class MemberController {
 			, method= {RequestMethod.GET, RequestMethod.POST})
 	public String memberList(
 			@RequestParam(defaultValue ="1") int curPage,
-			@RequestParam(defaultValue ="title") String searchOption,
+			@RequestParam(defaultValue ="email") String searchOption,
 			@RequestParam(defaultValue ="") String keyword,
 			Model model) {
 		
@@ -60,9 +60,11 @@ public class MemberController {
 		log.debug(": {}", searchOption);
 		log.debug(": {}", keyword);
 		
+		System.out.println("searchOption" + searchOption);
+		System.out.println("keyword" + keyword);
 		int totalCount = 
-				memberService.memberSelectTotalCount(searchOption, keyword);
-		
+				memberService.memberSelectTotalCount(keyword, searchOption);
+		System.out.println(totalCount);
 		Paging memberPaging = new Paging(totalCount, curPage);
 		int start = memberPaging.getPageBegin();
 		int end = memberPaging.getPageEnd();

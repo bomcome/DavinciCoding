@@ -246,6 +246,8 @@
                      </span>
 	                     <c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">
 	                        <input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${commentVo.rowNum});">
+	                     </c:if>
+	                     <c:if test="${_memberVo_.memberNo eq boardVo.memberNo || _memberVo_.memberGrade == 'admin'}">
 	                        <button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
 	                     </c:if>
 	                     <c:if test="${_memberVo_ != null}">
@@ -256,7 +258,7 @@
 	                     </c:if>
                      </span>
                      <span class="commentRecommendButtonsSpan">
-                        <c:if test="${_memberVo_ != null}">
+                        <c:if test="${_memberVo_ != null && _memberVo_.memberGrade == 'member'}">
                            
                            <form action="../recommend/addCommentCtr.do" method="post">
                            		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
