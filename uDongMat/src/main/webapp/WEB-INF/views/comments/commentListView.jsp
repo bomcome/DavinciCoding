@@ -250,7 +250,7 @@
 	                     <c:if test="${_memberVo_.memberNo eq boardVo.memberNo || _memberVo_.memberGrade == 'admin'}">
 	                        <button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
 	                     </c:if>
-	                     <c:if test="${_memberVo_ != null}">
+	                     <c:if test="${_memberVo_ != null && _memberVo_.memberGrade == 'member'}">
 	                        <input class="cocommentButton" type="button" value="답글" onclick="cocommentAddFnc(${commentVo.rowNum});">
 	                     </c:if>
 	                     <c:if test="${_memberVo_ == null}">

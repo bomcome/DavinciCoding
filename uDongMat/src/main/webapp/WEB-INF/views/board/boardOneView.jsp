@@ -185,8 +185,8 @@ window.onload = function(){
 //     boardTextareaObj.style.height = (lineCount * 19) + "px";
 //     alert(boardTextareaObj.cols);   
 //  		alert(fileObj.value);
- 		if(lineCount < 14 && fileObj.value == "[]"){
- 		 boardTextareaObj.style.height = "266px";
+ 		if(lineCount < 16 && fileObj.value == "[]"){
+ 		 boardTextareaObj.style.height = "304px";
  		}else{
  		 boardTextareaObj.style.height = (lineCount * 19) + "px";
  		}
