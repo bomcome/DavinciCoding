@@ -35,7 +35,7 @@
 					SELECT MEMBER_NO, EMAIL, NICKNAME, CRE_DATE
 					FROM MEMBERS
 					<choose>
-						<when test="searchOption == 'title'">
+						<when test="searchOption == 'email'">
 							WHERE EMAIL LIKE '%'||#{keyword}||'%'
 						</when>
                     	<otherwise>
@@ -53,7 +53,7 @@
 		SELECT COUNT(*)
 		FROM MEMBERS
 		<choose>
-			<when test="searchOption == 'title'">
+			<when test="searchOption == 'email'">
 				WHERE EMAIL LIKE '%'||#{keyword}||'%'
 			</when>
 			<otherwise>

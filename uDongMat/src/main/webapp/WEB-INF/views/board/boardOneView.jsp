@@ -201,6 +201,21 @@ function boardRecommendSubmitFnc(){
    var boardRecommendFormObj = document.getElementById('boardRecommendForm');
    boardRecommendFormObj.submit();
 }
+
+function deleteSubmitFnc(boardNo){
+	
+	var r = confirm("게시글을 삭제하시겠습니까?")
+	
+	//second if문 start
+	if(r == true){
+		location.href='delete.do?boardNo=' + boardNo;
+	} 
+	else{
+		return;
+	}
+	
+	
+}
 </script>
 <title>Insert title here</title>
 </head>
@@ -249,10 +264,10 @@ function boardRecommendSubmitFnc(){
                <div></div><textarea name='contents' id='contents' readOnly="readonly"  cols="115"><c:out value="${boardVo.contents}" /></textarea>
                <div id="recommendButtonsDiv">
                   <span id="recommendButtonsSpan">
-                  <c:if test="${_memberVo_ != null && recommendVo == null}">
+                  <c:if test="${_memberVo_ != null && recommendVo == null && _memberVo_.memberGrade == 'member'}">
                      <button type="button"  onclick="boardRecommendSubmitFnc()" id="recommendAddButton" class= "recommendUpdateButton">추천${boardVo.recommendCount}</button>
                   </c:if>
-                  <c:if test="${_memberVo_ != null && recommendVo != null}">
+                  <c:if test="${_memberVo_ != null && recommendVo != null && _memberVo_.memberGrade == 'member'}">
                      
                      <input type="button" id="recommendDeleteButton" class= "recommendUpdateButton" onclick="location.href='../recommend/deleteBoard.do?boardNo=${boardVo.boardNo}&memberNo=${_memberVo_.memberNo}'" value="추천${boardVo.recommendCount}">
                   </c:if>
@@ -291,10 +306,10 @@ function boardRecommendSubmitFnc(){
          <input type="button" onclick='location.href="list.do?curPage=${boardListCurPage}"' value="목록보기">
          <c:if test="${_memberVo_.memberNo eq boardVo.memberNo}">
 <%--          	<input type="hidden" name='boardListCurPage' value='${curPage}'> --%>
-			<input type="button" onclick="boardUpdateSubmitFnc()" value="수정">	
+			<input type="button" onclick="boardUpdateSubmitFnc();" value="수정">	
          </c:if>
          <c:if test="${_memberVo_.memberNo eq boardVo.memberNo || _memberVo_.memberGrade == 'admin'}">
-         	<input type="button" onclick="location.href='delete.do?boardNo=${boardVo.boardNo}'" value="삭제">
+         	<input type="button" onclick="deleteSubmitFnc(${boardVo.boardNo});" value="삭제">
          </c:if>
             
        
