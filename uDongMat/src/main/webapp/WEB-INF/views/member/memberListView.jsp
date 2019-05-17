@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -7,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
+
    table{
       width: 1200px;;
       margin: auto;
@@ -37,10 +37,40 @@
    #memberListViewDiv{
 		height: 639px;
 	}
-   
 
 </style>
 <title>회원 목록</title>
+
+<script type="text/javascript"
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var searchOptionInputObj = document.getElementById('searchOptionVal');
+
+		var searchOptionVal = searchOptionInputObj.value;
+
+		var selectObj = document.getElementById('searchOption');
+
+		var optionsArr = selectObj.options;
+
+		for (var i = 0; i < optionsArr.length; i++) {
+
+			//          alert(optionsArr[0].value);
+
+			if (optionsArr[i].value == searchOptionVal) {
+
+				optionsArr[i].selected = 'selected';
+
+				break;
+
+			}
+
+		}
+
+	});
+</script>
+
 
 <script type="text/javascript" 
    src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
@@ -67,14 +97,18 @@
    });
 </script>
 
+
 </head>
 <body>
+
 <div style="width: 1920px;">
 
    <jsp:include page="/WEB-INF/views/headerTitle.jsp" />
    <jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 
 <div id="memberListViewDiv">
+
+
 <c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">
 
 
@@ -137,5 +171,6 @@
  </div>  
 </div>
    <jsp:include page="/WEB-INF/views/Tail.jsp" />
+
 </body>
 </html>
