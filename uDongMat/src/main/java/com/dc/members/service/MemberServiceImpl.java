@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dc.board.service.BoardService;
 import com.dc.members.dao.MemberDao;
@@ -69,7 +70,8 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.memberInsertOne(memberVo);
 	}
-
+	
+	@Transactional
 	@Override
 	public int memberDelete(int memberNo) {
 		// TODO Auto-generated method stub
