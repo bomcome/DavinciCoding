@@ -17,6 +17,9 @@
 	function pageMoveListFnc(){
 		location.href = "../restaurants/list.do";
 	}
+	function pageMoveMemberListFnc(){
+		location.href = "../member/list.do";
+	}
 	
 	function pageMoveDeleteFnc(){
 			
@@ -107,12 +110,21 @@
 					</ul>
 				</div>
 			</c:if>	
+			
+			<c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">
+				<div>
+					<ul>
+						<li><input type="button" class="memberInput" value="회원목록" onclick="pageMoveMemberListFnc();">
+					</ul>
+				</div>
+			</c:if>	
 		
 			<div>
 				<ul>
 					<li><input type="button" class="memberInput" value="메인화면"  onclick="pageMoveListFnc();">
 				</ul>
 			</div>
+			
 
 			<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">	
 			<hr>
