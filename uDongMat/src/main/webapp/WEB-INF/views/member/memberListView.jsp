@@ -91,7 +91,6 @@
       </form>
    </div>
 
-<<<<<<< HEAD
 	<table>
 		<tr>
 			<th>번호</th><th>회원이름</th>
@@ -129,38 +128,6 @@
 	
 	<input type="hidden" id="searchOptionVal" value="${searchOption}">
 	
-=======
-   <table>
-      <tr>
-         <th>번호</th><th>회원이름</th>
-         <th>이메일</th><th>가입일</th>
-         <th>삭제</th>
-      </tr>
-   <c:forEach var="memberVo" items="${memberList}">
-      <tr>
-         <td>${memberVo.rownum}</td>
-         <td>
-            <a href='./listOne.do?memberNo=${memberVo.memberNo}'>${memberVo.nickName}</a>
-         </td>
-         <td>${memberVo.email}</td>
-         <td>
-            <fmt:formatDate value="${memberVo.createDate}"
-               pattern="yyyy년 MM월 dd일 hh시 mm분"/>
-         </td>
-         <td>
-            <a href='./deleteCtr.do?memberNo=${memberVo.memberNo}'>[삭제]</a>
-         </td>
-      </tr>
-   </c:forEach>
-   </table>
-   
-   <jsp:include page="/WEB-INF/views/common/memberPaging.jsp">
-      <jsp:param value="${pagingMap}" name="pagingMap"/>
-   </jsp:include>
-   
-   <input type="hidden" id="searchOptionVal" value="${searchOption}">
-   
->>>>>>> branch 'master' of https://github.com/hibaobab/davincicoding.git
 </c:if>
 <c:if test="${sessionScope._memberVo_.memberGrade != 'admin'}">
    해커는꺼져라

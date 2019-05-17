@@ -34,7 +34,7 @@
 	
 </style>
 </head>
-<body>
+<body style="overflow-x:hidden">
 
 <div id="loginHeaderDiv">
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />

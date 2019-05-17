@@ -155,7 +155,7 @@
 	}
 </style>
 </head>
-<body>
+<body style="overflow-x:hidden">
 <div style="width: 1920px;">
 	<jsp:include page="../headerLeftButtons.jsp"/> 
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
