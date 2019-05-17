@@ -47,12 +47,18 @@
 		var contentsVal = contentsObj.value;
 		
 		var formObj = document.getElementById('inputForm');
-		
+		alert(titleVal.length);
+		alert(contentsVal.length);
 		if(titleVal == ''){	
+			alert("제목을 입력하세요.");
 			titleObj.focus();
 		}else if(contentsVal == ''){
+			alert("내용을 입력하세요.");
 			contentsObj.focus();
-		}else{
+		}else if(titleVal.length > 20){
+			alert("제목은 20글자 이하로 입력하세요.");
+		}
+		else{
 			formObj.submit();
 		}
 	

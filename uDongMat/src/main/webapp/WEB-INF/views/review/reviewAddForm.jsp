@@ -3,18 +3,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <style type="text/css">
-	#commentAddContainer #commentAddForm #commentContents {
-		width: 1108px;
-		resize: none;
+	#commentContents {
+		width: 1200px;
+ 		border: 1px solid gray;
 	}
+	
 	#commentAddContainer {
-		margin-top: 0px;
-		margin-left: 380px;
+		width: 1200px;
+		margin-top: 50px;
+/* 		border: 1px solid red; */
 	}
+	
 	#commentAddLetter {
-		margin-top: 15px;
-		font-size: 20px;
+		display:table-cell;
+		text-align:center;
+		vertical-align:middle;
+		width: 1200px;
+		height: 50px;
+		color: black;
+		font-size: 18px;
 		font-weight: bold;
+		background-color: #ededed;
+	}
+
+	.button input .button button{
+		width: 300px;
+		height: 40px;
+		margin-left: 35px;
+		margin-right: 35px;
 	}
 </style>
 <script type="text/javascript">
@@ -37,7 +53,7 @@
 
 
 		<div id="commentAddContainer">
-			<div id="commentAddLetter">댓글쓰기</div>
+			<div id="commentAddLetter">리 뷰</div>
 			<form id="commentAddForm" action="../review/addCtr.do" method="post">
 				<input type="hidden" id="boardNo" class="boardNo"
 					name="restaurantNo" value="${restaurantsVo.restaurantNo}"> <input
@@ -45,12 +61,13 @@
 					value="${_memberVo_.memberNo}">
 				<textarea id="commentContents" class="contents" name="contents"
 					rows="5"></textarea>
-				<div>
+				<div class="button">
 					<c:if test="${_memberVo_ != null}">
 						<input type="button" onclick="commentRegisterFnc();" value="등록">
 					</c:if>
 					<c:if test="${_memberVo_ == null}">
-						<button type="button" onclick="location.href='../auth/login.do'">등록</button>
+						<input type="button" onclick="location.href='../auth/login.do'" value="등록">
+<!-- 						<button type="button" onclick="location.href='../auth/login.do'">등록</button> -->
 					</c:if>
 				</div>
 			</form>

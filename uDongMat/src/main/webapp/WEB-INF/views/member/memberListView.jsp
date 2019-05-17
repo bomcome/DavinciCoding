@@ -41,37 +41,6 @@
 </style>
 <title>회원 목록</title>
 
-<script type="text/javascript"
-	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-
-		var searchOptionInputObj = document.getElementById('searchOptionVal');
-
-		var searchOptionVal = searchOptionInputObj.value;
-
-		var selectObj = document.getElementById('searchOption');
-
-		var optionsArr = selectObj.options;
-
-		for (var i = 0; i < optionsArr.length; i++) {
-
-			//          alert(optionsArr[0].value);
-
-			if (optionsArr[i].value == searchOptionVal) {
-
-				optionsArr[i].selected = 'selected';
-
-				break;
-
-			}
-
-		}
-
-	});
-</script>
-
-
 <script type="text/javascript" 
    src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
    

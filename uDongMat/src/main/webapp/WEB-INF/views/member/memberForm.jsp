@@ -49,6 +49,8 @@
 	       var passwordObj = $('#password').val();
 	       var passwordChkObj = $('#passwordChk').val();
 	       
+	       nickNameVal.value.length < 4 || nickNameVal.value.length > 12
+	       
 	       var successMsg = "비밀번호가 일치하지 않습니다.";
 	       var failMsg = "";
 	          
@@ -121,14 +123,20 @@
 			
 			return;
 		}
-		else if(nickNameVal.value.length < 1){
-			alert("닉네임은 2글자 이상 입력해야 합니다.");;
-			emailVal.focus();
+		else if(nickNameVal.value.length < 2 || nickNameVal.value.length > 8){
+			alert("닉네임은 2글자 이상 \n8자 이하로 입력해야 합니다.");;
+			nickNameVal.focus();
 			
 			return
 		}
 		else if (passwordVal.value == '') {
 			alert('비밀번호를 입력하세요!');
+			passwordVal.focus();
+			
+			return;
+		}
+		else if(passwordVal.value.length < 4 || passwordVal.value.length > 12){
+			alert('비밀번호을 4글자 이상 \n12자 이하로 입력해야 합니다.');
 			passwordVal.focus();
 			
 			return;

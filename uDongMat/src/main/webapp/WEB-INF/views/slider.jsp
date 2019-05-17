@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 <style>
 
 * { margin: 0; padding: 0; }
@@ -14,7 +9,6 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 .bxslider li { list-style: none;}
 
 </style>
-<title>Insert title here</title>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -36,20 +30,16 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 	});
 </script>
 
-</head>
-<body>
-	<div id="slider">
-		<ul class="bxslider">
-			<li><a href="#"><img
-					src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190320/20190320170640073009.jpg"
-					alt="" title="이미지1"></a></li>
-			<li><a href="#"><img
-					src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190320/20190320170604808007.jpg"
-					alt="" title="이미지2"></a></li>
-			<li><a href="#"><img
-					src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190430/20190430095353312027.jpg"
-					alt="" title="이미지3"></a></li>
-		</ul>
-	</div>
-</body>
-</html>
+<div id="slider">
+	<ul class="bxslider">
+		<li><a href="#"><img
+				src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190320/20190320170640073009.jpg"
+				alt="" title="이미지1"></a></li>
+		<li><a href="#"><img
+				src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190320/20190320170604808007.jpg"
+				alt="" title="이미지2"></a></li>
+		<li><a href="#"><img
+				src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190430/20190430095353312027.jpg"
+				alt="" title="이미지3"></a></li>
+	</ul>
+</div>

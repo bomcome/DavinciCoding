@@ -4,7 +4,7 @@
 <style type="text/css">
 	#tail #info{
 /* 		margin-left: 500px; */
-		margin-top: 30px;
+		margin-top: 50px;
 		font-size: 13px;
 	}
 	#tail #eng{
@@ -18,15 +18,16 @@
 		color: red;
 	}
 	#tail hr {
-		margin-top: 40px;
+		margin-top: 50px;
 	}
 	#tail {
-		width: 1920px;
-		margin-bottom: 0px;
+		width: 1880px;
+		margin-bottom: 50px;
 		text-align: center;
 	} 
 	
 </style>
+
 <div id="tail">
 	<hr>
 	<div id="info">

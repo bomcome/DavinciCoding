@@ -216,6 +216,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 <body>
 	<div style="width: 1920px;">
 
+		<jsp:include page="../headerLeftButtons.jsp"/>
 		<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 		<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 

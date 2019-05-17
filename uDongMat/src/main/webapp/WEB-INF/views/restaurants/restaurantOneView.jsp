@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -7,107 +7,136 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-.restaurantTopInput {
-   width: 400px;
-   height: 60px;
-   font-size: 25px;
+.all {
+	width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+/*  	border: 1px solid red; */
 }
 
-.restaurantInput {
-   width: 300px;
-   height: 40px;
+.imgAndInfo {
+	width: 1200px;
+	height: 450px;
+/*   	border: 1px solid blue; */
+}
+
+.img {
+	width: 650px;
+	height: 450px;
+	float: left;
+/*  	border: 1px solid yellow; */
+}
+
+.info {
+	width: 506px;
+	height: 430px;
+	padding: 10px 20px 10px 20px;
+	float: left;
+ 	vertical-align:middle;
+/*  	border: 1px solid green; */
+}
+
+.info input, textarea {
+	width: 450px;
+ 	padding: 10px;
+	font-size: 20px;
+	text-align: justify;
+	text-justify:distribute-all-lines;
+ 	border: 0px;
+}
+
+.restaurantContents {
+	width: 1200px;
+	margin-top: 50px;
+}
+
+.restaurantContents div {
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+	width: 1200px;
+	height: 50px;
+	margin-bottom: 20px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #ededed;
+}
+
+.restaurantContents textarea {
+	border: 1px solid gray;
+}
+
+.menus {
+	width: 1200px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+
+}
+
+#menusTitle {
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+	width: 1200px;
+	height: 50px;
+	margin-bottom: 20px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #ededed;
+}
+
+.button {
+	width: 1200px;
+	text-align: center;
+	margin-top: 20px;"
 }
 
 #field div {
-   float: left;
-   margin: 10px;
-   width: 498px;
+	float: left;
+	padding: 10px 50px 10px 50px;
+	margin: 10px 0px 10px 0px;
+	width: 500px;
+}
+
+#field  div:nth-child(2n-1) {
+	padding-right: 49px;
+	border-right: 1px solid gray;
+	clear: left;
 }
 
 #field input {
-   height: 40px;
-   font-size: 1.3em;
-   outline: none;
-   display: inline;
-}
-
-#field input[type="text"] {
-   box-sizing: border-box;
-   color: black;
-}
-
-#field  input[type=button] {
-   padding-bottom: 3px;
-   margin-left: -2px;
-}
-
-#field  div:nth-child(2n+1) {
-   clear: left;
+	width: 200px;
+	font-size: 20px;
+   	border: 0px;
 }
 
 ul {
-   list-style: none;
-   padding-left: 0px;
+	list-style: none;
+	padding-left: 0px;
 }
 
 input[type=button]:hover, input[type=submit]:hover, button:hover {
-   color: #FFD9EC;
-   background-color: #5D5D5D;
+	color: #FFD9EC;
+	background-color: #5D5D5D;
 }
+
+.button input{
+	width: 300px;
+	height: 40px;
+	margin-left: 35px;
+	margin-right: 35px;
+}
+
+
 </style>
 <title>Insert title here</title>
 
-<script type="text/javascript" 
-   src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
-   
+<script type="text/javascript"
+	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
+
 <script type="text/javascript">
-
-   function numberWithCommas(x) {
-       return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-   }
-   
-   function comma(num){
-       var len, point, str; 
-          
-       num = num + ""; 
-       point = num.length % 3 ;
-       len = num.length; 
-      
-       str = num.substring(0, point); 
-       while (point < len) { 
-           if (str != "") str += ","; 
-           str += num.substring(point, point + 3); 
-           point += 3; 
-       } 
-        
-       return str;
-    
-   }
-
-   $(function() {
-     var $input = $(".input");
-     $input.on('blur', function() {
-       // 입력 값 알아내기
-       var _$self = $(this);
-       var value = _$self.val();
-
-       // 원단위로 변경하기
-       var result = AddComma(value);
-
-       _$self.val(result);
-     })
-
-   });
-
-   function AddComma(dataValue) {
-     isNumber(dataValue);
-     var separateValue = Number(dataValue).toLocaleString('en');
-     if (separateValue == 'NaN') {
-       return '';
-     }
-     return separateValue;
-   }
-
 
    function moveToListFnc(restaurantNo) {
       var url = 'list.do?restaurantNo=' + restaurantNo;
@@ -148,90 +177,87 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 </script>
 </head>
 <body>
-   <div style="width: 1920px;">
+<div style="width: 1920px;">
+	<jsp:include page="../headerLeftButtons.jsp"/>
+	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 
-      <jsp:include page="/WEB-INF/views/headerTitle.jsp" />
-      <jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+	<div class="all">
+		<form action="./update.do" method="get">
+			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
+			<div class="imgAndInfo">
+				<div class="img">
+					<div id="fileContent">
+						<div>
+							<c:forEach var="row" items="${fileList}" varStatus="obj">
+								<input type="hidden" id="fileIdx_${obj.index}" name="fileIdx" value="${row.IDX}">
+								<img alt="image not found" style="width: 650px; height: 450px;" src="<c:url value='/img/${row.STORED_FILE_NAME}'/>" />
+							</c:forEach>
+						</div>
+					</div>
+				</div>
 
-      <div style="margin-left: 450px;">
-         <form action="./update.do" method="get">
-         	<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
-            <div style="width: 1050px; height: 480px; padding: 20px; border: 1px solid black">
-               <div style="width: 600px; height: 480px; border: 1px solid black; float: left;">
-                  <div id="fileContent">
-                     <div>
-                        <c:forEach var="row" items="${fileList}" varStatus="obj">
-                           <input type="hidden" id="fileIdx_${obj.index}" name="fileIdx" value="${row.IDX}">
-                           <img alt="image not found" style="width: 600px; height: 480px;"
-                              src="<c:url value='/img/${row.STORED_FILE_NAME}'/>" />
-                        </c:forEach>
-                     </div>
-                  </div>
-               </div>
+				<input type="hidden" name='restaurantNo' value='${restaurantsVo.restaurantNo}'>
 
-               <input type="hidden" name='restaurantNo' value='${restaurantsVo.restaurantNo}'>
+				<div class="info">
+					<ul>
+						<li><input type="text" name='restaurantName' value='업체명          ${restaurantsVo.restaurantName}' readonly="readonly">
+					</ul>    
+					<ul>
+						<li><input type="text" name='category' value='분류             ${restaurantsVo.category}'
+							readonly="readonly">
+					</ul>
+					<ul>
+						<li><input type="text" name='phone' value='연락처          ${restaurantsVo.phone}'
+							readonly="readonly">
+					</ul>
+					<ul>
+						<li><input type="text" name='operatingTime' value='영업시간      ${restaurantsVo.operatingTime}~${restaurantsVo.closingTime}'
+							readonly="readonly">
+					</ul>
+					<ul>
+						<li><input type="text" name='closedDates' value='휴점일          ${restaurantsVo.closedDates}'
+							readonly="readonly">
+					</ul>
+					<ul>
+						<li><textarea style="height: 50px; resize: none;" readonly="readonly" name="address">주소      ${restaurantsVo.address}</textarea>
+					</ul>
+				</div>
+			</div>
 
-               <div style="width: 400px; height: 440px; padding: 20px; border: 1px solid black; float: left;">
-                  <ul>
-                     <li><input type="text" name='restaurantName' class="restaurantTopInput"
-                        value='${restaurantsVo.restaurantName}' readonly="readonly">
-                  </ul>
-                  <ul>
-                     <li><input type="text" name='category' class="restaurantTopInput" value='${restaurantsVo.category}'
-                        readonly="readonly">
-                  </ul>
-                  <ul>
-                     <li><input type="text" name='phone' class="restaurantTopInput" value='${restaurantsVo.phone}'
-                        readonly="readonly">
-                  </ul>
-                  <ul>
-                     <li><input type="text" name='operatingTime' class="restaurantTopInput"
-                        value='${restaurantsVo.operatingTime}~${restaurantsVo.closingTime}' readonly="readonly">
-                  </ul>
-                  <ul>
-                  	<li><input type="text" name='closedDates' class="restaurantTopInput" value='${restaurantsVo.closedDates}'
-                  	 readonly="readonly">
-                  </ul>
-                  <ul>
-                     <li><textarea style="width: 400px; height: 100px; resize: none;" readonly="readonly" 
-                     	name="address">${restaurantsVo.address}</textarea>
-                  </ul>
-               </div>
-            
-            </div>
-            <div style="width: 1050px; padding: 20px; border: 1px solid black; margin-top: 20px;">
-               <span style="font-size: 30px; font-weight: bold;">맛집소개</span>
-               <textarea style="width: 1040px; height: 200px; resize: none; margin-top: 10px; margin-bottom: 20px;"
-                name="contents" readonly="readonly">${restaurantsVo.contents}</textarea>
-               <span style="font-size: 30px; font-weight: bold;">메뉴</span>
-               <div id="field">
-                  <c:forEach var="menusVo" items="${menusList}">
-                     
-                     <div>
-                        <input type="text" name='"menuName"' style="width: 280px;" value='${menusVo.menuName}'
-                         readonly="readonly">
-                        <input type="text" name='price' id="input" style="text-align:right; width: 180px; padding-top: 5px; margin-left: -6px;"
-                         value="<fmt:formatNumber pattern="#,###원" value="${menusVo.price}"/>" readonly="readonly">
-                     </div>
-                  </c:forEach>
-               </div>
-               
-               <div style="clear: left;"></div>
-            </div>
-            <div style="width: 1095px; text-align: center; margin-top: 20px;">
-				<input type="button" value="이전화면" class="restaurantInput" onclick="moveToListFnc(${restaurantsVo.restaurantNo});">
-				
+			<div class="restaurantContents">
+				<div>맛집소개</div>
+				<textarea style="width: 1178px; height: 200px; resize: none;"
+					name="contents" readonly="readonly">${restaurantsVo.contents}</textarea>
+			</div>
+
+			<div class="menus">
+				<div id="menusTitle">메 뉴</div>
+				<div id="field">
+					<c:forEach var="menusVo" items="${menusList}">
+						<div>
+							<input type="text" name='menuName' value='${menusVo.menuName}' readonly="readonly">
+							<input type="text" name='price' style="text-align: right;"
+							 value='<fmt:formatNumber pattern="#,###" value="${menusVo.price}"/>' readonly="readonly">원
+						</div>
+					</c:forEach>
+				</div>
+				<div style="clear: left;"></div>
+			</div>
+
+			<div class="button">
+				<input type="button" value="이전화면" onclick="moveToListFnc(${restaurantsVo.restaurantNo});">
+
 				<c:if test="${_memberVo_.memberGrade == 'admin' || _memberVo_.memberNo == restaurantsVo.memberNo}">
-					<input type="button" value="수정" style="margin-left: 91px; margin-right: 91px;" class="restaurantInput" 
-					onclick="moveToUpdateFnc(${restaurantsVo.restaurantNo});">
-					<input type="button" value="삭제" id="#delete_btn"class="restaurantInput" onclick="moveTodeleteCtrFnc(${restaurantsVo.restaurantNo});">
+					<input type="button" value="수정" onclick="moveToUpdateFnc(${restaurantsVo.restaurantNo});">
+					<input type="button" value="삭제" onclick="moveTodeleteCtrFnc(${restaurantsVo.restaurantNo});">
 				</c:if>
-            </div>
-         </form>
-      </div>
+			</div>
+		</form>
 		<jsp:include page="/WEB-INF/views/review/reviewAddForm.jsp" />
 		<jsp:include page="/WEB-INF/views/review/reviewListView.jsp" />
-      <jsp:include page="/WEB-INF/views/Tail.jsp" />
-   </div>
+	</div>
+	<jsp:include page="/WEB-INF/views/Tail.jsp" />
+	</div>
 </body>
 </html>
