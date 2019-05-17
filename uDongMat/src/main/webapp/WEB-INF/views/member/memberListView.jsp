@@ -119,6 +119,13 @@
 		<jsp:param value="${pagingMap}" name="pagingMap"/>
 	</jsp:include>
 	
+	<form action="./list.do" id="pagingForm" method="post">
+			<input type="hidden" id="curPage" name="curPage" 
+				value="${pagingMap.memberPaging.curPage}">
+			<input type="hidden" id="keyword" name="keyword" 
+				value="${keyword}">
+	</form>
+	
 	<input type="hidden" id="searchOptionVal" value="${searchOption}">
 	
 </c:if>

@@ -54,6 +54,11 @@
 		color: black;
 	}
 	
+	button:hover,input[type=button]:hover,input[type=submit]:hover{
+		color: #FFD9EC;
+		background-color: #5D5D5D;
+	}
+	
 /* 	#header3 #goBoard{ */
 /* /*  		margin-right: 390px;  */ */
 /*  	} */

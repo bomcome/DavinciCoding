@@ -60,7 +60,7 @@
    }
    
    #commentListContainer .cocommentContents{
-      width: 1100px;
+      width: 1190px;
    }
    
    #commentListContainer #commentRecommendButtonsdiv{
@@ -323,7 +323,7 @@
                            <input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
                            <input type="hidden" id="parentCommentNo" class="parentCommentNo" 
                               name="parentCommentNo" value="${commentVo.commentNo}">
-                           <textarea id="cocommentContents" class="cocommentContents" name="contents"></textarea>
+                           <textarea id="cocommentContents" class="cocommentContents" name="contents" style="resize: none;"></textarea>
                            <div>
                               <input  type="button" onclick="cocommentRegisterFnc(${commentVo.rowNum});" value="등록">
                               <input type="button" onclick="cocommentAddCancelFnc(${commentVo.rowNum});" value="취소">

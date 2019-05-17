@@ -12,7 +12,7 @@ public interface MenusDao {
 	
 	public int menusUpdate(MenusVo menusVo) throws Exception;
 	
-	public int menusDelete(int restaurantNo) throws Exception;
+	public int menusDelete(int restaurantNo);
 
 	public void menusDeleteMemberNo(int memberNo);
 

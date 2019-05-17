@@ -191,12 +191,22 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return boardDao.boardCommentCount(boardNo);
 	}
-
+	@Transactional
 	@Override
 	public void boardDeleteWithMember(int memberNo) {
 		// TODO Auto-generated method stub
 		recommendDao.recommendDeleteWithMember(memberNo);
 		boardDao.hitsDeleteWithMember(memberNo);
+		List<Integer> boardNoList = boardDao.boardNoSelectList(memberNo);
+		for(int boardNo : boardNoList) {
+			
+			recommendDao.recommendDeleteWithCommentParent(boardNo);
+			commentDao.commentDeleteWithBoard(boardNo);
+			recommendDao.recommendDeleteWithBoard(boardNo);
+			
+			boardDao.hitsDeleteWithBoard(boardNo);
+		}
+//		boardDao.hitsDeleteWithBoard(boardNo);
 		commentDao.commentDeleteWithMember(memberNo);
 		boardDao.boardDeleteWithMember(memberNo);
 	}

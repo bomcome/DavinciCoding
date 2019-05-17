@@ -101,6 +101,17 @@
 		AND B.BOARD_NO = #{boardNo}
 	</select>
 	
+	
+	
+	<select id="boardNoSelectList" parameterType="int"
+		resultType="int">
+		SELECT BOARD_NO
+		FROM BOARD
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	
 	<insert id="boardInsertOne" 
 		parameterType= "boardVo"
 		useGeneratedKeys="true" keyProperty="boardNo">
@@ -197,6 +208,7 @@
 		WHERE BOARD_NO = #{boardNo} 
 		AND MEMBER_NO = #{memberNo}
 	</select>
+	
 	
 	
 	

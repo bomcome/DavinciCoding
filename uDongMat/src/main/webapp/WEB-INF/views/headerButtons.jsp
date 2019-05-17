@@ -26,6 +26,12 @@
 
 
 	<span id="right">
+		<c:if test='${_memberVo_.memberGrade == "admin"}'>
+			<button id="goMemberList" 
+			onclick="location.href='../member/list.do'">
+					회원목록
+			</button>
+		</c:if>
 		<c:if test='${_memberVo_ != null && _memberVo_.memberGrade != "admin"}'>
 			<button id="memberId" 
 			onclick="location.href='../member/listOne.do?memberNo=${_memberVo_.memberNo}'">

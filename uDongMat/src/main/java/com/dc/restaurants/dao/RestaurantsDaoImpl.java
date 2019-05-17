@@ -110,4 +110,10 @@ public class RestaurantsDaoImpl implements RestaurantsDao {
 		sqlSession.delete(namespace + "restaurantDeleteMemberNo", memberNo);
 	}
 
+	@Override
+	public List<Integer> restaurantNoSelectList(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "restaurantNoSelectList", memberNo);
+	}
+
 }

@@ -13,6 +13,8 @@ public interface BoardDao {
 	public void boardInsertOne(BoardVo boardVo);
 	public void boardUpdateOne(BoardVo boardVo);
 	public void boardDelete(int no);
+	public List<Integer> boardNoSelectList(int memberNo);
+	
 //	public int boardTotalCount();
 	
 	public int boardSelectTotalCount(String keyword, String searchOption);
