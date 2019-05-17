@@ -261,18 +261,22 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
+		String viewUrl = "";
 		MemberVo sessionMemberVo = (MemberVo) session.getAttribute("_memberVo_");
 		
 		if (sessionMemberVo != null) {
 		
 			if (sessionMemberVo.getMemberNo() == memberNo) {
 
-
 				session.removeAttribute("_memberVo_");
-
+				
+				viewUrl = "redirect:/restaurants/list.do";
+				
+			}else if(sessionMemberVo.getMemberNo() != memberNo) {
+				viewUrl = "redirect:/member/list.do";
 			}
 		}
-		return "redirect:/restaurants/list.do";	
+		return viewUrl;	
 	}
 	
 	//로그인 페이지로 이동

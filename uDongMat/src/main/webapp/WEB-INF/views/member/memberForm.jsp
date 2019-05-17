@@ -120,7 +120,12 @@
 			nickNameVal.focus();
 			
 			return;
-	
+		}
+		else if(nickNameVal.value.length < 1){
+			alert("닉네임은 2글자 이상 입력해야 합니다.");;
+			emailVal.focus();
+			
+			return
 		}
 		else if (passwordVal.value == '') {
 			alert('비밀번호를 입력하세요!');
@@ -228,7 +233,7 @@
 </script>
 
 </head>
-<body>
+<body style="overflow-x:hidden">
 <div style="width: 1920px;">
 	<div id="loginHeaderDiv">
 		<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
