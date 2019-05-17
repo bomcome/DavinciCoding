@@ -1,135 +1,140 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 조회</title>
-
-
-<script type="text/javascript" 
-   src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
-<script type="text/javascript">
-   
-   function pageMoveListFnc(){
-      location.href = "../restaurants/list.do";
-   }
-   
-   function pageMoveDeleteFnc(){
-         
-      //first if문
-      if(${memberVo.memberGrade == 'admin'}){
-         alert("관리자는 탈퇴를 못합니다!!");
-         return;
-      }
-      else{
-         var r = confirm("정말로 탈퇴하시겟습니까?")
-         
-         //second if문
-         if(r == true){
-            var url = 'deleteCtr.do?memberNo=' + ${memberVo.memberNo};
-            location.href = url;
-         } 
-         else{
-            return;
-         }//second if문 end
-      }//first if문 end
-   }
-      
-</script>
 <style type="text/css">
-   .dateBox{
-      width: 171px;
-      height: 19px;
-       border: 1px solid black;
-       -webkit-appearance: textfield;
-       font: 400 13.3333px Arial;
+   table{
+      width: 1200px;;
+      margin: auto;
+      text-align: center;
+      border-collapse: collapse;
+   }
+   
+   tr, th ,td {
+     padding: 8px;
+     text-align: left;
+     border-bottom: 1px solid #ddd;
+   }
+   
+   th{
+     border-bottom: 3px solid black;
+   }
+
+   tr:nth-child(even){
+      background-color: #f2f2f2
+   }
+   
+   #text{
+      padding-left : 730px;
+      text-align: left;
+      border-collapse: collapse;
    }
    
    #member{
-      height: 622px;
-   }
+		height: 622px;
+	}
    
-   
+
 </style>
+<title>회원 목록</title>
+
+<script type="text/javascript" 
+   src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
+   
+<script type="text/javascript">
+
+   $(document).ready(function(){
+      
+      var searchOptionInputObj = document.getElementById('searchOptionVal');
+      
+      var searchOptionVal = searchOptionInputObj.value; 
+      
+      var selectObj = document.getElementById('searchOption');
+      
+      var optionsArr = selectObj.options;
+      
+      for (var i = 0; i < optionsArr.length; i++) {
+//          alert(optionsArr[0].value);
+         if(optionsArr[i].value == searchOptionVal){
+            optionsArr[i].selected = 'selected';
+            break;
+         }
+      }
+   });
+</script>
+
 </head>
 <body>
 <div style="width: 1920px;">
-   <jsp:include page="../headerLeftButtons.jsp"/>
+
    <jsp:include page="/WEB-INF/views/headerTitle.jsp" />
    <jsp:include page="/WEB-INF/views/headerButtons.jsp" />
-   <jsp:include page="/WEB-INF/views/memberCss.jsp" />
-   
 
-   
-   <div id="member">
-      <form action="./update.do" method="get" >
-         <input type="hidden" name='memberNo' value='${memberVo.memberNo}'>
-                     
-         <div style="text-align: left; padding-left: 70px;">
-            <div>
-               <ul>
-                  <li>이메일
-                  <li><input type="text" name="email" value='${memberVo.email}' readonly="readonly">
-               </ul>
-            </div>
-            
-         
-         
-            <div>
-               <ul>
-                  <li>닉네임
-                  <li><input type="text" name='nickName' id='nickName' 
-                        value='${memberVo.nickName}' readonly="readonly">
-               </ul>      
-            </div>
-            <%-- <div>      
-               <ul>
-                  <li>가입일
-                  <li>
-                     <span class="dateBox">
-                        <fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd"/>
-                     </span>
-               </ul>
-            </div>       --%>
-      
-      
 
-         </div>
-      
-         <c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
-            <div>
-               <ul>
-                  <li><input type="submit" class="memberInput" value="정보수정">
-               </ul>
-            </div>
-         </c:if>   
-      
-         <div>
-            <ul>
-               <li><input type="button" class="memberInput" value="메인화면"  onclick="pageMoveListFnc();">
-            </ul>
-         </div>
+<c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">
 
-         <c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">   
-         <hr>
-            <div>
-               <ul>
-                  <li><input type="button" class="memberInput" value="회원탈퇴"  onclick="pageMoveDeleteFnc();">
-               </ul>
-            </div>
-         </c:if>   
+
+<!--  var=변수명  items=목록데이터 begin=시작인덱스 end=종료인덱스 -->
+   <div style="margin-left: 1170px;">
+      <form action="./list.do" method="get">
+         <select name="searchOption" id="searchOption">
+            <option value="title">이메일</option>  <!-- 이메일 -->
+            <option value="content">닉네임</option>  <!-- 닉네임 -->
+         </select>
+         <input type="text" name="keyword" value="${keyword}">
+         <input type="submit" value="검색">
+         <input type="hidden" id="searchOptionVal" value="${searchOption}">
       </form>
    </div>
-   
-   <%-- <form action="../common/fileDownload.do" method="post">
-      <input type="hidden" id='filePno' name='filePno' value='${fileList[0].PNO}'>
-   </form> --%>
 
-   <jsp:include page="/WEB-INF/views/Tail.jsp"/>
+   <table>
+      <tr>
+         <th>번호</th><th>회원이름</th>
+         <th>이메일</th><th>가입일</th>
+         <th>삭제</th>
+      </tr>
+   <c:forEach var="memberVo" items="${memberList}">
+      <tr>
+         <td>${memberVo.rownum}</td>
+         <td>
+            <a href='./listOne.do?memberNo=${memberVo.memberNo}'>${memberVo.nickName}</a>
+         </td>
+         <td>${memberVo.email}</td>
+         <td>
+            <fmt:formatDate value="${memberVo.createDate}"
+               pattern="yyyy년 MM월 dd일 hh시 mm분"/>
+         </td>
+         <td>
+            <a href='./deleteCtr.do?memberNo=${memberVo.memberNo}'>[삭제]</a>
+         </td>
+      </tr>
+   </c:forEach>
+   </table>
+   
+   <jsp:include page="/WEB-INF/views/common/memberPaging.jsp">
+      <jsp:param value="${pagingMap}" name="pagingMap"/>
+   </jsp:include>
+   
+   <form action="./list.do" id="pagingForm" method="post">
+		<input type="hidden" id="curPage" name="curPage" 
+			value="${pagingMap.boardPaging.curPage}">
+		<input type="hidden" id="keyword" name="keyword" 
+			value="${keyword}">
+	</form>
+   
+   <input type="hidden" id="searchOptionVal" value="${searchOption}">
+   
+</c:if>
+<c:if test="${sessionScope._memberVo_.memberGrade != 'admin'}">
+   해커는꺼져라
+</c:if>
+   
+   
 </div>
+   <jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>
