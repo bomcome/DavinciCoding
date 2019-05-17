@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 <style>
 
 .ScrollButton {
@@ -24,10 +19,6 @@
 }
 
 </style>
-
-<title>Insert title here</title>
-
-<script type="text/javascript" src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -53,10 +44,6 @@
 	});
 </script>
 
-</head>
-
-<body>
-			<a id="TopButton" class="ScrollButton"><img src="http://www.sibtower.com/images/top_button.png" width="50px" height="50px"></a>
-<!-- 			<a id="BottomButton" class="ScrollButton"><img src="(BottomButton 이미지 주소)"></a> -->
-</body>
-</html>
+<a id="TopButton" class="ScrollButton"><img src="http://www.beotech.com/images/quickmenu/top_button.png" width="50px" height="50px"></a>
+<!-- <a id="TopButton" class="ScrollButton"><img src="http://www.sibtower.com/images/top_button.png" width="50px" height="50px"></a> -->
+<!-- <a id="BottomButton" class="ScrollButton"><img src="(BottomButton 이미지 주소)"></a> -->

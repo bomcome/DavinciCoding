@@ -74,13 +74,14 @@
    <nav>
       <ul>
       <!--ㄷ 한자 적용  -->
-         <li>
-            <a href="#" 
-            onclick="goPage(${pagingMap.memberPaging.prevPage});">
-            <span>이전</span>
-            </a>
-         </li>
-         
+      	<c:if test="${pagingMap.memberPaging.totPage > 1}">
+	         <li>
+	            <a href="#" 
+	            onclick="goPage(${pagingMap.memberPaging.prevPage});">
+	            <span>이전</span>
+	            </a>
+	         </li>
+         </c:if>
          <c:forEach var="num" begin="${pagingMap.memberPaging.blockBegin}"
             end="${pagingMap.memberPaging.blockEnd}">
             
@@ -91,11 +92,13 @@
             </li>
             
          </c:forEach>
-
-         <li><a href="#" 
-            onclick="goPage(${pagingMap.memberPaging.nextPage});">
-            <span>다음</span></a>
-         </li>
+			
+		<c:if test="${pagingMap.memberPaging.totPage > 1}">
+	         <li><a href="#" 
+	            onclick="goPage(${pagingMap.memberPaging.nextPage});">
+	            <span>다음</span></a>
+	         </li>
+	     </c:if>
       </ul>
    </nav>
 </div>   

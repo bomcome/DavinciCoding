@@ -34,8 +34,8 @@
       border-collapse: collapse;
    }
    
-   #member{
-		height: 622px;
+   #memberListViewDiv{
+		height: 639px;
 	}
 
 </style>
@@ -75,12 +75,15 @@
    <jsp:include page="/WEB-INF/views/headerTitle.jsp" />
    <jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 
+<div id="memberListViewDiv">
+
 
 <c:if test="${sessionScope._memberVo_.memberGrade == 'admin'}">
 
 
 <!--  var=변수명  items=목록데이터 begin=시작인덱스 end=종료인덱스 -->
-   <div style="margin-left: 1170px;">
+   <div style="height: 500px;">
+   <div style="margin-left: 1270px;">
       <form action="./list.do" method="get">
          <select name="searchOption" id="searchOption">
             <option value="title">이메일</option>  <!-- 이메일 -->
@@ -115,7 +118,7 @@
       </tr>
    </c:forEach>
    </table>
-   
+   </div>
    <jsp:include page="/WEB-INF/views/common/memberPaging.jsp">
       <jsp:param value="${pagingMap}" name="pagingMap"/>
    </jsp:include>
@@ -134,7 +137,7 @@
    해커는꺼져라
 </c:if>
    
-   
+ </div>  
 </div>
    <jsp:include page="/WEB-INF/views/Tail.jsp" />
 

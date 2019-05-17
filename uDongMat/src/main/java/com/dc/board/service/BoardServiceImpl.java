@@ -203,7 +203,7 @@ public class BoardServiceImpl implements BoardService{
 			recommendDao.recommendDeleteWithCommentParent(boardNo);
 			commentDao.commentDeleteWithBoard(boardNo);
 			recommendDao.recommendDeleteWithBoard(boardNo);
-			
+			boardDao.fileDelete(boardNo);
 			boardDao.hitsDeleteWithBoard(boardNo);
 		}
 //		boardDao.hitsDeleteWithBoard(boardNo);

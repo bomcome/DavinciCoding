@@ -85,9 +85,11 @@
 <!-- 	<button id="goBoard" onclick="location.href='../board/list.do'">게시판</button> -->
 <!-- 	</span> -->
 	
-	<div id="titleTag">
-		<a href="../restaurants/list.do"><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a>
-	</div>
+<!-- 	<div id="titleTag"> -->
+<!-- 		<a href="../restaurants/list.do"><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a> -->
+<!-- 	</div> -->
+	
+		<img onclick="location.href='../restaurants/list.do'" alt="메인페이지로" src="../resources/images/KakaoTalk_20190517_162751843.png" style="width:230px; height: auto;">
 	
 <!-- 	<span id="right"> -->
 <%-- 		<button id="member" onclick="">${memberVo.nickname}</button> --%>
