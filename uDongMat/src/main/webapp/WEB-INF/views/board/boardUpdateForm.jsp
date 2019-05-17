@@ -108,7 +108,7 @@
 <body>
 	
 	<div id="boardUpdate">
-	
+	<jsp:include page="../headerLeftButtons.jsp"/>
 	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	
@@ -141,11 +141,11 @@
 				</c:choose>
 
 				</div>
-				<div><input type="file" id="file_${obj.index}" name="file_${obj.index}"></div>
-			</div>
+<%-- 				<div><input type="file" id="file_${obj.index}" name="file_${obj.index}"></div> --%>
+<!-- 			</div> -->
 			
 			
-			<textarea id="ta" name='contents' style="width:1109px;height:32px;overflow-y:hidden">${boardVo.contents}</textarea>
+			<textarea id="ta" name='contents' style="width:1109px;height:320px; overflow-y:hidden; resize: none;">${boardVo.contents}</textarea>
 		<textarea id="xt" style="width:1109px;height:1px;overflow-y:hidden;position:absolute;top:-9px" disabled></textarea>
 			
 <%-- 			<textarea name='contents' id='contents' rows="30" cols="156" style="resize: none;">${boardVo.contents}</textarea> --%>

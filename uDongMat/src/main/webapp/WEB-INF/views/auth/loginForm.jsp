@@ -22,14 +22,25 @@
 		margin:auto;
 		font-weight: bold;
 	}
+	
+	#loginForm{
+		height: 601px;
+	}
+	#loginHeaderDiv {
+		width:1000px;
+		margin-left: 465px;
+	}
+	
+	
 </style>
 </head>
-<body>
+<body style="overflow-x:hidden">
 
-
+<div id="loginHeaderDiv">
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+</div>
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
-
+<div style="clear:both;"></div>
 	
 	<br/>
 

@@ -164,6 +164,12 @@ public class BoardDaoImpl implements BoardDao{
 		sqlSession.delete(namespace +"hitsDeleteWithMember", memberNo);
 	}
 
+	@Override
+	public List<Integer> boardNoSelectList(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "boardNoSelectList", memberNo);
+	}
+
 //	@Override
 //	public void hitsInsertOneOther(Map<String, Object> map) {
 //		// TODO Auto-generated method stub

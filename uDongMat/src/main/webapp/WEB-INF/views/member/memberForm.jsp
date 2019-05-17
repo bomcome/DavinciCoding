@@ -8,6 +8,15 @@
 <meta charset="UTF-8">
 <title>회원 등록</title>
 
+<style type="text/css">
+	#member{
+			height: 622px;
+		}
+	#loginHeaderDiv {
+			width:1000px;
+			margin-left: 465px;
+		}
+</style>
 <script type="text/javascript" 
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 
@@ -111,7 +120,12 @@
 			nickNameVal.focus();
 			
 			return;
-	
+		}
+		else if(nickNameVal.value.length < 1){
+			alert("닉네임은 2글자 이상 입력해야 합니다.");;
+			emailVal.focus();
+			
+			return
 		}
 		else if (passwordVal.value == '') {
 			alert('비밀번호를 입력하세요!');
@@ -219,12 +233,13 @@
 </script>
 
 </head>
-<body>
+<body style="overflow-x:hidden">
 <div style="width: 1920px;">
-	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
-	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+	<div id="loginHeaderDiv">
+		<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	</div>
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
-
+	<div style="clear:both;"></div>
 
 	<div id="member">
 		<form action="./addCtr.do" id="addForm"method="post" style="font-weight: bold;"

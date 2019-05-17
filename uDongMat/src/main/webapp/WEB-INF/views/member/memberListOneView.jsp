@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 <meta charset="UTF-8">
 <title>회원정보 조회</title>
@@ -48,10 +48,17 @@
 	    -webkit-appearance: textfield;
 	    font: 400 13.3333px Arial;
 	}
+	
+	#member{
+		height: 622px;
+	}
+	
+	
 </style>
 </head>
-<body>
+<body  style="overflow-x:hidden">
 <div style="width: 1920px;">
+	<jsp:include page="../headerLeftButtons.jsp"/>
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />

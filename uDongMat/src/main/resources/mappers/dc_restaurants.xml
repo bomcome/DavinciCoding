@@ -41,6 +41,13 @@
 		WHERE ROWNUM BETWEEN 1 AND #{end}
 	</select>
 	
+	<select id="restaurantNoSelectList" parameterType="int"
+		resultType="int">
+		SELECT RESTAURANT_NO
+		FROM RESTAURANTS
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
 	<select id="restaurantsTotalCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM RESTAURANTS R LEFT OUTER JOIN TB_FILE F
@@ -166,7 +173,7 @@
 		WHERE PARENT_SEQ = #{restaurantNo}
 	</select>
 
-	<delete id="restaurantDeleteWithMember" parameterType="int"> 
+	<delete id="restaurantDeleteMemberNo" parameterType="int"> 
 		DELETE FROM RESTAURANTS
 		WHERE MEMBER_NO = #{memberNo}
 	</delete>

@@ -35,15 +35,15 @@ public class MenusDaoImpl implements MenusDao {
 	}
 
 	@Override
-	public int menusDelete(int restaurantNo) throws Exception {
+	public int menusDelete(int restaurantNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete(namespace + "menusDelete", restaurantNo);
 	}
 
 	@Override
-	public int menusDeleteMemberNo(int memberNo) throws Exception {
+	public void menusDeleteMemberNo(int memberNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.delete(namespace + "menusDeleteMemberNo", memberNo);
+		sqlSession.delete(namespace + "menusDeleteMemberNo", memberNo);
 	}
 	
 }

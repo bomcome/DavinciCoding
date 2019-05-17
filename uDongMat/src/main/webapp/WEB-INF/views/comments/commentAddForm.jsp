@@ -4,12 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <style type="text/css">
 	#commentAddContainer #commentAddForm #commentContents {
-		width: 1108px;
+		width: 1200px;
 		resize: none;
 	}
 	#commentAddContainer {
 		margin-top: 0px;
-		margin-left: 380px;
+		margin-left: 352px;
 	}
 	#commentAddLetter {
 		margin-top: 15px;

@@ -149,14 +149,19 @@
 	    -webkit-appearance: textfield;
 	    font: 400 13.3333px Arial;
 	}
+	
+	#memberUpdateFormDiv{
+		height: 622px;
+	}
 </style>
 </head>
-<body>
+<body style="overflow-x:hidden">
 <div style="width: 1920px;">
+	<jsp:include page="../headerLeftButtons.jsp"/> 
 	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 	<jsp:include page="/WEB-INF/views/memberCss.jsp" />
-	
+<div style="width: 1920px;" id="memberUpdateFormDiv">	
 	<c:if test="${sessionScope._memberVo_.memberNo == memberVo.memberNo}">
 	
 	<div id="member">
@@ -234,7 +239,7 @@
 	
 	<form action="./nickNameChkCtr.do" id="nickNameChkForm" method="post">	
 	</form>
-	
+</div>	
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 </div>
 </body>

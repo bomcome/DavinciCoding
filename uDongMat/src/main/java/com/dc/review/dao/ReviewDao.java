@@ -13,4 +13,5 @@ public interface ReviewDao{
 	public ReviewVo reviewDetailOne(int reviewNo);
 	public void reviewDelete(int reviewNo);
 	public void reviewDeleteWithRestaurant(int restaurantNo);
+	public void reviewDeleteWithMember(int memberNo);
 }

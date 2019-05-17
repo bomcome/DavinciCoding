@@ -177,4 +177,21 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 		return restaurantsDao.restaurantsTotalCountOrder(map);
 	}
 
+	@Override
+	public void restaurantsDeleteMemberNo(int memberNo){
+		// TODO Auto-generated method stub
+		reviewDao.reviewDeleteWithMember(memberNo);
+		List<Integer> restaurantNoList = restaurantsDao.restaurantNoSelectList(memberNo);
+		for(int restaurantNo : restaurantNoList) {
+			
+			reviewDao.reviewDeleteWithRestaurant(restaurantNo);
+			
+			menusDao.menusDelete(restaurantNo);
+			
+			restaurantsDao.fileDelete(restaurantNo);
+		}
+		menusDao.menusDeleteMemberNo(memberNo);
+		restaurantsDao.restaurantDeleteMemberNo(memberNo);
+	}
+
 }

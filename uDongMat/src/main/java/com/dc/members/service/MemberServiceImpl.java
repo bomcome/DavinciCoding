@@ -5,16 +5,24 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.dc.board.vo.BoardVo;
+import com.dc.board.service.BoardService;
 import com.dc.members.dao.MemberDao;
 import com.dc.members.vo.MemberVo;
+import com.dc.restaurants.service.RestaurantsService;
 
 @Service
 public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	public MemberDao memberDao;
+	
+	@Autowired
+	public BoardService boardService;
+	
+	@Autowired
+	public RestaurantsService restaurantsService;
 	
 //	@Override
 //	public List<MemberVo> memberSelectList() {
@@ -62,11 +70,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.memberInsertOne(memberVo);
 	}
-
+	
+	@Transactional
 	@Override
 	public int memberDelete(int memberNo) {
 		// TODO Auto-generated method stub
-		
+		restaurantsService.restaurantsDeleteMemberNo(memberNo);
+		boardService.boardDeleteWithMember(memberNo);
 		return memberDao.memberDelete(memberNo);
 	}
 

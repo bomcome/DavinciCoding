@@ -4,24 +4,24 @@
 
 <style type="text/css">
 	
-	#header1 #u {
+	#header3 #u {
 		color: #DB3A00; 
 	}
-	#header1 #dong{
+	#header3 #dong{
 		color: #FFBB00;
 	}
-	#header1 #mat{
+	#header3 #mat{
 		color: #4375DB;
 	}
 	
-	#header1 #titleTag span{
+	#header3 #titleTag span{
 		font-size: 45px;
 	}
-	#header1 #titleTag{
+	#header3 #titleTag{
 		font-size: 21px;
 		font-weight: bold;
 	}
-	#header1 a {
+	#header3 a {
 		text-decoration: none;
 	}
 
@@ -29,45 +29,67 @@
 		float: left;
 	}
 	
-	#header1 {
-		padding-top: 30px;
-		width: 1070px;
+	#header3 {
+  		padding-top: 30px;  
+		width: 580px;
 		margin-bottom: 40px;
- 		padding-right: 0px; 
- 		text-align: right;
+/*  		padding-right: 0px;  */
+ 		text-align:right;
+ 		height: 70px;
 	} 
-	#header1 #shopAdd{
- 		margin-right: 390px; 
-		width: 70px; 
-	}
-	#header1 #titleTag{
+/* 	#header3 .shopAdd{ */
+/* 		width: 70px; */
+/* /* 		margin-left: 352px; */ */
+		
+/* 	} */
+	#header3 #titleTag{
 		text-align: center;
-		padding-right: 30px;
+/*  		padding-right: 30px;  */
+/*  		margin-right: 200px; */
+		padding-top: 30px;
  		
 	}
 	
-	#header1 #titleTag >a{
+	#header3 #titleTag >a{
 		color: black;
 	}
 	
+	button:hover,input[type=button]:hover,input[type=submit]:hover{
+		color: #FFD9EC;
+		background-color: #5D5D5D;
+	}
+	
+/* 	#header3 #goBoard{ */
+/* /*  		margin-right: 390px;  */ */
+/*  	} */
 /* 	#header #right{ */
 /* 		margin-left: 370px; */
 /* 	} */
 	
-	
+/* 	#header1 #headerLeftButtons button{ */
+/*  		margin-top: 30px;  */
+/* 	} */
 	
 </style>
 
-<div id="header1" class="header">
+<div id="header3" class="header">
 
+<!-- 	<span id="headerLeftButtons"> -->
+<%-- 	<c:if test='${_memberVo_ != null}'> --%>
+<!-- 			<button class="shopAdd" onclick="location.href='../restaurants/add.do'">맛집등록</button> -->
+<%-- 	</c:if> --%>
+<%-- 	<c:if test='${_memberVo_ == null}'> --%>
+<!-- 			<button class="shopAdd" onclick="location.href='../auth/login.do'">맛집등록</button> -->
+<%-- 	</c:if> --%>
 	
-	<c:if test='${_memberVo_.memberGrade == "admin"}'>
-			<button id="shopAdd" onclick="../restaurants/add.do">맛집등록</button>
-	</c:if>
+<!-- 	<button id="goBoard" onclick="location.href='../board/list.do'">게시판</button> -->
+<!-- 	</span> -->
 	
-	<span id="titleTag">
-		<a href="../restaurants/list.do"><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a>
-	</span>
+<!-- 	<div id="titleTag"> -->
+<!-- 		<a href="../restaurants/list.do"><span id="u">우</span>리<span id="dong">동</span>네<span id="mat">맛</span>집</a> -->
+<!-- 	</div> -->
+	
+		<img onclick="location.href='../restaurants/list.do'" alt="메인페이지로" src="../resources/images/KakaoTalk_20190517_162751843.png" style="width:230px; height: auto;">
 	
 <!-- 	<span id="right"> -->
 <%-- 		<button id="member" onclick="">${memberVo.nickname}</button> --%>

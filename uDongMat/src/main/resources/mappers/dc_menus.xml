@@ -37,9 +37,10 @@
 		WHERE RESTAURANT_NO = #{restaurantNo}
 	</delete>
 
+	
 	<delete id="menusDeleteMemberNo" parameterType="int">
 		DELETE FROM MENUS
-		WHERE RESTAURANT_NO = #{memberNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</delete>
 
 </mapper>

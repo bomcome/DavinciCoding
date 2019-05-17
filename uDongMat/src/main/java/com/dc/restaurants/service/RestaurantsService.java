@@ -31,4 +31,5 @@ public interface RestaurantsService {
 	
 	public int restaurantsTotalCountOrder(Map<String, Object> map);
 
+	public void restaurantsDeleteMemberNo(int memberNo);
 }

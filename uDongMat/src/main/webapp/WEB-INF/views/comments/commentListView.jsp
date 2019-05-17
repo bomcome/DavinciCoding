@@ -9,7 +9,7 @@
       font-size: 19px;
       font-weight: bold;
       border-bottom: 1px solid #8C8C8C;
-      width: 1105px;
+      width: 1200px;
    }
    
    #commentListContainer table tr td {
@@ -18,7 +18,7 @@
    }
    #commentListContainer table{
       border-bottom: 1px solid #8C8C8C;
-      width: 1105px;
+      width: 1200px;
    }
    #commentListContainer table{
       border-bottom: 1px solid #8C8C8C;
@@ -31,7 +31,7 @@
    }
    #commentListContainer{
       margin-top: 20px;
-      margin-left: 380px;
+      margin-left: 352px;
    }
    #commentListContainer #commentTable{
       
@@ -42,7 +42,7 @@
    
    
    #commentListContainer .commentUpdateContainer .commentUpdateForm #commentContentsUpdate {
-      width: 1020px;
+      width: 1200px;
       resize: none;
    }
    #commentListContainer .commentUpdateContainer {
@@ -60,7 +60,7 @@
    }
    
    #commentListContainer .cocommentContents{
-      width: 1100px;
+      width: 1190px;
    }
    
    #commentListContainer #commentRecommendButtonsdiv{
@@ -246,9 +246,11 @@
                      </span>
 	                     <c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">
 	                        <input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${commentVo.rowNum});">
+	                     </c:if>
+	                     <c:if test="${_memberVo_.memberNo eq boardVo.memberNo || _memberVo_.memberGrade == 'admin'}">
 	                        <button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
 	                     </c:if>
-	                     <c:if test="${_memberVo_ != null}">
+	                     <c:if test="${_memberVo_ != null && _memberVo_.memberGrade == 'member'}">
 	                        <input class="cocommentButton" type="button" value="답글" onclick="cocommentAddFnc(${commentVo.rowNum});">
 	                     </c:if>
 	                     <c:if test="${_memberVo_ == null}">
@@ -256,7 +258,7 @@
 	                     </c:if>
                      </span>
                      <span class="commentRecommendButtonsSpan">
-                        <c:if test="${_memberVo_ != null}">
+                        <c:if test="${_memberVo_ != null && _memberVo_.memberGrade == 'member'}">
                            
                            <form action="../recommend/addCommentCtr.do" method="post">
                            		<input type="hidden" name='boardNo' value='${boardVo.boardNo}'>
@@ -323,7 +325,7 @@
                            <input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
                            <input type="hidden" id="parentCommentNo" class="parentCommentNo" 
                               name="parentCommentNo" value="${commentVo.commentNo}">
-                           <textarea id="cocommentContents" class="cocommentContents" name="contents"></textarea>
+                           <textarea id="cocommentContents" class="cocommentContents" name="contents" style="resize: none;"></textarea>
                            <div>
                               <input  type="button" onclick="cocommentRegisterFnc(${commentVo.rowNum});" value="등록">
                               <input type="button" onclick="cocommentAddCancelFnc(${commentVo.rowNum});" value="취소">

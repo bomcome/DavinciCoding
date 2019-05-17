@@ -52,7 +52,7 @@ public class MemberController {
 			, method= {RequestMethod.GET, RequestMethod.POST})
 	public String memberList(
 			@RequestParam(defaultValue ="1") int curPage,
-			@RequestParam(defaultValue ="title") String searchOption,
+			@RequestParam(defaultValue ="email") String searchOption,
 			@RequestParam(defaultValue ="") String keyword,
 			Model model) {
 		
@@ -60,9 +60,11 @@ public class MemberController {
 		log.debug(": {}", searchOption);
 		log.debug(": {}", keyword);
 		
+		System.out.println("searchOption" + searchOption);
+		System.out.println("keyword" + keyword);
 		int totalCount = 
-				memberService.memberSelectTotalCount(searchOption, keyword);
-		
+				memberService.memberSelectTotalCount(keyword, searchOption);
+		System.out.println(totalCount);
 		Paging memberPaging = new Paging(totalCount, curPage);
 		int start = memberPaging.getPageBegin();
 		int end = memberPaging.getPageEnd();
@@ -78,7 +80,6 @@ public class MemberController {
 		model.addAttribute("pagingMap", pagingMap);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchOption", searchOption);
-		
 		return "member/memberListView";
 	}
 	
@@ -259,18 +260,22 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
+		String viewUrl = "";
 		MemberVo sessionMemberVo = (MemberVo) session.getAttribute("_memberVo_");
 		
 		if (sessionMemberVo != null) {
 		
 			if (sessionMemberVo.getMemberNo() == memberNo) {
 
-
 				session.removeAttribute("_memberVo_");
-
+				
+				viewUrl = "redirect:/restaurants/list.do";
+				
+			}else if(sessionMemberVo.getMemberNo() != memberNo) {
+				viewUrl = "redirect:/member/list.do";
 			}
 		}
-		return "redirect:/restaurants/list.do";	
+		return viewUrl;	
 	}
 	
 	//로그인 페이지로 이동
@@ -301,14 +306,20 @@ public class MemberController {
 		
 		String viewUrl = "";
 		if (memberVo != null) {
-			// 회원이 존재한다면 세션에 담고
-			// 회원 전체 조회 페이지로 이동
+	
 			session.setAttribute("_memberVo_", memberVo);
 
-			viewUrl = "redirect:"+ redirectURI;
+			viewUrl = "redirect:" + redirectURI;
+			if( redirectURI.toString().indexOf("/member/add.do") != -1) {
+				viewUrl = "redirect:/restaurants/list.do"; 
+			}else if(redirectURI.toString().indexOf("/auth/loginCtr.do") != -1) {
+				viewUrl = "redirect:/restaurants/list.do";
+			}
+			
 		} else {
 	
-			viewUrl = "redirect:"+ redirectURI;
+			viewUrl = "/auth/loginFail";
+//			viewUrl = "redirect:" + redirectURI;
 		}
 
 		return viewUrl;
@@ -331,9 +342,20 @@ public class MemberController {
 		String viewUrl = "redirect:"+ redirectURI;
 		System.out.println(referer);
 		System.out.println(redirectURI);
-		if (redirectURI.toString().indexOf("/restaurants/update.do") != -1 || redirectURI.toString().indexOf("/restaurants/add.do") != -1) {
+		
+		int restaurantsUpdateCheck = redirectURI.toString().indexOf("/restaurants/update.do");
+		int restaurantsAddCheck = redirectURI.toString().indexOf("/restaurants/add.do");
+		
+		int memberUpdateCheck  = redirectURI.toString().indexOf("/member/update.do");
+		int memberListOneCheck= redirectURI.toString().indexOf("/member/listOne.do");
+		int memberListCheck= redirectURI.toString().indexOf("/member/list.do");
+		
+		int boardUpdateCheck = redirectURI.toString().indexOf("/board/update.do");
+		int boardAddCheck = redirectURI.toString().indexOf("/board/add.do");
+		
+		if (restaurantsUpdateCheck != -1 || restaurantsAddCheck != -1 || memberUpdateCheck != -1 || memberListOneCheck != -1 || memberListCheck != -1) {
 			viewUrl = "redirect:/restaurants/list.do";
-		}else if(redirectURI.toString().indexOf("/board/update.do") != -1 || redirectURI.toString().indexOf("/board/add.do") != -1) {
+		}else if(boardUpdateCheck != -1 || boardAddCheck != -1) {
 			viewUrl = "redirect:/board/list.do";
 		}
 		System.out.println(viewUrl);
