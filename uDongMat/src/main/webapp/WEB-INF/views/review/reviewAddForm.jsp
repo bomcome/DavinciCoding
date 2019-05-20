@@ -60,7 +60,7 @@
 					type="hidden" id="memberNo" class="memberNo" name="memberNo"
 					value="${_memberVo_.memberNo}">
 				<textarea id="commentContents" class="contents" name="contents"
-					rows="5"></textarea>
+					rows="5" style="resize: none;"></textarea>
 				<div class="button">
 					<c:if test="${_memberVo_ != null}">
 						<input type="button" onclick="commentRegisterFnc();" value="등록">
