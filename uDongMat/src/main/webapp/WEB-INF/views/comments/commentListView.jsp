@@ -257,6 +257,7 @@
                      <span class="commentSpan">
                      </span>
 	                     <c:if test="${_memberVo_.memberNo eq commentVo.memberNo}">
+	                        <button type="button" onclick="location.href='../comment/delete.do?commentNo=${commentVo.commentNo}&boardNo=${commentVo.boardNo}'">삭제</button>
 	                        <input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${commentVo.rowNum});">
 	                     </c:if>
 	                     <c:if test="${_memberVo_.memberNo eq boardVo.memberNo || _memberVo_.memberGrade == 'admin'}">
