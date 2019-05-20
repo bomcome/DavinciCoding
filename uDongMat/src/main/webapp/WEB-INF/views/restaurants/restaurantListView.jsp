@@ -20,8 +20,13 @@
 }
 
 #categoryForm {
-	margin-left: 360px;
-	margin-right: 260px;
+	margin-left: 320px;
+	margin-right: 186px;
+}
+
+#categoryForm button {
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .list div {
