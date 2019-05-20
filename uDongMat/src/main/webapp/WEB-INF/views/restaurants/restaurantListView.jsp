@@ -20,8 +20,8 @@
 }
 
 #categoryForm {
-	margin-left: 340px;
-	margin-right: 340px;
+	margin-left: 360px;
+	margin-right: 260px;
 }
 
 .list div {
@@ -55,6 +55,19 @@
 	outline: 0;
 	background-color: #ededed;
 }
+
+.caregorySubmit{
+
+    color: white;
+    background-color: white;
+    box-sizing: none;
+	border-width: 2px;
+    border-style: none;
+    border-color: none;
+
+}
+
+
 
 </style>
 
@@ -143,12 +156,15 @@
 			</div>
 			<div>
 				<form id="categoryForm" action="./listCategory.do" method="get">
-					<input id="listAll" type="button" name="category" value="전체" onclick="listAllFnc();">
-					<input type="submit" name="category" value="한식">
-					<input type="submit" name="category" value="중식">
-					<input type="submit" name="category" value="일식">
-					<input type="submit" name="category" value="양식">
-					<input type="submit" name="category" value="분식">
+<!-- 					<input id="listAll" type="button" id="category"  name="category" value="전체" onclick="listAllFnc();"> -->
+<!-- 					<input  id="listAll"  type="button" id="category" name="category" class="caregorySubmit" value="전체"><img onclick="listAllFnc();" alt="전체" src="../resources/images/전체.png" style="width:25px; height: 25px;"> -->
+					
+					<button type="submit"   id="listAll" name="listAll" class="caregorySubmit" value="전체"><img onclick="listAllFnc();" alt="전체" src="../resources/images/전체.png" style="width:40px; height: 40px;"></button>
+					<button type="submit" name="category" class="caregorySubmit" value="한식"><img onclick="listAllFnc();" alt="한식" src="../resources/images/한식.png" style="width:40px; height: 40px;"></button>
+					<button type="submit" name="category" class="caregorySubmit" value="중식"><img onclick="listAllFnc();" alt="중식" src="../resources/images/중식.png" style="width:40px; height: 40px;"></button>
+					<button type="submit" name="category" class="caregorySubmit" value="일식"><img onclick="listAllFnc();" alt="일식" src="../resources/images/일식.png" style="width:40px; height: 40px;"></button>
+					<button type="submit" name="category" class="caregorySubmit" value="양식"><img onclick="listAllFnc();" alt="양식" src="../resources/images/양식.png" style="width:40px; height: 40px;"></button>
+					<button type="submit" name="category" class="caregorySubmit" value="분식"><img onclick="listAllFnc();" alt="분식" src="../resources/images/분식.png" style="width:40px; height: 40px;"></button>
 				</form>
 			</div>
 			<div>

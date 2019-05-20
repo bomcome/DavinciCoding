@@ -113,7 +113,8 @@
                pattern="yyyy년 MM월 dd일 hh시 mm분"/>
          </td>
          <td>
-            <a href='./deleteCtr.do?memberNo=${memberVo.memberNo}'>[삭제]</a>
+            <a href='./deleteCtr.do?memberNo=${memberVo.memberNo}' 
+            	onclick="return confirm('정말로 삭제하시겠습니까?');">[삭제]</a>
          </td>
       </tr>
    </c:forEach>

@@ -29,7 +29,7 @@
 			return;
 		}
 		else{
-			var r = confirm("정말로 탈퇴하시겟습니까?")
+			var r = confirm("정말로 탈퇴하시겟습니까? \n탈퇴하면 모든정보가 지워 집니다!!")
 			
 			//second if문
 			if(r == true){
