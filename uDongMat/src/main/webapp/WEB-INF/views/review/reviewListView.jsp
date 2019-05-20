@@ -49,7 +49,7 @@
       margin-left: 80px;
    }
    #commentListContainer .commentContentsTextarea{
-/*       width:800px; */
+	  width:1178px;
       text-align: left;
       resize: none;
    }

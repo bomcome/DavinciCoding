@@ -7,54 +7,147 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-.restaurantTopInput {
-   width: 400px;
-   height: 60px;
-   font-size: 25px;
+.all {
+	width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+/*   	border: 1px solid red; */
 }
 
-.restaurantInput {
-   width: 300px;
-   height: 40px;
+.imgAndInfo {
+	width: 1200px;
+	height: 450px;
+/*    	border: 1px solid blue; */
+}
+
+.img {
+	width: 650px;
+	height: 450px;
+	float: left;
+  	border: 1px solid black;
+}
+
+.info {
+	width: 506px;
+	height: 430px;
+	padding: 10px 20px 10px 20px;
+	float: left;
+ 	vertical-align:middle;
+  	border: 1px solid black;
+}
+
+.info input, textarea {
+	width: 450px;
+ 	padding: 10px;
+	font-size: 20px;
+	text-align: justify;
+	text-justify:distribute-all-lines;
+/*  	border: 0px; */
+}
+
+.selectCategory {
+	width: 474px;
+ 	padding: 10px;
+	font-size: 20px;
+	text-align: justify;
+	text-justify:distribute-all-lines;
+}
+
+.selectTime {
+	width: 228px;
+ 	padding: 10px;
+	font-size: 20px;
+	text-align: justify;
+	text-justify:distribute-all-lines;
+}
+
+.restaurantContents {
+	width: 1200px;
+	margin-top: 50px;
+}
+
+.restaurantContents div {
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+	width: 1200px;
+	height: 50px;
+	margin-bottom: 20px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #ededed;
+}
+
+.restaurantContents textarea {
+	border: 1px solid gray;
+}
+
+.menus {
+	width: 1200px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#menusTitle {
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+	width: 1200px;
+	height: 50px;
+	margin-bottom: 20px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #ededed;
+}
+
+.button {
+	width: 1200px;
+	text-align: center;
+	margin-top: 20px;"
 }
 
 #field div {
-   float: left;
-   margin: 10px;
-   width: 498px;
+	float: left;
+	padding: 10px 50px 10px 50px;
+	margin: 10px 0px 10px 0px;
+	width: 500px;
+}
+
+#field  div:nth-child(2n-1) {
+	clear: left;
+}
+
+#field  div:nth-child(2n) {
+ 	padding-left: 49px;
+	border-left: 1px solid gray;
 }
 
 #field input {
-   height: 40px;
-   font-size: 0.8em;
-   outline: none;
-   display: inline;
-}
-
-#field input[type="text"] {
-   box-sizing: border-box;
-   color: black;
-   margin-left: -7px;
-}
-
-#field input[type=button] {
-   padding-bottom: 3px;
-   margin-left: -7px;
-}
-
-#field div:nth-child(2n+1) {
-   clear: left;
+	width: 40px;
+	height: 25px;
+	font-size: 50x;
+/*    	border: 0px; */
 }
 
 ul {
-   list-style: none;
-   padding-left: 0px;
+	list-style: none;
+	padding-left: 0px;
 }
 
 input[type=button]:hover, input[type=submit]:hover, button:hover {
-   color: #FFD9EC;
-   background-color: #5D5D5D;
+	color: #FFD9EC;
+	background-color: #5D5D5D;
 }
+
+.button input{
+	width: 300px;
+	height: 40px;
+	margin-left: 35px;
+	margin-right: 35px;
+}
+
 </style>
 
 <title>Insert title here</title>
@@ -226,14 +319,13 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
       <jsp:include page="/WEB-INF/views/headerTitle.jsp" />
       <jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 
-      <div style="margin-left: 450px;">
+      <div class="all">
 
          <form action="./updateCtr.do" id="addForm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
-            <div style="width: 1050px; height: 500px; padding: 20px; border: 1px solid black">
-               <div style="width: 600px; height: 480px; border: 1px solid black; float: left; position: relative;">
+            <div class="imgAndInfo">
+               <div class="img">
                   <div id="fileContent">
-                     <div>
                         <c:choose>
                            <c:when test="${empty fileList}">
                               <input type="hidden" id="fileIdx" name="fileIdx" value="">
@@ -249,7 +341,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
                                     style="width: 600px; height: 420px;"
                                     src="<c:url value='/img/${row.STORED_FILE_NAME}'/>" />
                                  <br>
-                                 <div style="left: 10px; bottom: 10px; font-size: 1.0em; font-weight: bold; position: absolute;">
+                                 <div style="left: 10px; bottom: 10px; font-size: 1.0em; font-weight: bold;">
                                     ${row.ORIGINAL_FILE_NAME}(${row.FILE_SIZE}kb)
                                     <input type="file" id="file_${obj.index}" name="file_${obj.index}">
                                     <a href="#this" id="delete0" onclick="addFileFnc();">삭제</a>
@@ -257,11 +349,10 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
                               </c:forEach>
                            </c:otherwise>
                         </c:choose>
-                     </div>
                   </div>
                </div>
 
-               <div style="width: 400px; height: 440px; padding: 20px; margin-bottom: 4px; border: 1px solid black; float: left;">
+               <div class="info">
                   <ul>
                      <li><input type="hidden" name='restaurantNo'
                         value='${restaurantsVo.restaurantNo}'>
@@ -280,7 +371,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
                         value='${restaurantsVo.phone}'>
                   </ul>
                   <ul>
-                     <li><select class="" id="operatingTime" name='operatingTime' onchange="orderFnc(this.value)">
+                     <li><select class="selectTime" id="operatingTime" name='operatingTime' onchange="orderFnc(this.value)">
                            <option value="오전 12:00">오전 12:00</option>
                            <option value="오전 12:30">오전 12:30</option>
                            <option value="오전 01:00">오전 01:00</option>
@@ -332,7 +423,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
                      </select>
                         <input type="hidden" id="operatingTimeVal" value="${restaurantsVo.operatingTime}" >
                      <span class=""> - </span>
-                     <select class="" id="closingTime" name='closingTime' onchange="orderFnc(this.value)">
+                     <select class="selectTime" id="closingTime" name='closingTime' onchange="orderFnc(this.value)">
                            <option value="오전 12:00">오전 12:00</option>
                            <option value="오전 12:30">오전 12:30</option>
                            <option value="오전 01:00">오전 01:00</option>
@@ -389,18 +480,20 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 					 value='${restaurantsVo.closedDates}' placeholder="휴일을 입력하세요">
                   </ul>
                   <ul>
-					<li><textarea style="width: 400px; height: 100px; resize: none;" 
+					<li><textarea style="height: 50px; resize: none;" 
 					id="address" name="address" placeholder="주소를 입력하세요">${restaurantsVo.address}</textarea>
                   </ul>
                </div>
 
             </div>
-            <div style="width: 1050px; padding: 20px; border: 1px solid black; margin-top: 20px;">
-               <span style="font-size: 30px; font-weight: bold;">맛집소개</span>
-               <textarea style="width: 1030px; height: 200px; resize: none; margin-top: 10px; margin-bottom: 20px;"
+            <div class="restaurantContents">
+               <div>맛집소개</div>
+               <textarea style="width: 1178px; height: 200px; resize: none;"
                   id="contents" name="contents">${restaurantsVo.contents}</textarea>
-               <div>
-                  <span style="font-size: 30px; font-weight: bold;">메뉴</span>
+            </div>
+            
+            <div class="menus">
+               <div id="menusTitle">메 뉴
                   <input type="button" style="width: 45px; height: 40px; margin-left: -5px; margin-bottom: 7px;
                    vertical-align: middle;" value="추가" onclick="add_menu();">
                </div>
@@ -415,16 +508,17 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
                      </div>
                   </c:forEach>
                </div>
+            </div>
 
                <div style="clear: left;"></div>
 
-            </div>
-            <div style="width: 1095px; text-align: center; margin-top: 20px;">
+            <div class="button">
                <input type="button" value="수정취소" class="restaurantInput" onclick="moveToListOneFnc(${restaurantsVo.restaurantNo});">
                <input type="button" value="수정완료" class="restaurantInput" onclick="restaurantAddFnc(${restaurantsVo.restaurantNo});">
             </div>
          </form>
-      </div>
-   </div>
+		</div>
+		<jsp:include page="/WEB-INF/views/Tail.jsp" />
+	</div>
 </body>
 </html>

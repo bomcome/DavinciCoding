@@ -34,12 +34,12 @@ body { font: 17px 'Nanum Gothic', sans-serif; }
 	<ul class="bxslider">
 		<li><a href="#"><img
 				src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190320/20190320170640073009.jpg"
-				alt="" title="이미지1"></a></li>
+				alt="" title="이달의 최고 맛집"></a></li>
 		<li><a href="#"><img
 				src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190320/20190320170604808007.jpg"
-				alt="" title="이미지2"></a></li>
+				alt="" title="이달의 최고 맛집"></a></li>
 		<li><a href="#"><img
 				src="https://www.outback.co.kr/cmmn/imageView.do?filePath=/upload/mainVisual/20190430/20190430095353312027.jpg"
-				alt="" title="이미지3"></a></li>
+				alt="" title="이달의 최고 맛집"></a></li>
 	</ul>
 </div>

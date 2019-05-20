@@ -101,9 +101,12 @@
 }
 
 #field  div:nth-child(2n-1) {
-	padding-right: 49px;
-	border-right: 1px solid gray;
 	clear: left;
+}
+
+#field  div:nth-child(2n) {
+ 	padding-left: 49px;
+	border-left: 1px solid gray;
 }
 
 #field input {

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <style type="text/css">
 	#commentContents {
-		width: 1200px;
+		width: 1178px;
  		border: 1px solid gray;
 	}
 	

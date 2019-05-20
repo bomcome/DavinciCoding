@@ -7,42 +7,129 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-.restaurantTopInput {
-	width: 400px;
-	height: 60px;
-	font-size: 25px;
+.all {
+	width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+/*   	border: 1px solid red; */
 }
 
-.restaurantInput {
-	width: 300px;
-	height: 40px;
+.imgAndInfo {
+	width: 1200px;
+	height: 450px;
+/*    	border: 1px solid blue; */
+}
+
+.img {
+	width: 650px;
+	height: 450px;
+	float: left;
+  	border: 1px solid black;
+}
+
+.info {
+	width: 506px;
+	height: 430px;
+	padding: 10px 20px 10px 20px;
+	float: left;
+ 	vertical-align:middle;
+  	border: 1px solid black;
+}
+
+.info input, textarea {
+	width: 450px;
+ 	padding: 10px;
+	font-size: 20px;
+	text-align: justify;
+	text-justify:distribute-all-lines;
+/*  	border: 0px; */
+}
+
+.selectCategory {
+	width: 474px;
+ 	padding: 10px;
+	font-size: 20px;
+	text-align: justify;
+	text-justify:distribute-all-lines;
+}
+
+.selectTime {
+	width: 228px;
+ 	padding: 10px;
+	font-size: 20px;
+	text-align: justify;
+	text-justify:distribute-all-lines;
+}
+
+.restaurantContents {
+	width: 1200px;
+	margin-top: 50px;
+}
+
+.restaurantContents div {
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+	width: 1200px;
+	height: 50px;
+	margin-bottom: 20px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #ededed;
+}
+
+.restaurantContents textarea {
+	border: 1px solid gray;
+}
+
+.menus {
+	width: 1200px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+
+}
+
+#menusTitle {
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+	width: 1200px;
+	height: 50px;
+	margin-bottom: 20px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #ededed;
+}
+
+.button {
+	width: 1200px;
+	text-align: center;
+	margin-top: 20px;"
 }
 
 #field div {
 	float: left;
-	margin: 10px;
-	width: 498px;
+	padding: 10px 50px 10px 50px;
+	margin: 10px 0px 10px 0px;
+	width: 500px;
+}
+
+#field  div:nth-child(2n-1) {
+	clear: left;
+}
+
+#field  div:nth-child(2n) {
+ 	padding-left: 49px;
+	border-left: 1px solid gray;
 }
 
 #field input {
-	height: 40px;
-	font-size: 0.8em;
-	outline: none;
-	display: inline;
-}
-
-#field input[type="text"] {
-	box-sizing: border-box;
-	color: black;
-}
-
-#field  input[type=button] {
-	padding-bottom: 3px;
-	margin-left: -2px;
-}
-
-#field  div:nth-child(2n+1) {
-	clear: left;
+	width: 50px;
+	height: 25px;
+	font-size: 50x;
+/*    	border: 0px; */
 }
 
 ul {
@@ -54,6 +141,14 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 	color: #FFD9EC;
 	background-color: #5D5D5D;
 }
+
+.button input{
+	width: 300px;
+	height: 40px;
+	margin-left: 35px;
+	margin-right: 35px;
+}
+
 </style>
 <title>Insert title here</title>
 
@@ -220,25 +315,24 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 		<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
 		<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 
-		<div style="margin-left: 450px;">
+		<div class="all">
 			<form action="./addCtr.do" id="addForm" method="post" enctype="multipart/form-data">
 				<input type="hidden" name='memberNo' value='${_memberVo_.memberNo}'>
-				<div style="width: 1050px; height: 500px; padding: 20px; border: 1px solid black;">
-					<div style="width: 600px; height: 480px; border: 1px solid black; float: left; position: relative;">
-						<div id="fileContent" style="left: 10px; bottom: 10px; font-size: 1.0em; font-weight: bold; position: absolute;">
+				<div class="imgAndInfo">
+					<div class="img">
+						<div id="fileContent">
 							<input type="hidden" id="fileIdx" name="fileIdx" value="">
 							<input type="file" id="file0" name="file0"> <a
 								href="#this" id="delete0" onclick="addFileFnc();">삭제</a>
 						</div>
 					</div>
 
-					<div
-						style="width: 400px; height: 440px; padding: 20px; margin-bottom: 4px; border: 1px solid black; float: left;">
+					<div class="info">
 						<ul>
 							<li><input type="text" class="restaurantTopInput" id="restaurantName" name='restaurantName' placeholder="맛집명을 입력하세요">
 						</ul>
 						<ul>
-							<li><select class="restaurantTopInput" id='category' name='category'>
+							<li><select class="selectCategory" id='category' name='category'>
 									<option value="">분류를 선택하세요</option>
 									<option value="한식">한식</option>
 									<option value="중식">중식</option>
@@ -251,8 +345,8 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 							<li><input type="text" class="restaurantTopInput" id='phone' name='phone' placeholder="연락처를 입력하세요">
 						</ul>
 						<ul>
-							<li><select class="" id='operatingTime' name='operatingTime'>
-									<option value="">개점 시간을 선택하세요</option>
+							<li><select class="selectTime" id='operatingTime' name='operatingTime'>
+									<option value="">개점 시간</option>
 									<option value="오전 12:00">오전 12:00</option>
 									<option value="오전 12:30">오전 12:30</option>
 									<option value="오전 01:00">오전 01:00</option>
@@ -303,8 +397,8 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 									<option value="오후 11:30">오후 11:30</option>
 								</select>
 								<span class=""> - </span>
-								<select class="" id='closingTime' name='closingTime'>
-									<option value="">폐점 시간을 선택하세요</option>
+								<select class="selectTime" id='closingTime' name='closingTime'>
+									<option value="">폐점 시간</option>
 									<option value="오전 12:00">오전 12:00</option>
 									<option value="오전 12:30">오전 12:30</option>
 									<option value="오전 01:00">오전 01:00</option>
@@ -386,7 +480,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 <!-- 							</div> -->
 						</ul>
 						<ul>
-							<li><textarea style="width: 400px; height: 100px; resize: none;"
+							<li><textarea style="height: 50px; resize: none;"
 									id="address" name="address" placeholder="주소를 입력하세요"></textarea>
 						</ul>
 					</div>
@@ -395,24 +489,23 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 					</ul>
 				</div>
 
-				<div
-					style="width: 1050px; padding: 20px; border: 1px solid black; margin-top: 20px;">
-					<span style="font-size: 30px; font-weight: bold;">맛집소개</span>
+				<div class="restaurantContents">
+					<div>맛집소개</div>
 					<textarea
-						style="width: 1030px; height: 200px; resize: none; margin-top: 10px; margin-bottom: 20px;"
+						style="width: 1178px; height: 200px; resize: none;"
 						id="contents" name="contents" placeholder="맛집소개를 해주세요"></textarea>
+				</div>
 
-					<div>
-						<span style="font-size: 30px; font-weight: bold;">메뉴</span>
-						<input type="button" style="width: 45px; height: 40px; margin-left: -5px; margin-bottom: 7px; vertical-align: middle;"
-							value="추가" onclick="add_menu();">
+				<div class="menus">
+					<div id="menusTitle">메 뉴
+						<input type="button" value="추가" onclick="add_menu();">
 					</div>
 					<div id="field" style=""></div>
+				</div>
 
 					<div style="clear: left;"></div>
 
-				</div>
-				<div style="width: 1095px; text-align: center; margin-top: 20px;">
+				<div class="button">
 					<input type="button" value="등록취소" class="restaurantInput"
 						onclick="moveToListFnc(${restaurantsVo.restaurantNo});">
 					<input type="button" value="등록완료" class="restaurantInput"
