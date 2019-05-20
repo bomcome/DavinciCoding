@@ -19,6 +19,11 @@
 	float: left;
 }
 
+#categoryForm {
+	margin-left: 340px;
+	margin-right: 340px;
+}
+
 .list div {
 	margin: 10px;
 	padding: 10px;
