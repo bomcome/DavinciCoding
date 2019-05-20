@@ -129,17 +129,30 @@
    
    
    function cocommentAddFnc(rowNum) {
-      var rowNum = rowNum - 1;
-      
-      var commentDivObj = document.getElementsByClassName("cocommentAddContainer")[rowNum];
-      commentDivObj.style.display = 'inline';
-      
-//       var commentSpanObj = document.getElementsByClassName("cocommentContentsSpan")[rowNum];
-//       commentSpanObj.style.display = 'none';
-//       $('.commentUpdateContainer').show();
-      
-      var commentButtonObj = document.getElementsByClassName("cocommentButton")[rowNum];
-      commentButtonObj.style.display = 'none';
+	   
+	  if(${_memberVo_ != null}){
+		  
+	      var rowNum = rowNum - 1;
+	      
+	      var commentDivObj = document.getElementsByClassName("cocommentAddContainer")[rowNum];
+	      commentDivObj.style.display = 'inline';
+	      
+	//       var commentSpanObj = document.getElementsByClassName("cocommentContentsSpan")[rowNum];
+	//       commentSpanObj.style.display = 'none';
+	//       $('.commentUpdateContainer').show();
+	      
+	      var commentButtonObj = document.getElementsByClassName("cocommentButton")[rowNum];
+	      commentButtonObj.style.display = 'none';
+	  }
+	  else if(${_memberVo_ == null}){
+		  var r = confirm("답글 회원만 입력 가능합니다. \n로그인 하시겠습니까?")
+		  if(r == true){
+		  location.href='../auth/login.do';
+		} 
+		else{
+			return;
+		}
+	  }
    }
    
    function cocommentAddCancelFnc(rowNum) {
@@ -248,12 +261,7 @@
 	                        <input class="updateButton" type="button" value="수정" onclick="commentUpdateFnc(${reviewVo.rowNum});">
 	                        <button type="button" onclick="location.href='../review/delete.do?reviewNo=${reviewVo.reviewNo}&restaurantNo=${reviewVo.restaurantNo}'">삭제</button>
 	                     </c:if>
-	                     <c:if test="${_memberVo_ != null}">
 	                        <input class="cocommentButton" type="button" value="답글" onclick="cocommentAddFnc(${reviewVo.rowNum});">
-	                     </c:if>
-	                     <c:if test="${_memberVo_ == null}">
-	                        <button type="button" onclick="location.href='../auth/login.do'">답글</button>
-	                     </c:if>
                      </span>
                      
                   </td>

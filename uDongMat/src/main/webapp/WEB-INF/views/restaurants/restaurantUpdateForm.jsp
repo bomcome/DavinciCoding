@@ -203,7 +203,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
       }
    });
    
-	//회원가입 버튼
+
 	function restaurantAddFnc(restaurantNo) {
 		var addFormObj = document.getElementById('addForm');
 		var restaurantNameVal = document.getElementById('restaurantName');
@@ -215,7 +215,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 		var addressVal = document.getElementById('address');
 		var contentsVal = document.getElementById('contents');
 		var menuNameVal = document.getElementsByClassName("menuName");
-		
+
 		if (restaurantNameVal.value == '') {
 			alert("맛집명을 입력하세요!");
 			restaurantNameVal.focus();
