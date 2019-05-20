@@ -64,9 +64,22 @@
 	#header1 #headerLeftButtons button{
  		margin-top: 30px; 
 	}
-	
-</style>
 
+</style>
+<script type="text/javascript">
+	
+	function pageloginMove(){
+		var r = confirm("맛집등록은 회원만 가능합니다. \n로그인 하시겠습니까?")
+	
+		if(r == true){
+			location.href='../auth/login.do';
+		} 
+		else{
+			return;
+		}
+	}
+
+</script>
 <div id="header1" class="header">
 
 	<span id="headerLeftButtons">
@@ -74,7 +87,7 @@
 			<button class="shopAdd" onclick="location.href='../restaurants/add.do'">맛집등록</button>
 	</c:if>
 	<c:if test='${_memberVo_ == null}'>
-			<button class="shopAdd" onclick="location.href='../auth/login.do'">맛집등록</button>
+			<button class="shopAdd" onclick=pageloginMove();>맛집등록</button>
 	</c:if>
 	
 	<button id="goBoard" onclick="location.href='../board/list.do'">게시판</button>

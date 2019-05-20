@@ -21,16 +21,27 @@
 
 	
 	function commentRegisterFnc() {
-		
-		var commentContentsObj = document.getElementById('commentContents');
-		var commentContentsVal = commentContentsObj.value;
-		
-		var commentAddFormObj = document.getElementById('commentAddForm');
-		
-		if(commentContentsVal == ''){
-			commentContentsObj.focus();
-		}else{
-			commentAddFormObj.submit();
+		if(${_memberVo_ != null}){
+			
+			var commentContentsObj = document.getElementById('commentContents');
+			var commentContentsVal = commentContentsObj.value;
+			
+			var commentAddFormObj = document.getElementById('commentAddForm');
+			
+			if(commentContentsVal == ''){
+				commentContentsObj.focus();
+			}else{
+				commentAddFormObj.submit();
+			}
+		}else if(${_memberVo_ == null}){
+			var r = confirm("댓글은 회원만 입력 가능합니다. \n로그인 하시겠습니까?")
+			
+			if(r == true){
+				location.href='../auth/login.do';
+			} 
+			else{
+				return;
+			}
 		}
 	
 	}
@@ -44,12 +55,7 @@
 			<input type="hidden" id="memberNo" class="memberNo" name="memberNo" value="${_memberVo_.memberNo}">
 			<textarea id="commentContents" class="contents" name="contents"  rows="5"></textarea>
 			<div>
-				<c:if test="${_memberVo_ != null}">
 					<input  type="button" onclick="commentRegisterFnc();" value="등록">
-				</c:if>
-				<c:if test="${_memberVo_ == null}">
-					<button type="button" onclick="location.href='../auth/login.do'">등록</button>
-				</c:if>
 			</div>
 		</form>
 	</div>
