@@ -36,7 +36,16 @@
 /*  	border: 1px solid green; */
 }
 
-.info input, textarea {
+.info input{
+	width: 450px;
+ 	padding: 10px;
+	font-size: 20px;
+	text-align: justify;
+	text-justify:distribute-all-lines;
+ 	border: 0px;
+}
+
+#address {
 	width: 450px;
  	padding: 10px;
 	font-size: 20px;
@@ -223,14 +232,14 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
 							readonly="readonly">
 					</ul>
 					<ul>
-						<li><textarea style="height: 50px; resize: none;" readonly="readonly" name="address">주소      ${restaurantsVo.address}</textarea>
+						<li><textarea id="address" style="height: 50px; resize: none;" readonly="readonly" name="address">주소       ${restaurantsVo.address}</textarea>
 					</ul>
 				</div>
 			</div>
 
 			<div class="restaurantContents">
 				<div>맛집소개</div>
-				<textarea style="width: 1178px; height: 200px; resize: none;"
+				<textarea style="width: 1194px; height: 200px; resize: none;"
 					name="contents" readonly="readonly">${restaurantsVo.contents}</textarea>
 			</div>
 
