@@ -71,9 +71,9 @@
 <body> 
 
 <div style="width: 1920px;">
-
-   <jsp:include page="/WEB-INF/views/headerTitle.jsp" />
-   <jsp:include page="/WEB-INF/views/headerButtons.jsp" />
+	<jsp:include page="../headerLeftButtons.jsp"/>
+	<jsp:include page="/WEB-INF/views/headerTitle.jsp" />
+	<jsp:include page="/WEB-INF/views/headerButtons.jsp" />
 
 <div id="memberListViewDiv">
 

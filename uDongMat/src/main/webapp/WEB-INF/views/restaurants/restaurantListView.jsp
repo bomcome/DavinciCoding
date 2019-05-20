@@ -72,8 +72,6 @@
 
 }
 
-
-
 </style>
 
 <title>Insert title here</title>
@@ -82,6 +80,56 @@
 	src="/uDongMat/resources/js/jquery-3.3.1.js"></script>
 
 <script type="text/javascript">
+
+window.onload = function(){
+	
+	
+	var currentScrollVal = document.getElementById("currentScroll").value;
+// 	alert(currentScrollVal);
+//		window.scrollY = currentScrollVal;
+// 	window.scrollTop = (0, currentScrollVal);
+	window.scrollTo(0, currentScrollVal);
+	
+    var divObj = document.getElementById('commentUpdateContainer');
+    var divObj2 = document.getElementById('cocommentAddContainer');
+    
+//     var textareaArr = document.getElementsByTagName('textarea');
+//     textareaArr.focus();
+    
+    var commentTextareaArr = document.getElementsByClassName('commentContentsTextarea');
+    for(var i = 0; i < commentTextareaArr.length; i++){
+       var commentTextareaVal = commentTextareaArr[i].value;
+       var arr = commentTextareaVal.split("\n");
+       var count = arr.length;
+       for(var n = 0; n < arr.length; n++){
+
+          count += Math.floor(arr[n].length / commentTextareaArr[i].cols); 
+       }
+       
+       commentTextareaArr[i].style.height = (count * 18) + "px";
+       
+    }
+ 
+    var boardTextareaObj = document.getElementById('contents');
+    var fileObj = document.getElementsByName('fileList')[0];
+    var boardTextareaVal = boardTextareaObj.value;
+    var splitArr = boardTextareaVal.split("\n");
+    var lineCount = splitArr.length;
+    for(var n = 0; n < splitArr.length; n++){
+//        alert(splitArr[n].length)
+       lineCount += Math.floor(splitArr[n].length / boardTextareaObj.cols); 
+    }
+    
+//     boardTextareaObj.style.height = (lineCount * 19) + "px";
+//     alert(boardTextareaObj.cols);   
+//  		alert(fileObj.value);
+ 		if(lineCount < 16 && fileObj.value == "[]"){
+ 		 boardTextareaObj.style.height = "304px";
+ 		}else{
+ 		 boardTextareaObj.style.height = (lineCount * 19) + "px";
+ 		}
+ }
+
 	$(document).ready(function() {
 		var orderInputObj = document.getElementById('orderVal');
 

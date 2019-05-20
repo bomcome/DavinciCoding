@@ -47,8 +47,7 @@
 		var contentsVal = contentsObj.value;
 		
 		var formObj = document.getElementById('inputForm');
-		alert(titleVal.length);
-		alert(contentsVal.length);
+
 		if(titleVal == ''){	
 			alert("제목을 입력하세요.");
 			titleObj.focus();
@@ -69,7 +68,7 @@
 <body>
 
 	<div id="boardAdd">	
-	
+	<jsp:include page="../headerLeftButtons.jsp"/>
 	<jsp:include page="../headerTitle.jsp"/> 
 	<jsp:include page="../headerButtons.jsp"/>
 	
