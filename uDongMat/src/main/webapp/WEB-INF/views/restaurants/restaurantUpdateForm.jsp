@@ -494,8 +494,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover {
             
             <div class="menus">
                <div id="menusTitle">메 뉴
-                  <input type="button" style="width: 45px; height: 40px; margin-left: -5px; margin-bottom: 7px;
-                   vertical-align: middle;" value="추가" onclick="add_menu();">
+                  <input type="button" style="width: 45px; height: 25px; vertical-align: middle;" value="추가" onclick="add_menu();">
                </div>
                <div id="field">
                   <c:forEach var="menusVo" items="${menusList}">
